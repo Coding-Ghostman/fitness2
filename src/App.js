@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Header from "./components/Header";
+import HeroSection from "./components/HeroSection";
+import styles from "./style";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <Header />
+            <div style={{ "background-image": "linear-gradient(to bottom, #0e1b2b , #1b263a )" }} className={`${styles.flexStart}`}>
+                <div className={`${styles.boxWidth}`}>
+                    <HeroSection />
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;
