@@ -5,10 +5,8 @@ function App() {
     return (
         <div>
             <Header />
-            <div style={{ "background-image": "linear-gradient(to bottom, #0e1b2b , #1b263a )" }} className={`${styles.flexStart}`}>
-                <div className={`${styles.boxWidth}`}>
-                    <HeroSection />
-                </div>
+            <div>
+                <HeroSection />
             </div>
         </div>
     );
