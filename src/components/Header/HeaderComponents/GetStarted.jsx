@@ -1,6 +1,6 @@
-import styles from "../style";
+import styles from "../../../style";
 import "./GetStarted.css";
-import { arrowUp } from "../assets";
+import { arrowUp } from "../../../assets";
 function GetStarted() {
     return (
         <div id="get__started" className={`${styles.flexCenter} w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px] cursor-pointer`}>

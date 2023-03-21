@@ -1,11 +1,15 @@
 .text-gradient {
-    background: -webkit-linear-gradient(#1a3351 0%, #5f95f0 40%);
+    background: -webkit-linear-gradient(#fcfdff, #4068ad);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .text-dim-white {
     color: #f1f1f1;
+}
+
+.bg__gradient {
+    background: linear-gradient(to bottom, #0e1b2b 0%, #1a3351 100%);
 }
 
 .pink__gradient {
@@ -21,4 +25,12 @@
 .blue__gradient {
     background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #214d76 100%);
     filter: blur(123px);
+}
+.cus_buttons {
+    color: #141414;
+}
+
+.cus_buttons:hover {
+    color: #fff;
+    background-color: #141414;
 }

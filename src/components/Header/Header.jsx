@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
-import Link from "./Link";
+import Link from "../link/Link";
 function Header() {
     const links = [
         { label: "Workout", path: "/workout" },
         { label: "Diet Plan", path: "/dietplan" },
         { label: "Fitness Plan", path: "/fitnessplan" },
-        { label: "Progress", path: "/workout" },
+        { label: "Progress", path: "/progress" },
         { label: "Friends", path: "/friends" },
     ];
     const renderedLinks = links.map((link) => {
@@ -18,12 +18,14 @@ function Header() {
 
     return (
         <div style={{ backgroundColor: "#0e1b2b" }} className="relative flex w-full flex-wrap items-center justify-between py-3 text font-Rubik ">
-            <div className="py-1">LOGO</div>
-            <div className="py-1 ">
+            <Link className="ml-6" to={`/`}>
+                <div className="py-1">LOGO</div>
+            </Link>
+            <div className="py-1">
                 {renderedLinks}
-                <Link className="mr-6">
-                    <Button sx={{ borderRadius: "20px", backgroundColor: "#E0E1DD", color: "black" }} variant="contained" size="medium" disableElevation>
-                        Sign in
+                <Link className="mr-6" to="/signup">
+                    <Button sx={{ borderRadius: "20px", backgroundColor: "#E0E1DD", color: "black", fontWeight: "bold" }} variant="contained" size="medium" disableElevation>
+                        Sign up
                     </Button>
                 </Link>
             </div>
