@@ -5,7 +5,7 @@ import woman from "../../images/woman.png";
 
 function HeroSection() {
     return (
-        <section className=" w-screen h-auto lg:h-screen bg__gradient  pb-20">
+        <section className="w-screen h-auto lg:h-screen bg__gradient  pb-20">
             <div className="md:container mx-5 md:mx-20 sm:mx-20 flex w-full h-full flex-wrap  lg:flex-nowrap  justify-between ">
                 <div className="mt-24 w-full" style={{ zIndex: 1 }}>
                     <h1 className="text-4xl font-bold lg:text-8xl lg:font-extrabold sm:text-7xl md:text-7xl text-white">
@@ -25,7 +25,7 @@ function HeroSection() {
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/4 -translate-y-1/5 hidden lg:block">
                     <img alt="woman" src={woman} width="350px" />
                 </div>
-                <div className=" lg:mt-24 mt-5 lg:w-10/12 sm:w-8/12 w-9/12" style={{ zIndex: 1 }}>
+                <div className="lg:mt-24 mt-5 lg:w-10/12 sm:w-8/12 w-9/12" style={{ zIndex: 1 }}>
                     <img className="float-right" alt="man" src={man} width="350px" />
                 </div>
             </div>

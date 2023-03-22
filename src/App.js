@@ -4,7 +4,7 @@ import Route from "./components/route/Route";
 import DietPlanPage from "./pages/DietPlanPage";
 import WorkoutPage from "./pages/WorkoutPage";
 import FitnessPlanPage from "./pages/FitnessPlanPage";
-import ProgressPage from "./pages/ProgressPage";
+import ProgressPage from "./pages/ProgressPage/ProgressPage";
 import FriendsPage from "./pages/FriendsPage";
 import SignUpPage from "./pages/SignUpPage";
 // import styles from "./style";
