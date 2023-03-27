@@ -21,7 +21,12 @@ function NavigationProvider({ children }) {
         setCurrentPath(to);
     };
 
-    return <NavigationContext.Provider value={{ currentPath, navigate }}>{children}</NavigationContext.Provider>;
+    const navigateReplace = (to) => {
+        window.history.replaceState({}, "", to);
+        setCurrentPath(to);
+    };
+
+    return <NavigationContext.Provider value={{ currentPath, navigate, navigateReplace }}>{children}</NavigationContext.Provider>;
 }
 
 export { NavigationProvider };

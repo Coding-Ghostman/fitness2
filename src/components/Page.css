@@ -1,0 +1,10 @@
+.bg-gradient {
+    background: linear-gradient(to bottom, #0e1b2b 0%, #1b263b 100%);
+}
+.blue__gradient {
+    background: linear-gradient(to bottom, #3d81d3 0%, #053066 100%);
+}
+
+.card-gradient {
+    background: linear-gradient(to bottom, #778da9, #1b263b);
+}

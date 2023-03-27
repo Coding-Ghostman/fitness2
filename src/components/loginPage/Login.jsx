@@ -1,49 +1,38 @@
-import { useState } from "react";
-import { loginFields } from "../../constants/formFields";
-import Input from "./Input";
-import FormAction from "./FormAction";
-import FormExtra from "./FormExtra";
+import { useState, useEffect, useContext } from "react";
+// import { UserContext } from "../../context/user";
+import jwt_decode from "jwt-decode";
+import useNavigation from "../../hooks/use-navigation";
 
-const fields = loginFields;
-let fieldsState = {};
-fields.forEach((field) => (fieldsState[field.id] = ""));
+const google = window.google;
 
-function Login() {
-    const [loginState, setLoginState] = useState(fieldsState);
-
-    const handleChange = (e) => {
-        setLoginState({ ...loginState, [e.target.id]: e.target.value });
+function Login({ value, onChange }) {
+    const [userData, setUserData] = useState({});
+    const { currentPath, navigateReplace } = useNavigation();
+    const handleCallbackResponse = (response) => {
+        var userObject = jwt_decode(response?.credential);
+        // console.log(userObject);
+        setUserData(userObject);
+        onChange(userObject);
+        localStorage.setItem("userObject", JSON.stringify(userObject));
+        document.getElementById("signInDiv").hidden = true;
+        navigateReplace("/");
     };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        authenticateUser();
+
+    const handleSignOut = (event) => {
+        setUserData({});
+        document.getElementById("signInDiv").hidden = false;
     };
 
-    //Handle Login API Integration here
-    const authenticateUser = () => {};
+    useEffect(() => {
+        google.accounts.id.initialize({
+            client_id: "1036535272125-1frig410gdvbbmufiktfqppo1q1i02ik.apps.googleusercontent.com",
+            callback: handleCallbackResponse,
+        });
 
-    return (
-        <form className="mt-8 space-y-6 flex flex-col justify-center items-center w-full" onSubmit={handleSubmit}>
-            <div className="-space-y-px w-1/2">
-                {fields.map((field) => (
-                    <Input
-                        key={field.id}
-                        handleChange={handleChange}
-                        value={loginState[field.id]}
-                        labelText={field.labelText}
-                        labelFor={field.labelFor}
-                        id={field.id}
-                        name={field.name}
-                        type={field.type}
-                        isRequired={field.isRequired}
-                        placeholder={field.placeholder}
-                    />
-                ))}
-            </div>
-            <FormExtra />
-            <FormAction handleSubmit={handleSubmit} text="Login" />
-        </form>
-    );
+        google.accounts.id.renderButton(document.getElementById("signInDiv"), { theme: "outline", size: "large" });
+    }, []);
+
+    return <div className="flex justify-center items-center" id="signInDiv"></div>;
 }
 
 export default Login;

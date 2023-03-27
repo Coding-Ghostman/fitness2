@@ -13,10 +13,10 @@ function HeroSection() {
                     </h1>
                     <p className="lg:text-3xl lg:font-bold md:text-3xl sm:text-3xl w-10/12 text-white mt-2">Fuel the future of workout with the application Of 3d motion tracking software.</p>
                     <div className=" mt-4 ">
-                        <button type="button" className="bg-white cus_buttons font-bold py-2 px-4 rounded ">
+                        <button type="button" className="interactable bg-white cus_buttons font-bold py-2 px-4 rounded ">
                             Try Now
                         </button>
-                        <button type="button" class="text-white font-bold rounded-lg text-lg pl-10 py-2.5 text-center inline-flex items-center ">
+                        <button type=" button" class="interactable text-white font-bold rounded-lg text-lg pl-10 py-2.5 text-center inline-flex items-center ">
                             Learn More
                             <RiArrowDropDownLine size="40px" />
                         </button>
@@ -25,7 +25,7 @@ function HeroSection() {
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/4 -translate-y-1/5 hidden lg:block">
                     <img alt="woman" src={woman} width="350px" />
                 </div>
-                <div className="lg:mt-24 mt-5 lg:w-10/12 sm:w-8/12 w-9/12" style={{ zIndex: 1 }}>
+                <div className=" lg:mt-24 mt-5 lg:w-10/12 sm:w-8/12 w-9/12" style={{ zIndex: 1 }}>
                     <img className="float-right" alt="man" src={man} width="350px" />
                 </div>
             </div>
