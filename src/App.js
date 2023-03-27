@@ -22,7 +22,7 @@ function App() {
 
     /// Mouse Trailer code Down Below
     useEffect(() => {
-        const trailer = document.getElementById("trailer");
+        const trailer = document.getElementById("trailer") || document.getElementById("menu");
         const animateTrailer = (e, interacting) => {
             const x = e.clientX - trailer.offsetWidth / 2;
             const y = e.clientY - trailer.offsetHeight / 2;
@@ -43,6 +43,7 @@ function App() {
 
     return (
         <div className="app">
+            <div id="trailer"></div>
             <UserContext.Provider value={user}>
                 <div className="m-0 overflow-hidden">
                     <Header />
@@ -75,7 +76,6 @@ function App() {
                     </Route>
                 </div>
             </UserContext.Provider>
-            <div id="trailer"></div>
         </div>
     );
 }

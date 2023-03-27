@@ -1,13 +1,20 @@
-import { Button } from "@mui/material";
+import { IconButton, Button } from "@mui/material";
 import Link from "../link/Link";
 import AccountMenu from "../menu/AccountMenu";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import UserContext from "../../context/user";
+import menu from "../../assets/main-menu.png";
 import BasicMenu from "../menu/BasicMenu";
+import Menu from "../menu/Menu";
 
 function Header() {
     const value = useContext(UserContext);
-    const userObject = JSON.parse(localStorage.getItem("userObject"));
+    const [userObject, setUserObject] = useState({});
+
+    useEffect(() => {
+        setUserObject(JSON.parse(localStorage.getItem("userObject")));
+    }, [localStorage.getItem("userObject")]);
+
     console.log(userObject);
     const links = [
         { label: "Workout", path: "/workout" },
@@ -28,17 +35,17 @@ function Header() {
 
     return (
         <div style={{ backgroundColor: "#0e1b2b" }} className="relative flex w-full flex-wrap items-center justify-between py-3 font-Rubik ">
-            <Link className="interactable ml-6" to={`/`}>
-                <div className="py-1">LOGO</div>
+            <Link className="ml-6" to={`/`}>
+                <div className="py-1 interactable">LOGO</div>
             </Link>
             <div className=" flex-row py-1 justify-center items-center hidden md:flex ">
                 {renderedLinks}
-                {Object.keys(userObject).length > 0 && (
+                {userObject && (
                     <div className="interactable mr-6 -ml-2">
-                        <AccountMenu />
+                        <AccountMenu handleUserObject={setUserObject} />
                     </div>
                 )}
-                {Object.keys(userObject).length === 0 && (
+                {!userObject && (
                     <Link className="interactable mr-6" to="/login">
                         <Button sx={{ borderRadius: "20px", backgroundColor: "#E0E1DD", color: "black", fontWeight: "bold" }} variant="contained" size="medium" disableElevation>
                             Log In
@@ -46,8 +53,10 @@ function Header() {
                     </Link>
                 )}
             </div>
-            <div className="md:hidden">
-                <BasicMenu />
+            <div className="md:hidden interactable">
+                <IconButton variant="text " disableRipple>
+                    <BasicMenu />
+                </IconButton>
             </div>
         </div>
     );
