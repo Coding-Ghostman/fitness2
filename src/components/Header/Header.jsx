@@ -15,7 +15,6 @@ function Header() {
         setUserObject(JSON.parse(localStorage.getItem("userObject")));
     }, [localStorage.getItem("userObject")]);
 
-    console.log(userObject);
     const links = [
         { label: "Workout", path: "/workout" },
         { label: "Diet Plan", path: "/dietplan" },
@@ -26,7 +25,7 @@ function Header() {
     const renderedLinks = links.map((link) => {
         return (
             <div className="interactable">
-                <Link activeClassName="" className="mr-9 mt-1 hover:text-blue-300" key={link.label} to={link.path}>
+                <Link activeClassName="" className="mt-1 hover:text-blue-300" key={link.label} to={link.path}>
                     {link.label}
                 </Link>
             </div>
@@ -34,14 +33,14 @@ function Header() {
     });
 
     return (
-        <div style={{ backgroundColor: "#0e1b2b" }} className="relative flex w-full flex-wrap items-center justify-between py-3 font-Rubik ">
+        <div style={{ backgroundColor: "#0e1b2b" }} className="m-0 overflow-hidden relative flex w-full flex-row items-center justify-between py-3 gap-8 font-Rubik ">
             <Link className="ml-6" to={`/`}>
                 <div className="py-1 interactable">LOGO</div>
             </Link>
-            <div className=" flex-row py-1 justify-center items-center hidden md:flex ">
+            <div className=" flex-row py-1 justify-center items-center hidden md:flex gap-10">
                 {renderedLinks}
                 {userObject && (
-                    <div className="interactable mr-6 -ml-2">
+                    <div className="interactable -ml-8 mr-2">
                         <AccountMenu handleUserObject={setUserObject} />
                     </div>
                 )}
@@ -53,7 +52,7 @@ function Header() {
                     </Link>
                 )}
             </div>
-            <div className="md:hidden interactable">
+            <div className=" md:hidden interactable">
                 <IconButton variant="text " disableRipple>
                     <BasicMenu />
                 </IconButton>

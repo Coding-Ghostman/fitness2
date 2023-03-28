@@ -31,7 +31,9 @@ function AccountMenu({ handleUserObject }) {
                 <Tooltip title="Account settings">
                     <IconButton onClick={handleClick} size="small" sx={{}} aria-controls={open ? "account-menu" : undefined} aria-haspopup="true" aria-expanded={open ? "true" : undefined}>
                         {/* <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> */}
-                        <img className="w-[60%] rounded-[50%] -ml-8 -mr-4" src={userObject?.picture} alt="" />
+                        <div className="w-[40%] h-[40%]">
+                            <img className="flex items-center justify-center rounded-xl" src={userObject?.picture} alt="" />
+                        </div>
                     </IconButton>
                 </Tooltip>
             </Box>
