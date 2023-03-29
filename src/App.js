@@ -10,7 +10,9 @@ import SignUpPage from "./pages/SignUpPage";
 import UserContext from "./context/user";
 import LogInPage from "./pages/LogInPage";
 import { useState, useEffect } from "react";
-import TouchAppIcon from "@mui/icons-material/TouchApp";
+import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
+import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
+import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import "./App.css";
 import RewardsPage from "./pages/RewardsPage";
 
@@ -21,13 +23,14 @@ function App() {
     };
 
     /// Mouse Trailer code Down Below
+
     useEffect(() => {
-        const trailer = document.getElementById("trailer") || document.getElementById("menu");
+        const trailer = document.getElementById("trailer");
         const animateTrailer = (e, interacting) => {
             const x = e.clientX - trailer.offsetWidth / 2;
             const y = e.clientY - trailer.offsetHeight / 2;
             const keyframes = {
-                transform: `translate(${x}px,${y}px) scale(${interacting ? 2 : 1})`,
+                transform: `translate(${x}px,${y}px) scale(${trailer.dataset.type === "date" || trailer.dataset.type === "left" || trailer.dataset.type === "right" ? 3 : interacting ? 2 : 1})`,
             };
 
             trailer.animate(keyframes, { duration: 600, fill: "forwards" });
@@ -35,15 +38,51 @@ function App() {
         window.onmousemove = (e) => {
             const interactable = e.target.closest(".interactable");
             const interacting = interactable !== null;
-
+            const icon_left = document.getElementById("trailer-icon-left");
+            const icon_right = document.getElementById("trailer-icon-right");
+            const icon_calendar = document.getElementById("trailer-icon-calendar");
+            console.log("Hello");
             animateTrailer(e, interacting);
+
+            trailer.dataset.type = interacting ? interactable.dataset.type : "";
+
+            if (trailer.dataset.type === "date") {
+                icon_calendar.style.opacity = "1";
+                icon_calendar.style.transition = "opacity 300ms ease";
+                icon_left.style.opacity = "0";
+                icon_right.style.opacity = "0";
+
+                trailer.style.backgroundColor = "#e8ebee";
+            } else if (trailer.dataset.type === "left") {
+                icon_left.style.opacity = "1";
+                icon_left.style.transition = "opacity 300ms ease";
+                icon_calendar.style.opacity = "0";
+                icon_right.style.opacity = "0";
+                trailer.style.backgroundColor = "#e8ebee";
+            } else if (trailer.dataset.type === "right") {
+                icon_right.style.opacity = "1";
+                icon_right.style.transition = "opacity 300ms ease";
+                icon_calendar.style.opacity = "0";
+                icon_left.style.opacity = "0";
+                trailer.style.backgroundColor = "#e8ebee";
+            } else {
+                icon_left.style.opacity = "0";
+                icon_right.style.opacity = "0";
+                icon_calendar.style.opacity = "0";
+                trailer.style.backgroundColor = "transparent";
+            }
         };
-        console.log("hello");
     }, []);
 
     return (
         <div className="app">
-            <div id="trailer"></div>
+            <div id="trailer">
+                <div className="scale-50">
+                    <CalendarTodayRoundedIcon className="absolute top-[6px] -left-[2px]" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
+                    <ChevronLeftRoundedIcon className="absolute -left-[9px]" id="trailer-icon-left" fontSize="large" sx={{ color: "#0e1b2b" }} />
+                    <ChevronRightRoundedIcon className="absolute -left-[9px]" id="trailer-icon-right" fontSize="large" sx={{ color: "#0e1b2b" }} />
+                </div>
+            </div>
             <UserContext.Provider value={user}>
                 <div className="m-0 overflow-hidden">
                     <Header />

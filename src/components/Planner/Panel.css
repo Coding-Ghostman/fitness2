@@ -1,16 +1,16 @@
-.bg-gradient {
-    background: linear-gradient(to bottom, #0e1b2b 0%, #1b263b 100%);
+.box__shadow {
+    box-shadow: -1px 0px 18px -3px rgba(255, 255, 255, 0.4);
+    z-index: 10;
 }
-.blue__gradient {
-    background: linear-gradient(to bottom, #3d81d3 0%, #053066 100%);
+.bg_panel {
+    background: #0e1b2b;
 }
-
 .card-gradient {
     background: linear-gradient(to bottom, #778da9, #1b263b);
 }
 
 .card {
-    position: absolute;
+    position: relative;
 }
 
 .card:after {
@@ -29,8 +29,4 @@
     top: 15%;
     opacity: 1;
     grid-template-columns: 1fr 2fr;
-}
-
-.article-section {
-    background: linear-gradient(to bottom, #0e1b2b 0%, #1a3351 100%);
 }

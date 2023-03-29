@@ -5,9 +5,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import Box from "@mui/material/Box";
-import Fab from "@mui/material/Fab";
 import TodayRoundedIcon from "@mui/icons-material/TodayRounded";
+import Fab from "@mui/material/Fab";
+import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
@@ -46,8 +46,8 @@ const style_floating = {
 };
 
 function ProgressPage() {
-    const [open, setOpen] = useState(false);
     const [date, setDate] = useState(dayjs());
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleDateChange = (newDate) => {

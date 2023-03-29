@@ -37,11 +37,19 @@
     height: 100vh;
 }
 
+#trailer:not([data-type=""]) > #trailer-icon {
+    opacity: 1;
+}
+#trailer-icon {
+    opacity: 0;
+    transition: opacity 400ms ease;
+}
+
 #trailer {
     height: 20px;
     width: 20px;
     position: fixed;
-    background-color: transparent;
+    background-color: #fff;
     border: 2px solid #e8ebee;
     border-radius: 20px;
     left: 0px;
@@ -49,7 +57,7 @@
     z-index: 10000;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 300ms ease;
+    transition: opacity 300ms ease, background-color 400ms ease;
 }
 
 .app:hover > #trailer {
