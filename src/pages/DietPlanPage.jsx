@@ -12,7 +12,7 @@ function DietPlanPage() {
             <div className="">
                 <div className="diet flex-1 flex">
                     <div className="article-content article-section flex-1"></div>
-                    <div className="article-panel article-section w-1/3">
+                    <div className="article-panel article-section ">
                         <Panel />
                     </div>
                 </div>

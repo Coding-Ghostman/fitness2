@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import calendar from "../../assets/calendar.png";
 import "./Panel.css";
 
 const style_box = {
@@ -36,15 +37,21 @@ function DateSelect({ handleDate, updatedDate }) {
     // console.log(dayjs(date).format("dddd, MMMM D"));
     return (
         <div>
-            <div className="lg:text-3xl lg:font-bold md:text-4xl md:font-[800] sm:text-3xl w-full text-white flex gap-4 mt-4 ml-8 ">
-                <h2 className="cursor-default">Date: </h2>
-                <span onClick={handleOpen} data-type="date" className="interactable cursor-pointer underline">
-                    {dayjs(date).format("dddd, MMMM D")}
+            <div className="lg:text-4xl font-[800] sm:text-3xl text-3xl w-full text-white flex flex-row mt-8 gap-2 justify-center items-center">
+                <span onClick={handleOpen} data-type="date" className="interactable cursor-pointer ml-12">
+                    {dayjs(date).format("MMMM")}
+                </span>
+                <div className="interactable py-4 cursor-pointer justify-center items-center relative" data-type="date" style={{ width: "60px", height: "60px" }}>
+                    <img className="absolute top-0 left-0 right-0 bottom-0 m-auto" alt="" src={calendar} style={{ width: "100%", height: "100%" }} />
+                    <p className="absolute top-[6px] left-0 text-lg flex justify-center items-center w-full h-full">{dayjs(date).format("DD")}</p>
+                </div>
+                <span onClick={handleOpen} data-type="date" className="interactable cursor-pointer underline ml-auto">
+                    {dayjs(date).format("dddd")}.
                 </span>
             </div>
             <Modal className="" open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box className="card overflow-y-hidden" sx={style_box}>
-                    <Typography sx = {{fontWeight:"bold", fontFamily:"Rubik"}} color="black" id="modal-modal-title" variant="h4" component="h2">
+                    <Typography sx={{ fontWeight: "bold", fontFamily: "Rubik" }} color="black" id="modal-modal-title" variant="h4" component="h2">
                         Choose any day
                     </Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>

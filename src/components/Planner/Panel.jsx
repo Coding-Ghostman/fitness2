@@ -1,11 +1,10 @@
 import DateSelect from "./DateSelect";
-import IconButton from "@mui/material/IconButton";
-import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import { useState, useContext } from "react";
 import DateContext from "../../context/date";
 import dayjs from "dayjs";
 import "./Panel.css";
+import NavigateDate from "./NavigateDate";
+import Progress from "./Progress";
 
 function Panel() {
     const { date, setDate } = useContext(DateContext);
@@ -24,17 +23,17 @@ function Panel() {
     // console.log(dayjs(date).add(1, "day"));
     return (
         <div className="relative bg_panel">
-            <div className="top-1 right-10 md:w-[550px] sm:w-[350px] w-[100vw] h-[91.5vh] float-right bg-slate-700 overflow-y-auto overflow-x-hidden z-10 box__shadow rounded-xl ">
-                <div>
-                    <DateSelect updatedDate={date} handleDate={setDate} />
+            <div className="xl:w-[35vw] lg:w-[40vw] sm:w-[50vw] w-[100vw] h-[100vh] float-right bg-slate-700 overflow-y-auto overflow-x-hidden z-10 box__shadow rounded-xl ">
+                <div className="flex">
+                    <div className="-ml-4">
+                        <DateSelect updatedDate={date} handleDate={setDate} />
+                    </div>
+                    <div className="ml-auto mr-10 mt-9">
+                        <NavigateDate handlePrev={handlePrevDay} handleNext={handleNextDay} />
+                    </div>
                 </div>
-                <div className="flex flex-row justify-center items-center gap-6 mt-2">
-                    <IconButton data-type="left" onClick={handlePrevDay} className="interactable scale-[1.5]" sx={{ color: "#fff" }}>
-                        <ChevronLeftRoundedIcon />
-                    </IconButton>
-                    <IconButton data-type="right" onClick={handleNextDay} className="interactable scale-[1.5]" sx={{ color: "#fff" }}>
-                        <ChevronRightRoundedIcon />
-                    </IconButton>
+                <div>
+                    <Progress />
                 </div>
             </div>
         </div>
