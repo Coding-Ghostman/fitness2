@@ -5,6 +5,9 @@
 .bg_panel {
     background: #0e1b2b;
 }
+.shadow_navigator {
+    box-shadow: 0px 0px 20px -6px rgba(255, 255, 255, 0.4);
+}
 .card-gradient {
     background: linear-gradient(to bottom, #778da9, #1b263b);
 }

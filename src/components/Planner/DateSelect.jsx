@@ -37,17 +37,13 @@ function DateSelect({ handleDate, updatedDate }) {
     // console.log(dayjs(date).format("dddd, MMMM D"));
     return (
         <div>
-            <div className="lg:text-4xl font-[800] sm:text-3xl text-3xl w-full text-white flex flex-row mt-8 gap-2 justify-center items-center">
-                <span onClick={handleOpen} data-type="date" className="interactable cursor-pointer ml-12">
-                    {dayjs(date).format("MMMM")}
-                </span>
-                <div className="interactable py-4 cursor-pointer justify-center items-center relative" data-type="date" style={{ width: "60px", height: "60px" }}>
+            <div className="font-[800] lg:text-3xl sm:text-2xl text-2xl w-full text-white flex flex-row  gap-2 justify-center items-center">
+                <div className="cursor-pointer mr-2 sm:ml-12">{dayjs(date).format("MMMM")}</div>
+                <div data-type="date" className="interactable py-4 cursor-pointer justify-center items-center relative flex" onClick={handleOpen} style={{ width: "50px", height: "50px" }}>
                     <img className="absolute top-0 left-0 right-0 bottom-0 m-auto" alt="" src={calendar} style={{ width: "100%", height: "100%" }} />
                     <p className="absolute top-[6px] left-0 text-lg flex justify-center items-center w-full h-full">{dayjs(date).format("DD")}</p>
                 </div>
-                <span onClick={handleOpen} data-type="date" className="interactable cursor-pointer underline ml-auto">
-                    {dayjs(date).format("dddd")}.
-                </span>
+                {/* <div className=" cursor-pointer sm:ml-auto">{dayjs(date).format("dddd")}.</div> */}
             </div>
             <Modal className="" open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box className="card overflow-y-hidden" sx={style_box}>

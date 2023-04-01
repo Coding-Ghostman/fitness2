@@ -41,7 +41,6 @@ function App() {
             const icon_left = document.getElementById("trailer-icon-left");
             const icon_right = document.getElementById("trailer-icon-right");
             const icon_calendar = document.getElementById("trailer-icon-calendar");
-            console.log("Hello");
             animateTrailer(e, interacting);
 
             trailer.dataset.type = interacting ? interactable.dataset.type : "";
@@ -78,7 +77,7 @@ function App() {
         <div className="app">
             <div className="hidden md:block" id="trailer">
                 <div className="scale-50">
-                    <CalendarTodayRoundedIcon className="absolute top-[8px] -left-[1px]" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
+                    <CalendarTodayRoundedIcon className="absolute top-[6px] -left-[2px]" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
                     <ChevronLeftRoundedIcon className="absolute -left-[9px]" id="trailer-icon-left" fontSize="large" sx={{ color: "#0e1b2b" }} />
                     <ChevronRightRoundedIcon className="absolute -left-[9px]" id="trailer-icon-right" fontSize="large" sx={{ color: "#0e1b2b" }} />
                 </div>
