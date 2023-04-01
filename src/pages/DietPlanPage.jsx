@@ -15,7 +15,8 @@ function DietPlanPage() {
             <div className="">
                 <div className="diet flex-1 flex">
                     <div className="article-content article-section flex-1">
-                        <Planner />
+                        {/* <Planner /> */}
+                        <MealPlanner />
                     </div>
                     <div className="article-panel article-section ">
                         <Panel />
