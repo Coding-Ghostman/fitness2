@@ -1,11 +1,9 @@
-import Panel from "../components/Planner/Panel";
-import DateContext from "../context/date";
 import { useState } from "react";
 import dayjs from "dayjs";
 import "./Page.css";
-import Planner from "../components/Planner/Planner";
+import DateContext from "../context/date";
+import Panel from "../components/Planner/Panel";
 import MealPlanner from "../components/Planner/MealPlanner";
-import TodoList from "../components/Planner/TodoList";
 
 function DietPlanPage() {
     const [date, setDate] = useState(dayjs());

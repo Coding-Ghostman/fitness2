@@ -1,122 +1,183 @@
-import { useState, useContext } from "react";
-import DateContext from "../../context/date";
+import { useState, useEffect, Fragment } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import AddIcon from "@mui/icons-material/Add";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { v4 as uuidv4 } from "uuid";
-import dayjs from "dayjs";
-
+import { Divider } from "@mui/material";
 
 const MEALS = [
-    { id: uuidv4(), name: "Breakfast" },
-    { id: uuidv4(), name: "Lunch" },
-    { id: uuidv4(), name: "Dinner" },
+    { id: "1", name: "Breakfast" },
+    { id: "2", name: "Lunch" },
+    { id: "3", name: "Dinner" },
 ];
 
-
-const ITEMS = [
-    { id: uuidv4(), name: "Chicken Parmesan", meal: MEALS[0].id },
-    { id: uuidv4(), name: "Spaghetti and Meatballs", meal: MEALS[1].id },
-    { id: uuidv4(), name: "Grilled Cheese Sandwich", meal: MEALS[1].id },
-    { id: uuidv4(), name: "Chicken Caesar Salad", meal: MEALS[2].id },
+let menuItems = [
+    { id: "10", name: "Chicken ", meal: MEALS[0].id, added: false },
+    { id: "20", name: "Spaghetti", meal: MEALS[0].id, added: false },
+    { id: "30", name: "Grilled ", meal: MEALS[1].id, added: false },
+    { id: "40", name: "Chicken ", meal: MEALS[2].id, added: false },
 ];
 
 const MealPlanner = () => {
-    const [items, setItems] = useState(ITEMS);
-    const { date } = useContext(DateContext);
+    const [items, setItems] = useState([]);
+    // const [menuItems, setMenu]
+    const [isOpen, setIsOpen] = useState(false);
 
-    // const onDragEnd = (result) => {
-    //     if (!result.destination) {
-    //         return;
-    //     }
+    const handleClick = (e) => {
+        const found = items.find((item) => item.added === false);
+        console.log(found);
+        if (found) {
+            const index = items.findIndex((item) => item.id === e);
+            menuItems = [...menuItems, items[index]];
 
-    //     const newItems = Array.from(items);
-    //     const [reorderedItem] = newItems.splice(result.source.index, 1);
-    //     // newItems.splice(result.destination.index, 0, reorderedItem);
-    //     newItems.splice(result.destination.index, 0, {
-    //         ...reorderedItem,
-    //         meal: MEALS[result.destination.droppableId].id,
-    //     });
+            const newItems = items.filter((item) => item.id !== e);
+            console.log(newItems);
+            setItems(newItems);
+        } else {
+            const newItems = items.filter((item) => item.id !== e);
+            console.log(newItems);
+            setItems(newItems);
+        }
+    };
 
-    //     setItems(newItems);
-    // };
     const onDragEnd = (result) => {
         if (!result.destination) {
             return;
         }
 
-        const { source, destination } = result;
+        const sourceMealId = result.source.droppableId;
+        const destinationMealId = result.destination.droppableId;
 
-        if (source.droppableId === destination.droppableId) {
-            // If item is dragged within the same droppable section, no need to update the meal value
-            return;
-        }
+        if (sourceMealId !== destinationMealId) {
+            if (sourceMealId === "menuItems") {
+                const dragObj = result.draggableId;
+                const newItems = [...items, menuItems.find((item) => item.id === dragObj)];
+                newItems[newItems.findIndex((item) => item.id === dragObj)].meal = destinationMealId;
 
-        const newItems = items.map((item) => {
-            if (item.id === result.draggableId) {
-                // If the dragged item matches the current item being looped over, update its meal value
-                return {
-                    ...item,
-                    meal: MEALS.find((meal) => meal.id === destination.droppableId).id,
-                };
+                const index = menuItems.findIndex((item) => item.id === dragObj);
+
+                // check if the object exists
+                if (index !== -1) {
+                    // remove the object
+                    menuItems.splice(index, 1);
+                }
+                setItems(newItems);
+            } else {
+                const newItems = Array.from(items);
+                const [reorderedItem] = newItems.splice(result.source.index, 1);
+                // Update the meal value of the reordered item
+                reorderedItem.meal = destinationMealId || "";
+
+                newItems.splice(result.destination.index, 0, reorderedItem);
+                setItems(newItems);
             }
-            return item;
-        });
-
-        setItems(newItems);
-    };
-
-    const handleNameChange = (id, newName) => {
-        const newItems = [...items];
-        const index = newItems.findIndex((item) => item.id === id);
-        newItems[index].name = newName;
-        setItems(newItems);
+        } else {
+            const newItems = Array.from(items);
+            const [reorderedItem] = newItems.splice(result.source.index, 1);
+            newItems.splice(result.destination.index, 0, reorderedItem);
+            setItems(newItems);
+        }
     };
 
     return (
         <div className="bg-white p-4">
-            <h2 className="text-3xl font-bold mt-6 cursor-default select-none">{dayjs(date).format("dddd")}</h2>
             <DragDropContext onDragEnd={onDragEnd}>
-                {MEALS.map((meal) => (
-                    <div key={meal.id}>
-                        <h3 className="text-lg font-bold mb-2">{meal.name}</h3>
-                        <Droppable droppableId={meal.id}>
-                            {(provided) => (
-                                <ul {...provided.droppableProps} ref={provided.innerRef} className="bg-gray-100 rounded p-2">
-                                    {items.map((item, index) => {
-                                        if (item.meal === meal.id) {
-                                            return (
+                <div className="flex flex-row">
+                    <div>
+                        {MEALS.map((meal) => (
+                            <div className="flex flex-row w-[50%] " key={meal.id}>
+                                <div className="flex flex-col mt-7 w-[20%]">
+                                    <div className="text-sm -mb-2 text-gray-500 font-normal">8:30</div>
+                                    <div className="text-lg font-bold">{meal.name}</div>
+                                </div>
+                                {
+                                    <div className="flex flex-col items-center justify-center ml-[40px]">
+                                        <Droppable droppableId={meal.id}>
+                                            {(provided) => (
+                                                <>
+                                                    <div {...provided.droppableProps} ref={provided.innerRef} className="bg-gray-100 mt-6  rounded-xl p-2 ml-[50%] w-[200px] min-h-[50px] h-auto">
+                                                        {items.length > 0 &&
+                                                            items.map((item, index) => {
+                                                                if (item.meal === meal.id) {
+                                                                    return (
+                                                                        <Draggable key={item.id} draggableId={item.id} index={index}>
+                                                                            {(provided) => (
+                                                                                <div
+                                                                                    {...provided.draggableProps}
+                                                                                    {...provided.dragHandleProps}
+                                                                                    ref={provided.innerRef}
+                                                                                    className="bg-white p-1 flex flex-row mb-2 mt-2"
+                                                                                >
+                                                                                    {item.name}
+                                                                                    <ClearRoundedIcon
+                                                                                        onClick={() => {
+                                                                                            handleClick(item.id);
+                                                                                        }}
+                                                                                        className="ml-auto"
+                                                                                    />
+                                                                                </div>
+                                                                            )}
+                                                                        </Draggable>
+                                                                    );
+                                                                } else {
+                                                                    return null;
+                                                                }
+                                                            })}
+                                                        {provided.placeholder}
+                                                    </div>
+                                                </>
+                                            )}
+                                        </Droppable>
+                                        <button
+                                            className="flex items-center text-gray-500 hover:text-gray-700 transition-colors duration-300"
+                                            onClick={() => {
+                                                const newItem = {
+                                                    id: uuidv4(),
+                                                    name: "Item added",
+                                                    meal: meal.id,
+                                                    added: true,
+                                                };
+                                                setItems([...items, newItem]);
+                                            }}
+                                        >
+                                            <AddIcon className="h-6 w-6 mr-2" />
+                                            <span>Add item</span>
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        ))}
+                    </div>
+                    <Divider sx={{ marginLeft: "auto", marginRight: "70px" }} orientation="vertical" variant="middle" flexItem />
+                    <div className="mr-[60px] mt-2">
+                        <button type="button" className="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-xl inline-flex items-center" onClick={() => setIsOpen(!isOpen)}>
+                            <span className="mr-2">{"Select an item"}</span>
+                            <svg className={`fill-current h-4 w-4 ${isOpen ? "-rotate-180" : ""}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M6 8l4 4 4-4"></path>
+                            </svg>
+                        </button>
+                        {isOpen && (
+                            <div className="absolute z-10 mt-1 w-[15%] bg-white rounded-md shadow-lg">
+                                <Droppable droppableId="menuItems">
+                                    {(provided) => (
+                                        <ul className="py-2" {...provided.droppableProps} ref={provided.innerRef}>
+                                            {menuItems.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id} index={index}>
                                                     {(provided) => (
-                                                        <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="bg-white rounded p-2 mb-2">
-                                                            <input type="text" value={item.name} onChange={(e) => handleNameChange(item.id, e.target.value)} />
-                                                        </li>
+                                                        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className="bg-white rounded p-2 mb-2">
+                                                            {item.name}
+                                                        </div>
                                                     )}
                                                 </Draggable>
-                                            );
-                                        } else {
-                                            return null;
-                                        }
-                                    })}
-                                    {provided.placeholder}
-                                </ul>
-                            )}
-                        </Droppable>
-                        <button
-                            className="flex items-center text-gray-500 hover:text-gray-700 transition-colors duration-300"
-                            onClick={() => {
-                                const newItem = {
-                                    id: uuidv4(),
-                                    name: "New Item",
-                                    meal: meal.id,
-                                };
-                                setItems([...items, newItem]);
-                            }}
-                        >
-                            <AddIcon className="h-6 w-6 mr-2" />
-                            <span>Add item</span>
-                        </button>
+                                            ))}
+                                            {provided.placeholder}
+                                        </ul>
+                                    )}
+                                </Droppable>
+                            </div>
+                        )}
                     </div>
-                ))}
+                </div>
             </DragDropContext>
         </div>
     );
