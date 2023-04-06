@@ -53,18 +53,31 @@ const MealPlanner = () => {
         newArray.splice(index, 1, updatedObject);
         setItems(newArray);
     };
+    //"13ac685d-3fde-4630-8a1b-7681419dfca3"
 
     const handleClick = (e) => {
-        const found = items.find((item) => item.added === false);
-        console.log(found);
-        if (found) {
-            const index = found.findIndex((item) => item.id === e);
-            menuItems = [...menuItems, items[index]];
-            setFilteredItems(menuItems);
+        // const found = items.filter((item) => item.added === false);
+        // if (found) {
+        //     const index = found?.findIndex((item) => item?.id === e);
+        //     menuItems = [...menuItems, items[index]];
+        //     setFilteredItems(menuItems);
+        //     // console.log(items, e);
+        //     const newItems = items.filter((item) => item?.id !== e);
+        //     setItems(newItems);
+        //     // console.log(filteredItems, menuItems);
+        // } else {
+        //     const newItems = items.filter((item) => item.id !== e);
+        //     setItems(newItems);
+        // }
+        const found = items.find((item) => item.id === e);
+        if (found.added === true) {
             const newItems = items.filter((item) => item.id !== e);
+            console.log(newItems);
             setItems(newItems);
-            console.log(filteredItems, menuItems);
         } else {
+            menuItems = [...menuItems, found];
+            setFilteredItems(menuItems);
+            console.log(filteredItems);
             const newItems = items.filter((item) => item.id !== e);
             setItems(newItems);
         }

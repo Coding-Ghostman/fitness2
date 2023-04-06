@@ -11,6 +11,8 @@
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "@fortawesome/react-fontawesome": "^0.2.0",
         "@greatsumini/react-facebook-login": "^3.3.3",
+        "@mediapipe/camera_utils": "^0.3.1675466862",
+        "@mediapipe/pose": "^0.5.1675469404",
         "@mui/icons-material": "^5.11.11",
         "@mui/material": "^5.11.13",
         "@mui/x-date-pickers": "^6.0.2",

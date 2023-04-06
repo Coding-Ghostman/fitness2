@@ -1,7 +1,8 @@
-import Virabhadrasana from "../components/Motion/Virabhadrasana";
 import React, { useState } from "react";
-import "./Page.css";
-import { Button, Select, MenuItem } from "@mui/material";
+import Virabhadrasana from "../components/virabhadrasana";
+import Trikonasana from "../components/trikonasana";
+import { Link } from "react-router-dom";
+import { Button, Select, MenuItem } from "@mui/material/";
 import FormControl from "@mui/material/FormControl";
 
 const styles = {
@@ -26,14 +27,14 @@ const styles = {
     },
 };
 
-function WorkoutPage() {
+const Yoga = () => {
     const [yoga, setYoga] = useState("virabhadrasana");
 
     function selectYoga() {
         if (yoga === "virabhadrasana") {
             return <Virabhadrasana />;
         } else if (yoga === "trikonasana") {
-            return <div>TRi</div>;
+            return <Trikonasana />;
         }
         return null;
     }
@@ -59,8 +60,16 @@ function WorkoutPage() {
             </div>
 
             {selectYoga()}
+
+            <div style={styles.back}>
+                <Link to="/">
+                    <Button size="large" variant="contained" color="primary">
+                        Back
+                    </Button>
+                </Link>
+            </div>
         </div>
     );
-}
+};
 
-export default WorkoutPage;
+export default Yoga;
