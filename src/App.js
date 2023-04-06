@@ -6,7 +6,7 @@ import WorkoutPage from "./pages/WorkoutPage";
 import FitnessPlanPage from "./pages/FitnessPlanPage";
 import ProgressPage from "./pages/ProgressPage";
 import FriendsPage from "./pages/FriendsPage";
-import SignUpPage from "./pages/SignUpPage";
+// import SignUpPage from "./pages/SignUpPage";
 import UserContext from "./context/user";
 import LogInPage from "./pages/LogInPage";
 import { useState, useEffect } from "react";
@@ -74,7 +74,7 @@ function App() {
     }, []);
 
     return (
-        <div className="app">
+        <div className="app scrollbar">
             <div className="hidden md:block" id="trailer">
                 <div className="scale-50">
                     <CalendarTodayRoundedIcon className="absolute top-[6px] -left-[2px]" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
