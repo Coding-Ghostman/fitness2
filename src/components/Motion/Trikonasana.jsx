@@ -4,7 +4,7 @@ import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
 import { useRef, useEffect } from "react";
 import angleBetweenThreePoints from "./angle";
-import yoga1 from "../assets/images/trikonasana.png";
+// import yoga1 from "../assets/images/trikonasana.png";
 
 const styles = {
     webcam: {
@@ -202,7 +202,7 @@ const Trikonasana = () => {
             </div>
             <div style={styles.info}>
                 <p>Try to mimic this pose</p>
-                <img src={yoga1} alternate="Yoga 2"></img>
+                {/* <img src={yoga1} alternate="Yoga 2"></img> */}
             </div>
         </div>
     );

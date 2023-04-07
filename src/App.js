@@ -6,13 +6,16 @@ import WorkoutPage from "./pages/WorkoutPage";
 import FitnessPlanPage from "./pages/FitnessPlanPage";
 import ProgressPage from "./pages/ProgressPage";
 import FriendsPage from "./pages/FriendsPage";
-// import SignUpPage from "./pages/SignUpPage";
+import Workout from "./pages/Workout";
+import Yoga from "./pages/Yoga";
 import UserContext from "./context/user";
 import LogInPage from "./pages/LogInPage";
 import { useState, useEffect } from "react";
 import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+import SelfImprovementIcon from "@mui/icons-material/SelfImprovement";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import "./App.css";
 import RewardsPage from "./pages/RewardsPage";
 
@@ -30,7 +33,13 @@ function App() {
             const x = e.clientX - trailer.offsetWidth / 2;
             const y = e.clientY - trailer.offsetHeight / 2;
             const keyframes = {
-                transform: `translate(${x}px,${y}px) scale(${trailer.dataset.type === "date" || trailer.dataset.type === "left" || trailer.dataset.type === "right" ? 3 : interacting ? 2 : 1})`,
+                transform: `translate(${x}px,${y}px) scale(${
+                    trailer.dataset.type === "date" || trailer.dataset.type === "left" || trailer.dataset.type === "right" || trailer.dataset.type === "Yoga" || trailer.dataset.type === "Workout"
+                        ? 3
+                        : interacting
+                        ? 2
+                        : 1
+                })`,
             };
 
             trailer.animate(keyframes, { duration: 600, fill: "forwards" });
@@ -41,6 +50,8 @@ function App() {
             const icon_left = document.getElementById("trailer-icon-left");
             const icon_right = document.getElementById("trailer-icon-right");
             const icon_calendar = document.getElementById("trailer-icon-calendar");
+            const icon_yoga = document.getElementById("yoga");
+            const icon_workout = document.getElementById("workout");
             animateTrailer(e, interacting);
 
             trailer.dataset.type = interacting ? interactable.dataset.type : "";
@@ -48,26 +59,30 @@ function App() {
             if (trailer.dataset.type === "date") {
                 icon_calendar.style.opacity = "1";
                 icon_calendar.style.transition = "opacity 300ms ease";
-                icon_left.style.opacity = "0";
-                icon_right.style.opacity = "0";
 
                 trailer.style.backgroundColor = "#e8ebee";
             } else if (trailer.dataset.type === "left") {
                 icon_left.style.opacity = "1";
                 icon_left.style.transition = "opacity 300ms ease";
-                icon_calendar.style.opacity = "0";
-                icon_right.style.opacity = "0";
                 trailer.style.backgroundColor = "#e8ebee";
             } else if (trailer.dataset.type === "right") {
                 icon_right.style.opacity = "1";
                 icon_right.style.transition = "opacity 300ms ease";
-                icon_calendar.style.opacity = "0";
-                icon_left.style.opacity = "0";
+                trailer.style.backgroundColor = "#e8ebee";
+            } else if (trailer.dataset.type === "Yoga") {
+                icon_yoga.style.opacity = "1";
+                icon_yoga.style.transition = "opacity 300ms ease";
+                trailer.style.backgroundColor = "#e8ebee";
+            } else if (trailer.dataset.type === "Workout") {
+                icon_workout.style.opacity = "1";
+                icon_workout.style.transition = "opacity 300ms ease";
                 trailer.style.backgroundColor = "#e8ebee";
             } else {
                 icon_left.style.opacity = "0";
                 icon_right.style.opacity = "0";
                 icon_calendar.style.opacity = "0";
+                icon_yoga.style.opacity = "0";
+                icon_workout.style.opacity = "0";
                 trailer.style.backgroundColor = "transparent";
             }
         };
@@ -77,9 +92,11 @@ function App() {
         <div className="app scrollbar">
             <div className="hidden md:block" id="trailer">
                 <div className="scale-50">
-                    <CalendarTodayRoundedIcon className="absolute top-[6px] -left-[2px]" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
-                    <ChevronLeftRoundedIcon className="absolute -left-[9px]" id="trailer-icon-left" fontSize="large" sx={{ color: "#0e1b2b" }} />
-                    <ChevronRightRoundedIcon className="absolute -left-[9px]" id="trailer-icon-right" fontSize="large" sx={{ color: "#0e1b2b" }} />
+                    <CalendarTodayRoundedIcon className="absolute top-[7px] -left-[1px] opacity-0" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
+                    <ChevronLeftRoundedIcon className="absolute -left-[9px] opacity-0" id="trailer-icon-left" fontSize="large" sx={{ color: "#0e1b2b" }} />
+                    <ChevronRightRoundedIcon className="absolute -left-[9px] opacity-0" id="trailer-icon-right" fontSize="large" sx={{ color: "#0e1b2b" }} />
+                    <SelfImprovementIcon className="absolute -left-[9px] opacity-0" id="yoga" fontSize="large" sx={{ color: "#0e1b2b" }} />
+                    <FitnessCenterIcon className="absolute -left-[9px] opacity-0" id="workout" fontSize="large" sx={{ color: "#0e1b2b" }} />
                 </div>
             </div>
             <UserContext.Provider value={user}>
@@ -111,6 +128,12 @@ function App() {
                     </Route>
                     <Route path="/rewards">
                         <RewardsPage />
+                    </Route>
+                    <Route path="/yoga">
+                        <Yoga />
+                    </Route>
+                    <Route path="/fitness">
+                        <Workout />
                     </Route>
                 </div>
             </UserContext.Provider>

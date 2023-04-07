@@ -1,66 +1,39 @@
-import Virabhadrasana from "../components/Motion/Virabhadrasana";
-import React, { useState } from "react";
+import Link from "../components/link/Link";
 import "./Page.css";
-import { Button, Select, MenuItem } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
+import Card from "../components/Card/Card";
 
-const styles = {
-    back: {
-        position: "absolute",
-        marginRight: "auto",
-        marginLeft: "auto",
-        left: 1700,
-        right: 0,
-        top: 850,
+const cards = [
+    {
+        title: "Yoga",
+        image: "https://source.unsplash.com/Dqx4XWuXu7w",
+        link: "yoga",
     },
-    selectBox: {
-        position: "absolute",
-        marginRight: "auto",
-        marginLeft: "auto",
-        left: 1000,
-        right: 0,
-        top: 200,
-        textAlign: "center",
-        width: 300,
-        height: 30,
+    {
+        title: "Workout",
+        image: "https://source.unsplash.com/sHfo3WOgGTU",
+        link: "fitness",
     },
-};
+];
 
-function WorkoutPage() {
-    const [yoga, setYoga] = useState("virabhadrasana");
-
-    function selectYoga() {
-        if (yoga === "virabhadrasana") {
-            return <Virabhadrasana />;
-        } else if (yoga === "trikonasana") {
-            return <div>TRi</div>;
-        }
-        return null;
-    }
-
+const TwoBigCards = () => {
     return (
         <div>
-            <div style={styles.selectBox}>
-                <FormControl variant="outlined" size="large" style={{ minWidth: 300 }}>
-                    <Select
-                        value={yoga}
-                        onChange={(event) => {
-                            const selectedYoga = event.target.value;
-                            setYoga(selectedYoga);
-                        }}
-                    >
-                        <MenuItem value="" disabled>
-                            Select Yoga Pose
-                        </MenuItem>
-                        <MenuItem value="virabhadrasana">Virabhadrasana</MenuItem>
-                        <MenuItem value="trikonasana">Trikonasana</MenuItem>
-                    </Select>
-                </FormControl>
+            <div className="min-h-screen flex flex-col items-center justify-center bg-gradient">
+                <div>
+                    <p className="flex justify-center items-center w-full h-full font-[800] lg:text-3xl sm:text-2xl text-2xl py-8 -mt-6 text-white">Select the training</p>
+                </div>
+                <div className="max-w-screen-xl flex flex-nowrap">
+                    {cards.map((card) => (
+                        <Link className="flex flex-row" to={`/${card.link}`} key={card.title}>
+                            <div className="flex">
+                                <Card {...card} />
+                            </div>
+                        </Link>
+                    ))}
+                </div>
             </div>
-
-            {selectYoga()}
         </div>
     );
-}
+};
 
-export default WorkoutPage;
+export default TwoBigCards;

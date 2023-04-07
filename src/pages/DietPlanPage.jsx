@@ -18,13 +18,13 @@ function DietPlanPage() {
     return (
         <DateContext.Provider value={{ date, setDate, MEALS }}>
             <div className="">
-                <div className="diet flex-1 flex">
+                <div className="diet flex lg:flex-row flex-col">
+                    <div className="article-panel article-section ">
+                        <Panel />
+                    </div>
                     <div className="article-content article-section flex-1">
                         {/* <Planner /> */}
                         <MealPlanner />
-                    </div>
-                    <div className="article-panel article-section ">
-                        <Panel />
                     </div>
                 </div>
             </div>

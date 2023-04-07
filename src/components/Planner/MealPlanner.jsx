@@ -18,11 +18,12 @@ import "./Panel.css";
 // import { Divider } from "antd";
 
 let menuItems = [
-    { id: "10", name: "Chicken ", meal: "", added: false },
-    { id: "20", name: "Spaghetti", meal: "", added: false },
-    { id: "30", name: "Grilled ", meal: "", added: false },
-    { id: "40", name: "Chicken ", meal: "", added: false },
+    { id: "10", name: "Chicken ", meal: "1", added: false },
+    { id: "20", name: "Spaghetti", meal: "2", added: false },
+    { id: "30", name: "Grilled ", meal: "3", added: false },
+    { id: "40", name: "Chicken ", meal: "4", added: false },
 ];
+
 const MealPlanner = () => {
     const { date, MEALS } = useContext(DateContext);
     const [items, setItems] = useState([]);
