@@ -9,8 +9,6 @@ import FriendsPage from "./pages/FriendsPage";
 import Workout from "./pages/Workout";
 import BackAnimation from "./components/Animation/BackAnimation";
 import Yoga from "./pages/Yoga";
-import UserContext from "./context/user";
-import LogInPage from "./pages/LogInPage";
 import LoginFirebase from "./components/loginPage/LoginFirebase";
 import ResetFirebase from "./components/loginPage/ResetFirebase";
 import RegisterFirebase from "./components/loginPage/RegisterFirebase";
