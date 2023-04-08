@@ -6,17 +6,18 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import UserContext from "../../context/user";
 import Link from "../link/Link";
+import { auth, logout } from "../auth/Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-function AccountMenu({ handleUserObject }) {
+function AccountMenu() {
+    const [user] = useAuthState(auth);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const value = useContext(UserContext);
-    const userObject = JSON.parse(localStorage.getItem("userObject"));
+    // const value = useContext(UserContext);
+    // const userObject = JSON.parse(localStorage.getItem("userObject"));
 
     const handleSignOut = () => {
-        // localStorage.setItem("userObject", JSON.stringify({}));
-        localStorage.removeItem("userObject");
-        handleUserObject({});
+        logout();
     };
 
     const handleClick = (event) => {
@@ -32,7 +33,7 @@ function AccountMenu({ handleUserObject }) {
                     <IconButton onClick={handleClick} size="small" sx={{}} aria-controls={open ? "account-menu" : undefined} aria-haspopup="true" aria-expanded={open ? "true" : undefined}>
                         {/* <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> */}
                         <div className="w-[40%] h-[40%]">
-                            <img className="flex items-center justify-center rounded-xl" src={userObject?.picture} alt="" />
+                            <img className="flex items-center justify-center rounded-xl" src={user?.photoURL} alt="" />
                         </div>
                     </IconButton>
                 </Tooltip>

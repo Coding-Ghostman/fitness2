@@ -1,8 +1,7 @@
-import Header from "../components/loginPage/Header";
 import Login from "../components/loginPage/Login";
 import { useState } from "react";
 import "./Page.css";
-function LogInPage({ handleChange }) {
+function LogInPage({ handleChange, auth }) {
     const [user, setUser] = useState({});
     const handleUser = (val) => {
         setUser(val);
@@ -11,8 +10,8 @@ function LogInPage({ handleChange }) {
 
     return (
         <div className="bg-gradient h-screen">
-            <Header heading="Login to your account" paragraph="Don't have an account yet? " linkName="Signup" linkUrl="/signup" />
-            <Login value={user} onChange={handleUser} />
+            {/* <Header heading="Login to your account" paragraph="Don't have an account yet? " linkName="Signup" linkUrl="/signup" /> */}
+            {/* <Login value={user} onChange={handleUser} /> */}
         </div>
     );
 }

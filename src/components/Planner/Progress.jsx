@@ -1,7 +1,7 @@
 import sunset from "../../assets/sunset.png";
 import { useContext } from "react";
 import WbTwilightRoundedIcon from "@mui/icons-material/WbTwilightRounded";
-import WbSunnyRoundedIcon from '@mui/icons-material/WbSunnyRounded';
+import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import calorie from "../../assets/calorie.png";
 import DateContext from "../../context/date";

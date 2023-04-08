@@ -6,26 +6,30 @@ import UserContext from "../../context/user";
 import menu from "../../assets/main-menu.png";
 import BasicMenu from "../menu/BasicMenu";
 import Menu from "../menu/Menu";
+import { auth } from "../auth/Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Header() {
-    const value = useContext(UserContext);
-    const [userObject, setUserObject] = useState({});
-
-    useEffect(() => {
-        setUserObject(JSON.parse(localStorage.getItem("userObject")));
-    }, [localStorage.getItem("userObject")]);
+    const [user] = useAuthState(auth);
+    console.log(user);
+    // const value = useContext(UserContext);
+    // const [userObject, setUserObject] = useState({});
+    // console.log(value);
+    // useEffect(() => {
+    //     setUserObject(JSON.parse(localStorage.getItem("userObject")));
+    // }, [localStorage.getItem("userObject")]);
 
     const links = [
-        { label: "Workout", path: "/workout" },
-        { label: "Diet Plan", path: "/dietplan" },
-        { label: "Fitness Plan", path: "/fitnessplan" },
-        { label: "Progress", path: "/progress" },
-        { label: "Friends", path: "/friends" },
+        { id: 1, label: "Workout", path: "/workout" },
+        { id: 2, label: "Diet Plan", path: "/dietplan" },
+        { id: 3, label: "Fitness Plan", path: "/fitnessplan" },
+        { id: 4, label: "Progress", path: "/progress" },
+        { id: 5, label: "Friends", path: "/friends" },
     ];
     const renderedLinks = links.map((link) => {
         return (
-            <div className="interactable">
-                <Link activeClassName="" className="mt-1 hover:text-blue-300" key={link.label} to={link.path}>
+            <div key={link.id} className="interactable">
+                <Link activeClassName="" className="mt-1 hover:text-blue-300" to={link.path}>
                     {link.label}
                 </Link>
             </div>
@@ -39,12 +43,12 @@ function Header() {
             </Link>
             <div className=" flex-row py-1 justify-center items-center hidden md:flex gap-10">
                 {renderedLinks}
-                {userObject && (
-                    <div className="interactable -ml-8 mr-2">
-                        <AccountMenu handleUserObject={setUserObject} />
+                {user && (
+                    <div data-type="account" className="interactable -ml-8 mr-2">
+                        <AccountMenu />
                     </div>
                 )}
-                {!userObject && (
+                {!user && (
                     <Link className="interactable mr-6" to="/login">
                         <Button sx={{ borderRadius: "20px", backgroundColor: "#E0E1DD", color: "black", fontWeight: "bold" }} variant="contained" size="medium" disableElevation>
                             Log In

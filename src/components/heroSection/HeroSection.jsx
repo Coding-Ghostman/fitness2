@@ -22,10 +22,10 @@ function HeroSection() {
                         </button>
                     </div>
                 </div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/4 -translate-y-1/4 hidden lg:block">
+                <div className="absolute -mr-[6%] top-1/2 left-1/2 transform -translate-x-1/4 -translate-y-1/4 hidden lg:block">
                     <img alt="woman" src={woman} width="350px" />
                 </div>
-                <div className=" lg:mt-24 mt-5 lg:w-10/12 sm:w-8/12 w-9/12" style={{ zIndex: 1 }}>
+                <div className="-mr-[6%] lg:mt-24 mt-5 lg:w-10/12 sm:w-8/12 w-9/12" style={{ zIndex: 1 }}>
                     <img className="float-right" alt="man" src={man} width="350px" />
                 </div>
             </div>

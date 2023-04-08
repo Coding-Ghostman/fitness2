@@ -4,6 +4,7 @@ import Link from "../components/link/Link";
 import { ArrowBackRounded } from "@mui/icons-material";
 import Counter from "../components/Motion/counter";
 import { useState } from "react";
+import LoadingAnimation from "../components/Animation/LoadingAnimation";
 
 const cards = [
     {
@@ -30,9 +31,17 @@ const cards = [
 
 function Workout() {
     const [workout, setWorkout] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const handleClick = (title) => {
         setWorkout(title);
     };
+
+    function stopLoadingAnimation() {
+        setIsLoading(false);
+    }
+
+    const timeoutDuration = 3000;
+    const loadingTimeoutDuration = 3000;
     return (
         <div>
             <div className="min-h-screen flex flex-col items-center justify-center bg-gradient">
@@ -58,16 +67,28 @@ function Workout() {
                     ) : workout === "Crunches" ? (
                         <Counter handleWorkout={setWorkout} exercise={"crunches"} image={cards[1].image} />
                     ) : (
-                        cards.map((card) => (
-                            <div
-                                className="flex"
-                                onClick={() => {
-                                    handleClick(card.title);
-                                }}
-                            >
-                                <Card {...card} />
-                            </div>
-                        ))
+                        <>
+                            {isLoading ? (
+                                <LoadingAnimation />
+                            ) : (
+                                <>
+                                    {setTimeout(() => {
+                                        setIsLoading(true);
+                                        setTimeout(stopLoadingAnimation, loadingTimeoutDuration);
+                                    }, timeoutDuration)}
+                                    {cards.map((card) => (
+                                        <div
+                                            className="flex"
+                                            onClick={() => {
+                                                handleClick(card.title);
+                                            }}
+                                        >
+                                            <Card {...card} />
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                        </>
                     )}
                 </div>
             </div>

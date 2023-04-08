@@ -4,7 +4,9 @@ import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
 import { useRef, useEffect } from "react";
 import angleBetweenThreePoints from "./angle";
-// import yoga1 from "../assets/images/trikonasana.png";
+import Link from "../link/Link";
+import { Button } from "@mui/material";
+import yoga1 from "../../assets/Trikonasana.png";
 
 const styles = {
     webcam: {
@@ -32,12 +34,15 @@ const styles = {
     },
 };
 
-const Trikonasana = () => {
+const Trikonasana = ({ handleYoga }) => {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     let camera = null;
 
     var t = new Date().getTime();
+    const handleClick = () => {
+        handleYoga(null);
+    };
 
     function onResult(results) {
         if (results.poseLandmarks) {
@@ -79,7 +84,7 @@ const Trikonasana = () => {
             let inRangeBack;
             let inRangeLeftHand;
             let inRangeRightHand;
-            if (angleBack >= 110 && angleBack <= 140) {
+            if (angleBack >= 130 && angleBack <= 160) {
                 inRangeBack = true;
             } else {
                 inRangeBack = false;
@@ -202,7 +207,14 @@ const Trikonasana = () => {
             </div>
             <div style={styles.info}>
                 <p>Try to mimic this pose</p>
-                {/* <img src={yoga1} alternate="Yoga 2"></img> */}
+                <img alt="" src={yoga1} alternate="Yoga 2"></img>
+            </div>
+            <div style={styles.back}>
+                <Link to="/yoga">
+                    <Button onClick={handleClick} size="large" variant="outlined" color="primary">
+                        Back
+                    </Button>
+                </Link>
             </div>
         </div>
     );

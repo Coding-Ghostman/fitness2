@@ -1,11 +1,12 @@
-import React from "react";
 import { Pose } from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
 import { useRef, useEffect } from "react";
 import angleBetweenThreePoints from "./angle";
-import yoga1 from "../../assets/yogapose.png";
+import yoga1 from "../../assets/Virabhadrasana.png";
 import { Button } from "@mui/material";
+import Link from "../link/Link";
+import LoadingAnimation from "../Animation/LoadingAnimation";
 
 const styles = {
     webcam: {
@@ -16,8 +17,8 @@ const styles = {
         right: 800,
         top: 200,
         textAlign: "center",
-        zIndex: 9,
-        width: 960,
+        zIndex: 10,
+        width: 1080,
         height: 720,
     },
     info: {
@@ -40,12 +41,16 @@ const styles = {
     },
 };
 
-const Virabhadrasana = () => {
+const Virabhadrasana = ({ handleYoga }) => {
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     let camera = null;
 
     var t = new Date().getTime();
+
+    const handleClick = () => {
+        handleYoga("");
+    };
 
     function onResult(results) {
         console.log("Hello");
@@ -224,7 +229,6 @@ const Virabhadrasana = () => {
         });
 
         pose.onResults(onResult);
-        console.log(pose);
 
         if (typeof webcamRef.current !== "undefined" && webcamRef.current !== null) {
             camera = new cam.Camera(webcamRef.current.video, {
@@ -239,20 +243,21 @@ const Virabhadrasana = () => {
     });
 
     return (
-        <div>
-            <div>
-                <Webcam ref={webcamRef} style={styles.webcam} />
-                <canvas ref={canvasRef} style={styles.webcam} />
+        <div className="flex flex-row">
+            <div className="container">
+                <Webcam ref={webcamRef} className=" mx-auto text-center z-10 w-[1080px] h-[720px]" />
+                <canvas ref={canvasRef} className=" mx-auto text-center z-10 w-[1080px] h-[720px]" />
             </div>
-            <div style={styles.info}>
+            <div className=" inset-auto  text-center text-#05386B bg-#8EE4AF">
                 <p>Try to mimic and hold the following pose.</p>
                 <img alt="" src={yoga1} alternate="Yoga 1"></img>
             </div>
-
-            <div style={styles.back}>
-                <Button size="large" variant="outlined" color="primary">
-                    Back
-                </Button>
+            <div className=" inset-auto ">
+                <Link to="/yoga">
+                    <Button onClick={handleClick} size="large" variant="outlined" color="primary">
+                        Back
+                    </Button>
+                </Link>
             </div>
         </div>
     );
