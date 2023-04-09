@@ -54,7 +54,6 @@ function ProgressPage() {
         setDate(newDate);
         setOpen(false);
     };
-    console.log(date.$d);
 
     return (
         <div className="m-0 overflow-auto bg-gradient h-screen">

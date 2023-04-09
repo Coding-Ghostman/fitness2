@@ -73,12 +73,10 @@ const MealPlanner = () => {
         const found = items.find((item) => item.id === e);
         if (found.added === true) {
             const newItems = items.filter((item) => item.id !== e);
-            console.log(newItems);
             setItems(newItems);
         } else {
             menuItems = [...menuItems, found];
             setFilteredItems(menuItems);
-            console.log(filteredItems);
             const newItems = items.filter((item) => item.id !== e);
             setItems(newItems);
         }

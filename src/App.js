@@ -12,7 +12,7 @@ import Yoga from "./pages/Yoga";
 import LoginFirebase from "./components/loginPage/LoginFirebase";
 import ResetFirebase from "./components/loginPage/ResetFirebase";
 import RegisterFirebase from "./components/loginPage/RegisterFirebase";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
@@ -20,16 +20,9 @@ import SelfImprovementIcon from "@mui/icons-material/SelfImprovement";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import "./App.css";
 import RewardsPage from "./pages/RewardsPage";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./components/auth/Firebase";
+import { AuthProvider } from "./components/auth/auth";
 
 function App() {
-    const [user] = useAuthState(auth);
-    // const handleUser = (userData) => {
-    //     setUser(userData);
-    // };
-    // console.log();
-
     /// Mouse Trailer code Down Below
 
     useEffect(() => {
@@ -125,49 +118,51 @@ function App() {
                     </div>
                 </div>
             </div>
-            <div className="m-0 overflow-hidden">
-                <Header />
-            </div>
-            <section className=" h-1 bg-slate-700"></section>
-            <div className="m-0 overflow-hidden">
-                <Route path="/">
-                    <WelcomePage />
-                </Route>
-                <Route path="/workout">
-                    <WorkoutPage />
-                </Route>
-                <Route path="/dietplan">
-                    <DietPlanPage />
-                </Route>
-                <Route path="/fitnessplan">
-                    <FitnessPlanPage />
-                </Route>
-                <Route path="/progress">
-                    <ProgressPage />
-                </Route>
-                <Route path="/friends">
-                    <FriendsPage />
-                </Route>
-                <Route path="/login">
-                    {/* <LogInPage handleChange={handleUser} /> */}
-                    <LoginFirebase />
-                </Route>
-                <Route path="/reset">
-                    <ResetFirebase />
-                </Route>
-                <Route path="/register">
-                    <RegisterFirebase />
-                </Route>
-                <Route path="/rewards">
-                    <RewardsPage />
-                </Route>
-                <Route path="/yoga">
-                    <Yoga />
-                </Route>
-                <Route path="/fitness">
-                    <Workout />
-                </Route>
-            </div>
+            <AuthProvider>
+                <div className="m-0 overflow-hidden">
+                    <Header />
+                </div>
+                <section className=" h-1 bg-slate-700"></section>
+                <div className="m-0 overflow-hidden">
+                    <Route path="/">
+                        <WelcomePage />
+                    </Route>
+                    <Route path="/workout">
+                        <WorkoutPage />
+                    </Route>
+                    <Route path="/dietplan">
+                        <DietPlanPage />
+                    </Route>
+                    <Route path="/fitnessplan">
+                        <FitnessPlanPage />
+                    </Route>
+                    <Route path="/progress">
+                        <ProgressPage />
+                    </Route>
+                    <Route path="/friends">
+                        <FriendsPage />
+                    </Route>
+                    <Route path="/login">
+                        {/* <LogInPage handleChange={handleUser} /> */}
+                        <LoginFirebase />
+                    </Route>
+                    <Route path="/reset">
+                        <ResetFirebase />
+                    </Route>
+                    <Route path="/register">
+                        <RegisterFirebase />
+                    </Route>
+                    <Route path="/rewards">
+                        <RewardsPage />
+                    </Route>
+                    <Route path="/yoga">
+                        <Yoga />
+                    </Route>
+                    <Route path="/fitness">
+                        <Workout />
+                    </Route>
+                </div>
+            </AuthProvider>
         </div>
     );
 }

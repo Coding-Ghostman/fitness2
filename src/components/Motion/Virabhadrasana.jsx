@@ -53,7 +53,6 @@ const Virabhadrasana = ({ handleYoga }) => {
     };
 
     function onResult(results) {
-        console.log("Hello");
         if (results.poseLandmarks) {
             const position = results.poseLandmarks;
             canvasRef.current.width = webcamRef.current.video.videoWidth;
