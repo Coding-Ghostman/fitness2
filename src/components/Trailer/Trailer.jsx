@@ -86,9 +86,9 @@ function Trailer() {
     return (
         <div className="hidden md:block" id="trailer">
             <div className="scale-50">
-                <CalendarTodayRoundedIcon className="absolute top-[7px] -left-[1px] opacity-0" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
-                <ChevronLeftRoundedIcon className="absolute -left-[9px] opacity-0" id="trailer-icon-left" fontSize="large" sx={{ color: "#0e1b2b" }} />
-                <ChevronRightRoundedIcon className="absolute -left-[9px] opacity-0" id="trailer-icon-right" fontSize="large" sx={{ color: "#0e1b2b" }} />
+                <CalendarTodayRoundedIcon className="absolute top-[6px] -left-[2px] opacity-0" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
+                <ChevronLeftRoundedIcon className="absolute -top-[1px]  -left-[10px] opacity-0" id="trailer-icon-left" fontSize="large" sx={{ color: "#0e1b2b" }} />
+                <ChevronRightRoundedIcon className="absolute -top-[1px] -left-[10px] opacity-0" id="trailer-icon-right" fontSize="large" sx={{ color: "#0e1b2b" }} />
                 <SelfImprovementIcon className="absolute -left-[9px] opacity-0" id="yoga" fontSize="large" sx={{ color: "#0e1b2b" }} />
                 <FitnessCenterIcon className="absolute -left-[9px] opacity-0" id="workout" fontSize="large" sx={{ color: "#0e1b2b" }} />
                 <div className="absolute w-8 -right-2 opacity-0" id="back">

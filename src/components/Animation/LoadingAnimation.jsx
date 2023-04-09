@@ -16,7 +16,7 @@ const LoadingAnimation = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 opacity-80 bg-opacity-50 z-50">
             <div className="w-40 h-40 scale-[3]" ref={container}></div>
         </div>
     );
