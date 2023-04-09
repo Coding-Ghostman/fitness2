@@ -2,23 +2,15 @@ import { IconButton, Button } from "@mui/material";
 import Link from "../link/Link";
 import AccountMenu from "../menu/AccountMenu";
 import { useState, useContext, useEffect } from "react";
-import UserContext from "../../context/user";
 import menu from "../../assets/main-menu.png";
 import BasicMenu from "../menu/BasicMenu";
 import Menu from "../menu/Menu";
-import { auth } from "../auth/Firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { AuthContext } from "../auth/auth";
+import useNavigation from "../../hooks/use-navigation";
 
 function Header() {
-    const [user] = useAuthState(auth);
- 
-    // const value = useContext(UserContext);
-    // const [userObject, setUserObject] = useState({});
-    // console.log(value);
-    // useEffect(() => {
-    //     setUserObject(JSON.parse(localStorage.getItem("userObject")));
-    // }, [localStorage.getItem("userObject")]);
-
+    const { currentUser } = useContext(AuthContext);
+    const { navigate } = useNavigation();
     const links = [
         { id: 1, label: "Workout", path: "/workout" },
         { id: 2, label: "Diet Plan", path: "/dietplan" },
@@ -29,9 +21,15 @@ function Header() {
     const renderedLinks = links.map((link) => {
         return (
             <div key={link.id} className="interactable">
-                <Link activeClassName="" className="mt-1 hover:text-blue-300" to={link.path}>
-                    {link.label}
-                </Link>
+                {currentUser ? (
+                    <Link activeClassName="" className="mt-1 hover:text-blue-300" to={link.path}>
+                        {link.label}
+                    </Link>
+                ) : (
+                    <Link activeClassName="" className="mt-1 hover:text-blue-300" to={"/animation"}>
+                        {link.label}
+                    </Link>
+                )}
             </div>
         );
     });
@@ -43,12 +41,12 @@ function Header() {
             </Link>
             <div className=" flex-row py-1 justify-center items-center hidden md:flex gap-10">
                 {renderedLinks}
-                {user && (
+                {currentUser && (
                     <div data-type="account" className="interactable -ml-8 mr-2">
                         <AccountMenu />
                     </div>
                 )}
-                {!user && (
+                {!currentUser && (
                     <Link className="interactable mr-6" to="/login">
                         <Button sx={{ borderRadius: "20px", backgroundColor: "#E0E1DD", color: "black", fontWeight: "bold" }} variant="contained" size="medium" disableElevation>
                             Log In

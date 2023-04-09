@@ -2,12 +2,13 @@ import "./HeroSection.css";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import man from "../../assets/Man.png";
 import woman from "../../assets/woman.png";
+import back from "../../assets/back.jpg";
 
 function HeroSection() {
     return (
-        <section className="w-screen h-auto lg:h-[90vh] bg__gradient  pb-20 overflow-y-hidden">
+        <section className="w-screen h-auto lg:h-[90vh] bg__gradient pb-20 overflow-y-hidden overflow-hidden">
             <div className="md:container mx-5 md:mx-20 sm:mx-20 flex w-full h-full flex-wrap  lg:flex-nowrap  justify-between ">
-                <div className="mt-16 w-full" style={{ zIndex: 1 }}>
+                <div className="mt-16 w-full" style={{ zIndex: 10 }}>
                     <h1 className="text-4xl font-bold lg:text-8xl lg:font-extrabold sm:text-7xl md:text-7xl text-white">
                         POWERING YOUR WORKOUT WITH <span className="text-gradient">AI</span>
                     </h1>

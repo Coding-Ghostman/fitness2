@@ -8,3 +8,25 @@
 .card-gradient {
     background: linear-gradient(to bottom, #778da9, #1b263b);
 }
+@keyframes rotate {
+    from {
+        rotate: 0deg;
+    }
+    50% {
+        scale: 1 1.5;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}
+
+#blob {
+    translate: -50% -50%;
+    background: linear-gradient(to right, #8494e1, #22375c);
+    animation: rotate 20s infinite;
+}
+
+#blur {
+    backdrop-filter: blur(200px);
+}
