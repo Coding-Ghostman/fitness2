@@ -11,7 +11,7 @@ import ItemDropSpace from "../Droppables/ItemDropSpace";
 import { data } from "../Data/WorkoutData";
 import WorkoutRecommendation from "../Recommendation/WorkoutRecommendation";
 
-import { doc, onSnapshot, updateDoc, setDoc, deleteDoc, collection, serverTimestamp, getDocs, query, where, orderBy, limit, getDoc } from "firebase/firestore";
+import { doc, setDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../components/auth/Firebase";
 import { v4 as uuidv4 } from "uuid";
 import { AuthContext } from "../../components/auth/auth";

@@ -1,4 +1,4 @@
-.card {
+/* .card {
     position: relative;
 }
 
@@ -35,7 +35,7 @@
     background-size: 400% 400%;
     animation: gradient 5s ease infinite;
     height: 100vh;
-}
+} */
 
 #trailer:not([data-type=""]) > #trailer-icon {
     opacity: 1;

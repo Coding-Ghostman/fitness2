@@ -7,7 +7,7 @@ import calorie from "../../assets/calorie.png";
 import DateContext from "../../context/date";
 import "./Panel.css";
 
-function Progress() {
+function Progress() { 
     const { MEALS } = useContext(DateContext);
 
     return (
