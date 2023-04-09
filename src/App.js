@@ -25,7 +25,7 @@ function App() {
     return (
         <div className="app scrollbar z-0 overflow-hidden">
             <Trailer />
-            <TrailerBob />
+            {/* <TrailerBob /> */}
             <div className="m-0 overflow-hidden">
                 <Header />
             </div>

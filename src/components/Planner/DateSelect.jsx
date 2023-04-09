@@ -64,6 +64,7 @@ function DateSelect({ handleDate, updatedDate }) {
                             }}
                             onClose={handleClose}
                             orientation="portrait"
+                            disablePast
                         />
                     </LocalizationProvider>
                 </Box>
