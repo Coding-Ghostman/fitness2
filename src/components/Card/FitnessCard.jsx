@@ -4,9 +4,9 @@ import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import WbTwilightRoundedIcon from "@mui/icons-material/WbTwilightRounded";
 import sunset from "../../assets/sunset.png";
 import DateContext from "../../context/date";
-import "./ReportCard.css";
+import "./MealCard.css";
 
-function ReportCard({ meals, items }) {
+function FitnessCard({ meals, items }) {
     useEffect(() => {
         document.getElementById("cards").onmousemove = (e) => {
             for (const card of document.getElementsByClassName("card")) {
@@ -20,31 +20,31 @@ function ReportCard({ meals, items }) {
         };
     }, []);
 
-    const RenderedItems = items.map((item) => {
-        return <div>{item.WorkoutName}</div>;
-    });
-    
-    // console.log(items);
-    const RenderedCards = meals.map((item) => {
+    const RenderedCards = meals.map((meal) => {
         return (
             <div className="card ">
                 <div className="card-content">
                     <div className="card-image">
-                        {item.id === "1" ? (
+                        {meal.id === "1" ? (
                             <WbTwilightRoundedIcon fontSize="large" className="scale-[2.5]" sx={{ color: "white" }} />
-                        ) : item.id === "2" ? (
+                        ) : meal.id === "2" ? (
                             <WbSunnyRoundedIcon fontSize="large" className="scale-[2.5]" sx={{ color: "white" }} />
-                        ) : item.id === "3" ? (
+                        ) : meal.id === "3" ? (
                             <img className="scale-[0.33]" alt="" src={sunset} />
                         ) : (
                             <DarkModeRoundedIcon fontSize="large" className="scale-[2.5]" sx={{ color: "white" }} />
                         )}
                     </div>
-                    <div className="card-info-wrapper">
+                    <div className="card-info-wrapper m-0 text-white font-semibold">
                         <div className="card-info">
                             <div className="card-info-title">
-                                <h3>{item.name}</h3>
-                                <h4>{RenderedItems}</h4>
+                                <h3 className="font-bold">{meal.name}</h3>
+                                <h4>
+                                    {items.map((item) => {
+                                        console.log(items);
+                                        return <div>{item.meal === meal.id ? item.WorkoutName : ""}</div>;
+                                    })}
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -59,4 +59,4 @@ function ReportCard({ meals, items }) {
         </div>
     );
 }
-export default ReportCard;
+export default FitnessCard;

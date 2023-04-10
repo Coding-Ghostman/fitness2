@@ -8,10 +8,12 @@ import UserContext from "../../context/user";
 import Link from "../link/Link";
 import { auth, logout } from "../auth/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { AuthContext } from "../auth/auth";
 
 function AccountMenu() {
-    const [user] = useAuthState(auth);
+    const { currentUser } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
+    console.log(currentUser.photoURL);
     const open = Boolean(anchorEl);
 
     // const value = useContext(UserContext);
@@ -34,7 +36,7 @@ function AccountMenu() {
                     <IconButton onClick={handleClick} size="small" sx={{}} aria-controls={open ? "account-menu" : undefined} aria-haspopup="true" aria-expanded={open ? "true" : undefined}>
                         {/* <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> */}
                         <div className="w-[40%] h-[40%]">
-                            <img className="flex items-center justify-center rounded-xl" src={user.photoURL} alt="" />
+                            <img className="flex items-center justify-center rounded-xl" src={currentUser.photoURL} alt="" />
                         </div>
                     </IconButton>
                 </Tooltip>

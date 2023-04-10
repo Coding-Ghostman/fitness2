@@ -73,6 +73,9 @@ function App() {
                     </div>
                 ) : (
                     <div className="m-0 overflow-hidden">
+                        <Route path="/">
+                            <WelcomePage />
+                        </Route>
                         <Route path="/animation">
                             <SignInAnimation />
                         </Route>

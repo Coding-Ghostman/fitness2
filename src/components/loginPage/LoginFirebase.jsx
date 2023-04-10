@@ -9,13 +9,16 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, loading, error] = useAuthState(auth);
-    const { navigate } = useNavigation();
+    const { navigateReplace } = useNavigation();
     useEffect(() => {
         if (loading) {
             <LoadingAnimation />;
             return;
         }
-        if (user) navigate("/");
+        // navigateReplace("/")
+        if (user) {
+            navigateReplace("/");
+        }
     }, [user, loading]);
     return (
         <div className="login">
@@ -25,7 +28,13 @@ function Login() {
                 <button className="login__btn" onClick={() => logInWithEmailAndPassword(email, password)}>
                     Login
                 </button>
-                <button className="login__btn login__google" onClick={signInWithGoogle}>
+                <button
+                    className="login__btn login__google"
+                    onClick={() => {
+                        signInWithGoogle();
+                        navigateReplace("/");
+                    }}
+                >
                     Login with Google
                 </button>
                 <div>

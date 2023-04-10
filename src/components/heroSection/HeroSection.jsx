@@ -14,7 +14,7 @@ function HeroSection() {
                 <div className="mt-16 w-full" style={{ zIndex: 10 }}>
                     <h1 className="text-4xl font-bold lg:text-8xl lg:font-extrabold sm:text-7xl md:text-7xl text-white">
                         POWERING YOUR
-                        <TextAnimation>WORKOUT</TextAnimation> WITH <span className="text-gradient">AI</span>
+                        <TextAnimation>WORKOUT</TextAnimation> WITH <span className="text-gradient ">AI</span>
                     </h1>
                     <p className="lg:text-3xl lg:font-bold md:text-3xl sm:text-3xl w-10/12 text-white mt-2">Fuel the future of workout with the application Of 3d motion tracking software.</p>
                     <div className=" mt-4 ">

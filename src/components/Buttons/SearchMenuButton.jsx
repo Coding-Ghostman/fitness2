@@ -1,6 +1,6 @@
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
-function SearchMenuButton({setIsOpen, isOpen, filteredItems, searchQuery, setSearchQuery}) {
+function SearchMenuButton({ setIsOpen, isOpen, filteredItems, searchQuery, setSearchQuery }) {
     return (
         <button
             type="button"

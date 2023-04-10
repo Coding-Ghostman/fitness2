@@ -220,7 +220,7 @@ const FitnessPlanner = () => {
                             <div className="absolute -translate-y-4 w-24 h-24 scale-[2] mt-4 z-1">
                                 <img alt="" src={food} />
                             </div>
-                            <div className="relative z-10 mr-20 flex flex-col gap-4">
+                            <div className="relative z-10 mr-20 flex flex-col gap-4 text-black">
                                 {/* <EditButton editable={editable} isEdit={isEdit} /> */}
                                 <SearchMenuButton setIsOpen={setIsOpen} isOpen={isOpen} filteredItems={filteredItems} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                             </div>

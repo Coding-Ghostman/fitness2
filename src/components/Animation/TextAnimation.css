@@ -10,3 +10,7 @@ h1:hover {
     background-color: transparent;
     color: white;
 }
+
+.pad {
+    padding-right: 2px;
+}

@@ -9,10 +9,11 @@ import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import sunset from "../assets/sunset.png";
 import calorie from "../assets/calorie.png";
-import ReportCard from "../components/Card/ReportCard";
+import ReportCard from "../components/Card/MealCard";
 import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { AuthContext } from "../components/auth/auth";
 import { db } from "../components/auth/Firebase";
+import FitnessCard from "../components/Card/FitnessCard";
 
 function ProgressPage() {
     const { date, MEALS, setDate } = useContext(DateContext);
@@ -79,9 +80,9 @@ function ProgressPage() {
                 </div>
             </div>
             <div>
-                <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Meal Plans</div>
+                <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Fitness Plan</div>
                 <div className="flex flex-row gap-1 items-center justify-center mx-auto">
-                    <ReportCard meals={MEALS} items={items} />
+                    <FitnessCard meals={MEALS} items={items} />
                 </div>
             </div>
         </div>

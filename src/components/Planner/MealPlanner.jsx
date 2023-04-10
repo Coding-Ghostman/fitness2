@@ -344,5 +344,5 @@ export default MealPlanner;
                                 <span className="mr-2">{"Select an item"}</span>
                                 <svg className={`fill-current h-4 w-4 ${isOpen ? "-rotate-180" : ""}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M6 8l4 4 4-4"></path>
-                                </svg>
+                                </svg   `>
                             </button> */

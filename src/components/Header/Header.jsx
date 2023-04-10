@@ -10,6 +10,7 @@ import useNavigation from "../../hooks/use-navigation";
 
 function Header() {
     const { currentUser } = useContext(AuthContext);
+    // console.log(currentUser);
     const { navigate } = useNavigation();
     const links = [
         { id: 1, label: "Workout", path: "/workout" },

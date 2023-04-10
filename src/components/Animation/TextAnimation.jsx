@@ -46,7 +46,7 @@ function TextAnimation({ children }) {
     let interval = null;
 
     return (
-        <div className="inline-block whitespace-nowrap">
+        <div className="inline-block whitespace-nowrap pad">
             <h1 id="Text" data-value={children}>
                 {children}
             </h1>
