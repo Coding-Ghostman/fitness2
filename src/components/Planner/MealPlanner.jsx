@@ -7,34 +7,99 @@ import AddIcon from "@mui/icons-material/Add";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { v4 as uuidv4 } from "uuid";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import { data } from "../Data/MealData";
 import "./Panel.css";
-// import { Divider } from "@mui/material";
-// import { Divider } from "antd";
+import { doc, setDoc, collection, getDocs, query, where, deleteDoc } from "firebase/firestore";
+import { db } from "../../components/auth/Firebase";
+import { AuthContext } from "../../components/auth/auth";
 
-let menuItems = [
-    { id: "10", name: "Chicken ", meal: "1", added: false },
-    { id: "20", name: "Spaghetti", meal: "2", added: false },
-    { id: "30", name: "Grilled ", meal: "3", added: false },
-    { id: "40", name: "Chicken ", meal: "4", added: false },
-];
+let menuItems = data;
 
 const MealPlanner = () => {
-    const { date, MEALS } = useContext(DateContext);
-    const [items, setItems] = useState([]);
+    const { date, MEALS } = useContext(DateContext); // Date for the current items
+    const collectionDate = dayjs(date).format("MMMM,DD");
+
+    const { currentUser } = useContext(AuthContext);
+    const currentUserId = currentUser ? currentUser.uid : null;
+
+    const [items, setItems] = useState([]); // items to add to the db
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredItems, setFilteredItems] = useState(menuItems);
+    const [docRef, setDocRef] = useState(null);
+    const [collectionRef, setCollectionRef] = useState(null);
+
     const [isOpen, setIsOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        const filtered = menuItems.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        const fetchData = async () => {
+            const userRef = collection(db, "users");
+            const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
+            if (!userDocSnapshot.empty) {
+                // Get the first document from the query snapshot
+                const userDocRef = userDocSnapshot.docs[0].ref;
+                setDocRef(userDocRef);
+            } else {
+                // No documents match the query
+                console.log("No documents match the query!");
+            }
+            setCollectionRef(collection(docRef, "meal-" + collectionDate));
+        };
+        fetchData();
+        items.map(async (item) => {
+            try {
+                const itemRef = doc(collectionRef, item.id);
+                await setDoc(itemRef, item);
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    }, [items, date]);
+
+    useEffect(() => {
+        setItems([]);
+        let newItems = [];
+        let newFilteredItems = [];
+        const fetchData = async () => {
+            try {
+                // Get the collection reference using the current user ID and the current date
+                const userRef = collection(db, "users");
+                const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
+                if (!userDocSnapshot.empty) {
+                    const userDocRef = userDocSnapshot.docs[0].ref;
+                    const collectionRef = collection(userDocRef, "meal-" + dayjs(date).format("MMMM,DD"));
+                    const subDocsSnapshot = await getDocs(collectionRef);
+                    subDocsSnapshot.forEach((doc) => {
+                        if (doc.exists()) {
+                            const subDocData = doc.data();
+                            newItems = [...newItems, subDocData];
+                            newFilteredItems = [...newFilteredItems, subDocData];
+                            // console.log(filteredItems[filteredItems.findIndex((item) => item.id === subDocData.id)]);
+                        } else {
+                            console.log("Subdocument does not exist!");
+                        }
+                    });
+                    const filteredArray = filteredItems.filter((obj) => !newFilteredItems.some((filterObj) => filterObj.id === obj.id));
+                    setFilteredItems(filteredArray);
+                    setItems(newItems);
+                } else {
+                    console.log("No documents match the query!");
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchData();
+    }, [date, currentUserId]);
+
+    useEffect(() => {
+        const filtered = menuItems.filter((item) => item.FoodItem.toLowerCase().includes(searchQuery.toLowerCase()));
         setFilteredItems(filtered);
     }, [searchQuery]);
 
@@ -50,26 +115,29 @@ const MealPlanner = () => {
     const handleTextChange = (text, item) => {
         const newArray = [...items];
         const index = newArray.findIndex((obj) => obj.id === item.id);
-        const updatedObject = { ...newArray[index], name: text };
+        const updatedObject = { ...newArray[index], FoodItem: text };
         newArray.splice(index, 1, updatedObject);
         setItems(newArray);
     };
     //"13ac685d-3fde-4630-8a1b-7681419dfca3"
 
+    const handleDocDelete = async (itemId) => {
+        const userRef = collection(db, "users");
+        const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
+        if (!userDocSnapshot.empty) {
+            const userDocRef = userDocSnapshot.docs[0].ref;
+            const collectionRef = collection(userDocRef, "meal-" + dayjs(date).format("MMMM,DD"));
+            const subDocsSnapshot = await getDocs(collectionRef);
+
+            subDocsSnapshot.forEach((doc) => {
+                if (doc.id === itemId) {
+                    deleteDoc(doc.ref);
+                }
+            });
+        }
+    };
+
     const handleClick = (e) => {
-        // const found = items.filter((item) => item.added === false);
-        // if (found) {
-        //     const index = found?.findIndex((item) => item?.id === e);
-        //     menuItems = [...menuItems, items[index]];
-        //     setFilteredItems(menuItems);
-        //     // console.log(items, e);
-        //     const newItems = items.filter((item) => item?.id !== e);
-        //     setItems(newItems);
-        //     // console.log(filteredItems, menuItems);
-        // } else {
-        //     const newItems = items.filter((item) => item.id !== e);
-        //     setItems(newItems);
-        // }
         const found = items.find((item) => item.id === e);
         if (found.added === true) {
             const newItems = items.filter((item) => item.id !== e);
@@ -79,6 +147,7 @@ const MealPlanner = () => {
             setFilteredItems(menuItems);
             const newItems = items.filter((item) => item.id !== e);
             setItems(newItems);
+            handleDocDelete(e);
         }
     };
 
@@ -138,7 +207,7 @@ const MealPlanner = () => {
     };
 
     return (
-        <div className=" p-4">
+        <div className="">
             <div className="font-[800] lg:text-3xl sm:text-2xl text-2xl w-full text-white flex flex-row gap-2 justify-center items-center select-none mt-4">
                 <div className="cursor-pointer ">{dayjs(date).format("dddd")}</div>
             </div>
@@ -160,7 +229,7 @@ const MealPlanner = () => {
                                     <div className="text-sm -mb-2 text-gray-400 font- select-none w-[70px]">{meal.time}</div>
                                     <div className="text-lg font-bold select-none">{meal.name}</div>
                                 </div>
-                                <div className="">
+                                <div className="mb-10">
                                     {
                                         <div className="flex flex-col items-start justify-center ml-[40px] w-[200px]">
                                             <Droppable droppableId={meal.id}>
@@ -181,26 +250,34 @@ const MealPlanner = () => {
                                                                                         {...provided.dragHandleProps}
                                                                                         ref={provided.innerRef}
                                                                                         onClick={handleEditStatus}
-                                                                                        className="bg-gray-200 rounded-xl px-4 py-1 items-center justify-center flex flex-row mb-2 mt-2 font-bold text-xl select-none"
+                                                                                        className="bg-gray-200 rounded-xl px-4 py-1 items-center justify-center flex flex-row mb-2 mt-2 font-bold text-xl select-none gap-10"
                                                                                     >
                                                                                         {isEdit && isReady && item.added ? (
                                                                                             <input
                                                                                                 onChange={(e) => {
                                                                                                     handleTextChange(e.target.value, item);
                                                                                                 }}
-                                                                                                value={item.name}
+                                                                                                value={item.FoodItem}
                                                                                                 type="text"
                                                                                             ></input>
                                                                                         ) : (
-                                                                                            item.name
+                                                                                            <div className="flex flex-row justify-between gap-40">
+                                                                                                <div className="flex-1 w-[150px]">{item.FoodItem}</div>
+                                                                                                <div className="flex-1 flex justify-end">
+                                                                                                    <div className="w-[80px]">{item?.Calories}</div>
+                                                                                                    <div className="">{item?.vegNonVeg}</div>
+                                                                                                </div>
+                                                                                            </div>
                                                                                         )}
-                                                                                        <ClearRoundedIcon
-                                                                                            fontSize="medium"
-                                                                                            onClick={() => {
-                                                                                                handleClick(item.id);
-                                                                                            }}
-                                                                                            className="ml-auto mr-2 interactable "
-                                                                                        />
+                                                                                        <div className="interactable hover:scale-[1.5] hover:rotate-90 transform transition duration-300">
+                                                                                            <ClearRoundedIcon
+                                                                                                fontSize="medium"
+                                                                                                onClick={() => {
+                                                                                                    handleClick(item.id);
+                                                                                                }}
+                                                                                                className=""
+                                                                                            />
+                                                                                        </div>
                                                                                     </div>
                                                                                 )}
                                                                             </Draggable>
@@ -214,13 +291,13 @@ const MealPlanner = () => {
                                                     </>
                                                 )}
                                             </Droppable>
-                                            <button
+                                            {/* <button
                                                 data-type="add"
                                                 className="flex items-center justify-center ml-[50%] text-gray-500 font-bold text-lg rounded-3xl border-dashed border  w-[30vw] min-h-[50px] hover:text-gray-300 transition-colors duration-300 mt-4 mb-20 interactable select-none"
                                                 onClick={() => {
                                                     const newItem = {
                                                         id: uuidv4(),
-                                                        name: "Item added",
+                                                        FoodItem: "Item added",
                                                         meal: meal.id,
                                                         added: true,
                                                     };
@@ -229,21 +306,21 @@ const MealPlanner = () => {
                                             >
                                                 <AddIcon fontSize="medium" className="mr-2" />
                                                 <span>Add item</span>
-                                            </button>
+                                            </button> */}
                                         </div>
                                     }
-                                    <section className="absolute -translate-x-24 -translate-y-8 h-[2px] w-[100%] bg-slate-700"></section>
+                                    <section className="absolute mt-8 h-[2px] w-[57%] bg-slate-600"></section>
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <div className="-mt-8">
+                    <div className="mt-6">
                         <div>
                             <div className="absolute -translate-y-4 w-24 h-24 scale-[2] mt-4 z-1">
                                 <img alt="" src={food} />
                             </div>
                             <div className="relative z-10 mr-20 flex flex-col gap-4">
-                                <button onClick={editable} className="bg-gray-200 z-10 transition-colors hover:bg-gray-400 rounded-xl p-2 w-10 ml-auto interactable">
+                                {/* <button onClick={editable} className="bg-gray-200 z-10 transition-colors hover:bg-gray-400 rounded-xl p-2 w-10 ml-auto interactable">
                                     {isEdit ? (
                                         <BootstrapTooltip title="Edit Done">
                                             <DoneAllRoundedIcon />
@@ -251,7 +328,7 @@ const MealPlanner = () => {
                                     ) : (
                                         <EditRoundedIcon />
                                     )}
-                                </button>
+                                </button> */}
                                 <button
                                     type="button"
                                     className="bg-gray-200 z-10 text-gray-900 font-semibold py-2 px-4 rounded-xl inline-flex items-center interactable select-none transition-colors hover:bg-gray-400"
@@ -284,7 +361,7 @@ const MealPlanner = () => {
                             <div className="absolute z-10 mt-2 w-[12%] bg-white rounded-lg shadow-lg">
                                 <Droppable droppableId="menuItems">
                                     {(provided) => (
-                                        <ul className="py-2" {...provided.droppableProps} ref={provided.innerRef}>
+                                        <ul className="py-2 max-h-[400px] overflow-scroll" {...provided.droppableProps} ref={provided.innerRef}>
                                             {filteredItems.map((item, index) => (
                                                 <Draggable key={item.id} draggableId={item.id} index={index}>
                                                     {(provided) => (
@@ -294,7 +371,11 @@ const MealPlanner = () => {
                                                             ref={provided.innerRef}
                                                             className="bg-white hover:bg-gray-400 transition-colors ease-linear duration-300 rounded p-2 mb-2 mt-2 interactable select-none"
                                                         >
-                                                            {item.name}
+                                                            <div>
+                                                                <div>{item.FoodItem}</div>
+                                                                <div>{item.Calories}</div>
+                                                                <div>{item.vegNonVeg}</div>
+                                                            </div>
                                                         </div>
                                                     )}
                                                 </Draggable>

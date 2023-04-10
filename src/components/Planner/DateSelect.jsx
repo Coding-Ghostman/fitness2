@@ -46,7 +46,7 @@ function DateSelect({ handleDate, updatedDate }) {
                 {/* <div className=" cursor-pointer sm:ml-auto">{dayjs(date).format("dddd")}.</div> */}
             </div>
             <Modal className="" open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-                <Box className="card overflow-y-hidden" sx={style_box}>
+                <Box className="card-box overflow-y-hidden" sx={style_box}>
                     <Typography sx={{ fontWeight: "bold", fontFamily: "Rubik" }} color="black" id="modal-modal-title" variant="h4" component="h2">
                         Choose any day
                     </Typography>
@@ -64,7 +64,6 @@ function DateSelect({ handleDate, updatedDate }) {
                             }}
                             onClose={handleClose}
                             orientation="portrait"
-                            disablePast
                         />
                     </LocalizationProvider>
                 </Box>

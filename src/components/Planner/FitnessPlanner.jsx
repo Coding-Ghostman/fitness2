@@ -11,7 +11,7 @@ import ItemDropSpace from "../Droppables/ItemDropSpace";
 import { data } from "../Data/WorkoutData";
 import WorkoutRecommendation from "../Recommendation/WorkoutRecommendation";
 
-import { doc, setDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { doc, setDoc, collection, getDocs, query, where, deleteDoc } from "firebase/firestore";
 import { db } from "../../components/auth/Firebase";
 import { v4 as uuidv4 } from "uuid";
 import { AuthContext } from "../../components/auth/auth";
@@ -47,7 +47,7 @@ const FitnessPlanner = () => {
                 // No documents match the query
                 console.log("No documents match the query!");
             }
-            setCollectionRef(collection(docRef, collectionDate));
+            setCollectionRef(collection(docRef, "date-" + collectionDate));
         };
         fetchData();
         items.map(async (item) => {
@@ -63,6 +63,7 @@ const FitnessPlanner = () => {
     useEffect(() => {
         setItems([]);
         let newItems = [];
+        let newFilteredItems = [];
         const fetchData = async () => {
             try {
                 // Get the collection reference using the current user ID and the current date
@@ -70,17 +71,22 @@ const FitnessPlanner = () => {
                 const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
                 if (!userDocSnapshot.empty) {
                     const userDocRef = userDocSnapshot.docs[0].ref;
-                    const collectionRef = collection(userDocRef, dayjs(date).format("MMMM,DD"));
+                    const collectionRef = collection(userDocRef, "date-" + dayjs(date).format("MMMM,DD"));
                     // Get the subcollection documents
                     const subDocsSnapshot = await getDocs(collectionRef);
                     subDocsSnapshot.forEach((doc) => {
                         if (doc.exists()) {
                             const subDocData = doc.data();
                             newItems = [...newItems, subDocData];
+                            newFilteredItems = [...newFilteredItems, subDocData];
+                            console.log("Here");
+                            // console.log(filteredItems[filteredItems.findIndex((item) => item.id === subDocData.id)]);
                         } else {
                             console.log("Subdocument does not exist!");
                         }
                     });
+                    const filteredArray = filteredItems.filter((obj) => !newFilteredItems.some((filterObj) => filterObj.id === obj.id));
+                    setFilteredItems(filteredArray);
                     setItems(newItems);
                 } else {
                     console.log("No documents match the query!");
@@ -101,7 +107,32 @@ const FitnessPlanner = () => {
         setIsReady(true);
     };
 
-    const handleRecommendation = (workoutPlan) => {};
+    const handleRecommendation = async (workoutPlan) => {
+        setFilteredItems(menuItems);
+        setItems([]);
+
+        const userRef = collection(db, "users");
+        const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
+        if (!userDocSnapshot.empty) {
+            const userDocRef = userDocSnapshot.docs[0].ref;
+            const collectionRef = collection(userDocRef, "date-" + dayjs(date).format("MMMM,DD"));
+            // Get the subcollection documents
+            const subDocsSnapshot = await getDocs(collectionRef);
+            subDocsSnapshot.forEach(async (doc) => {
+                if (doc.exists()) {
+                    await deleteDoc(doc.ref);
+                } else {
+                    console.log("Subdocument does not exist!");
+                }
+            });
+        }
+
+        const filteredArray = filteredItems.filter((obj) => !workoutPlan.some((filterObj) => filterObj === obj.WorkoutName));
+        const newfilteredArray = filteredItems.filter((obj) => workoutPlan.some((filterObj) => filterObj === obj.WorkoutName));
+
+        setItems(newfilteredArray);
+        setFilteredItems(filteredArray);
+    };
 
     const handleTextChange = (text, item) => {
         const newArray = [...items];
@@ -111,16 +142,34 @@ const FitnessPlanner = () => {
         setItems(newArray);
     };
 
+    const handleDocDelete = async (itemId) => {
+        const userRef = collection(db, "users");
+        const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
+        if (!userDocSnapshot.empty) {
+            const userDocRef = userDocSnapshot.docs[0].ref;
+            const collectionRef = collection(userDocRef, "date-" + dayjs(date).format("MMMM,DD"));
+            const subDocsSnapshot = await getDocs(collectionRef);
+
+            subDocsSnapshot.forEach((doc) => {
+                if (doc.id === itemId) {
+                    deleteDoc(doc.ref);
+                }
+            });
+        }
+    };
+
     const handleClick = (e) => {
         const found = items.find((item) => item.id === e);
         if (found.added === true) {
             const newItems = items.filter((item) => item.id !== e);
+            console.log(newItems);
             setItems(newItems);
         } else {
             menuItems = [...menuItems, found];
             setFilteredItems(menuItems);
             const newItems = items.filter((item) => item.id !== e);
             setItems(newItems);
+            handleDocDelete(e);
         }
     };
 
@@ -216,7 +265,7 @@ const FitnessPlanner = () => {
                         {renderedMeals}
                     </div>
                     <div className="-mt-8">
-                        <div>
+                        <div className="mt-14">
                             <div className="absolute -translate-y-4 w-24 h-24 scale-[2] mt-4 z-1">
                                 <img alt="" src={food} />
                             </div>

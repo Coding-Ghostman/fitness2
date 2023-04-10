@@ -19,6 +19,7 @@ function WorkoutRecommendation({ workouts, handleRecommendation }) {
     };
 
     const handleGenerateWorkout = () => {
+        setWorkoutPlan([]);
         const filteredWorkouts = workouts.filter((workout) => workout.Level === Level);
         const sortedWorkouts = filteredWorkouts.sort((a, b) => a.ExpectedkcalLost - b.ExpectedkcalLost);
         let totalCalories = 0;
@@ -38,10 +39,10 @@ function WorkoutRecommendation({ workouts, handleRecommendation }) {
     };
 
     return (
-        <div className="max-w-lg mx-auto">
-            <h2 className="text-3xl font-bold mb-4">Workout Recommendation</h2>
+        <div className="max-w-lg ml-10 mt-10">
+            <h2 className="text-3xl font-bold mb-4 text-white">Workout Recommendation</h2>
             <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2" htmlFor="Level">
+                <label className="block text-gray-200 font-bold mb-2" htmlFor="Level">
                     Level
                 </label>
                 <select
@@ -57,7 +58,7 @@ function WorkoutRecommendation({ workouts, handleRecommendation }) {
                 </select>
             </div>
             <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2" htmlFor="ExpectedkcalLost">
+                <label className="block text-gray-200 font-bold mb-2" htmlFor="ExpectedkcalLost">
                     Expected Calories
                 </label>
                 <input
@@ -70,7 +71,7 @@ function WorkoutRecommendation({ workouts, handleRecommendation }) {
                 />
             </div>
             <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2" htmlFor="preferredTime">
+                <label className="block text-gray-200 font-bold mb-2" htmlFor="preferredTime">
                     Preferred Time
                 </label>
                 <select
@@ -90,15 +91,17 @@ function WorkoutRecommendation({ workouts, handleRecommendation }) {
             </button>
             {workoutPlan.length > 0 ? (
                 <>
-                    <h3 className="text-2xl font-bold mb-2">Your {preferredTime} Workout Plan:</h3>
+                    <h3 className="text-2xl font-bold mb-2 text-gray-200 mt-2">Your {preferredTime} Workout Plan:</h3>
                     <ul className="list-disc pl-4">
                         {workoutPlan.map((workout, index) => (
-                            <li key={index}>{workout}</li>
+                            <li className="text-gray-200 text-xl" key={index}>
+                                {workout}
+                            </li>
                         ))}
                     </ul>
                 </>
             ) : (
-                <p>No workout plan generated yet.</p>
+                ""
             )}
         </div>
     );

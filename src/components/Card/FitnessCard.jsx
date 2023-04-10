@@ -4,7 +4,7 @@ import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import WbTwilightRoundedIcon from "@mui/icons-material/WbTwilightRounded";
 import sunset from "../../assets/sunset.png";
 import DateContext from "../../context/date";
-import "./MealCard.css";
+import "./FitnessCard.css";
 
 function FitnessCard({ meals, items }) {
     useEffect(() => {
@@ -22,7 +22,7 @@ function FitnessCard({ meals, items }) {
 
     const RenderedCards = meals.map((meal) => {
         return (
-            <div className="card ">
+            <div className="card">
                 <div className="card-content">
                     <div className="card-image">
                         {meal.id === "1" ? (

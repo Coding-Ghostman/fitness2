@@ -6,10 +6,16 @@ import sunset from "../../assets/sunset.png";
 import DateContext from "../../context/date";
 import "./MealCard.css";
 
-function MealCard({ meals, items }) {
+const MEALS = [
+    { id: "1", name: "Morning", time: "08:30 AM" },
+    { id: "2", name: "Afternoon", time: "12:30 PM" },
+    { id: "3", name: "Evening", time: "5:30 PM" },
+    { id: "4", name: "Night", time: "9:30 PM" },
+];
+function MealCard({ items }) {
     useEffect(() => {
-        document.getElementById("cards").onmousemove = (e) => {
-            for (const card of document.getElementsByClassName("card")) {
+        document.getElementById("meal-cards").onmousemove = (e) => {
+            for (const card of document.getElementsByClassName("meal-card")) {
                 const rect = card.getBoundingClientRect(),
                     x = e.clientX - rect.left,
                     y = e.clientY - rect.top;
@@ -20,16 +26,11 @@ function MealCard({ meals, items }) {
         };
     }, []);
 
-    const RenderedItems = items.map((item) => {
-        console.log(items);
-        return <div>{item.WorkoutName}</div>;
-    });
-
-    const RenderedCards = meals.map((meal) => {
+    const RenderedCards = MEALS.map((meal) => {
         return (
-            <div className="card ">
-                <div className="card-content">
-                    <div className="card-image">
+            <div className="meal-card">
+                <div className="meal-card-content">
+                    <div className="meal-card-image">
                         {meal.id === "1" ? (
                             <WbTwilightRoundedIcon fontSize="large" className="scale-[2.5]" sx={{ color: "white" }} />
                         ) : meal.id === "2" ? (
@@ -40,14 +41,14 @@ function MealCard({ meals, items }) {
                             <DarkModeRoundedIcon fontSize="large" className="scale-[2.5]" sx={{ color: "white" }} />
                         )}
                     </div>
-                    <div className="card-info-wrapper m-0 text-white font-semibold">
-                        <div className="card-info">
-                            <div className="card-info-title">
+                    <div className="meal-card-info-wrapper m-0 text-white font-semibold">
+                        <div className="meal-card-info">
+                            <div className="meal-card-info-title">
                                 <h3 className="font-bold">{meal.name}</h3>
                                 <h4>
                                     {items.map((item) => {
                                         console.log(items);
-                                        return <div>{item.meal === meal.id ? item.WorkoutName : ""}</div>;
+                                        return <div>{item.meal === meal.id ? item.FoodItem : ""}</div>;
                                     })}
                                 </h4>
                             </div>
@@ -59,7 +60,7 @@ function MealCard({ meals, items }) {
     });
 
     return (
-        <div id="cards" className="flex justify-center items-center">
+        <div id="meal-cards" className="flex justify-center items-center">
             {RenderedCards}
         </div>
     );

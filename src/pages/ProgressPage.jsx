@@ -4,26 +4,19 @@ import NavigateDateLeft from "../components/Planner/NavigateDateLeft";
 import NavigateDateRight from "../components/Planner/NavigateDateRight";
 import DateContext from "../context/date";
 import dayjs from "dayjs";
-import WbTwilightRoundedIcon from "@mui/icons-material/WbTwilightRounded";
-import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
-import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
-import sunset from "../assets/sunset.png";
-import calorie from "../assets/calorie.png";
-import ReportCard from "../components/Card/MealCard";
 import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { AuthContext } from "../components/auth/auth";
 import { db } from "../components/auth/Firebase";
 import FitnessCard from "../components/Card/FitnessCard";
+import MealCard from "../components/Card/MealCard";
 
 function ProgressPage() {
     const { date, MEALS, setDate } = useContext(DateContext);
-    const collectionDate = dayjs(date).format("MMMM,DD");
     const { currentUser } = useContext(AuthContext);
     const currentUserId = currentUser ? currentUser.uid : null;
 
-    const [items, setItems] = useState([]);
-    const [docRef, setDocRef] = useState(null);
-    const [collectionRef, setCollectionRef] = useState(null);
+    const [fitnessItems, setFitnessItems] = useState([]);
+    const [mealItems, setMealItems] = useState([]);
 
     const handleNextDay = () => {
         const nextDay = dayjs(date).add(1, "day");
@@ -37,8 +30,10 @@ function ProgressPage() {
     };
 
     useEffect(() => {
-        setItems([]);
-        let newItems = [];
+        setFitnessItems([]);
+        setMealItems([]);
+        let newFitnessItems = [];
+        let newMealItems = [];
         const fetchData = async () => {
             try {
                 // Get the collection reference using the current user ID and the current date
@@ -46,17 +41,33 @@ function ProgressPage() {
                 const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
                 if (!userDocSnapshot.empty) {
                     const userDocRef = userDocSnapshot.docs[0].ref;
-                    const collectionRef = collection(userDocRef, dayjs(date).format("MMMM,DD"));
-                    const subDocsSnapshot = await getDocs(collectionRef);
-                    subDocsSnapshot.forEach((doc) => {
+
+                    const dateCollectionRef = collection(userDocRef, "date-" + dayjs(date).format("MMMM,DD"));
+                    const subDateDocsSnapshot = await getDocs(dateCollectionRef);
+
+                    const mealCollectionRef = collection(userDocRef, "meal-" + dayjs(date).format("MMMM,DD"));
+                    const subMealDocsSnapshot = await getDocs(mealCollectionRef);
+
+                    subDateDocsSnapshot.forEach((doc) => {
                         if (doc.exists()) {
                             const subDocData = doc.data();
-                            newItems = [...newItems, subDocData];
+                            newFitnessItems = [...newFitnessItems, subDocData];
                         } else {
                             console.log("Subdocument does not exist!");
                         }
                     });
-                    setItems(newItems);
+
+                    subMealDocsSnapshot.forEach((doc) => {
+                        if (doc.exists()) {
+                            const subDocData = doc.data();
+                            console.log(subDocData);
+                            newMealItems = [...newMealItems, subDocData];
+                        } else {
+                            console.log("Subdocument does not exist!");
+                        }
+                    });
+                    setFitnessItems(newFitnessItems);
+                    setMealItems(newMealItems);
                 } else {
                     console.log("No documents match the query!");
                 }
@@ -82,7 +93,13 @@ function ProgressPage() {
             <div>
                 <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Fitness Plan</div>
                 <div className="flex flex-row gap-1 items-center justify-center mx-auto">
-                    <FitnessCard meals={MEALS} items={items} />
+                    <FitnessCard meals={MEALS} items={fitnessItems} />
+                </div>
+            </div>
+            <div>
+                <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Meal Plan</div>
+                <div className="flex flex-row gap-1 items-center justify-center mx-auto">
+                    <MealCard items={mealItems} />
                 </div>
             </div>
         </div>
