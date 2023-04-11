@@ -1,0 +1,11 @@
+Model Information:
+* title:	Yoga Woman
+* source:	https://sketchfab.com/3d-models/yoga-woman-f7cc2ad8539f46a08c30448e8654db53
+* author:	vSpline (https://sketchfab.com/vSpline)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Yoga Woman" (https://sketchfab.com/3d-models/yoga-woman-f7cc2ad8539f46a08c30448e8654db53) by vSpline (https://sketchfab.com/vSpline) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

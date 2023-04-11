@@ -20,6 +20,7 @@ import TrailerBob from "./components/Trailer/TrailerBlob";
 import Trailer from "./components/Trailer/Trailer";
 import DateContext from "./context/date";
 import dayjs from "dayjs";
+import HomePage from "./pages/Homepage";
 
 const MEALS = [
     { id: "1", name: "Breakfast", time: "08:30 AM" },
@@ -46,7 +47,8 @@ function App() {
                             <WorkoutPage />
                         </Route>
                         <Route path="/">
-                            <WelcomePage />
+                            {/* <WelcomePage /> */}
+                            <HomePage />
                         </Route>
                         <Route path="/dietplan">
                             <DietPlanPage />

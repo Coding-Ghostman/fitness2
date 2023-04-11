@@ -2,9 +2,7 @@ import "./HeroSection.css";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import man from "../../assets/Man.png";
 import woman from "../../assets/woman.png";
-import back from "../../assets/back.jpg";
-import ModelViewer from "../Model/Model";
-import Scene from "../Model/Model";
+
 import TextAnimation from "../Animation/TextAnimation";
 
 function HeroSection() {

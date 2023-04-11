@@ -3,6 +3,7 @@ import Link from "../link/Link";
 import AccountMenu from "../menu/AccountMenu";
 import { useState, useContext, useEffect } from "react";
 import menu from "../../assets/main-menu.png";
+import logo from "../../assets/logo.png";
 import BasicMenu from "../menu/BasicMenu";
 import Menu from "../menu/Menu";
 import { AuthContext } from "../auth/auth";
@@ -36,9 +37,11 @@ function Header() {
     });
 
     return (
-        <div style={{ backgroundColor: "#0e1b2b" }} className="m-0 overflow-hidden relative flex w-full flex-row items-center justify-between py-3 gap-8 font-Rubik ">
+        <div style={{ backgroundColor: "#082028" }} className="m-0 overflow-hidden relative flex w-full flex-row items-center justify-between py-3 gap-8 font-Rubik ">
             <Link className="ml-6" to={`/`}>
-                <div className="py-1 interactable">LOGO</div>
+                <div className="py-1 interactable ">
+                    <img className="w-14 h-8" src={logo} alt="" />
+                </div>
             </Link>
             <div className=" flex-row py-1 justify-center items-center hidden md:flex gap-10">
                 {renderedLinks}

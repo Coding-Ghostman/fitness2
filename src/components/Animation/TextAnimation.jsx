@@ -1,23 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./TextAnimation.css";
 
 function TextAnimation({ children }) {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+    const ref = useRef(null);
     useEffect(() => {
-        const textElement = document.getElementById("Text");
-
-        if (textElement) {
-            textElement.addEventListener("mouseover", handleMouseover);
+        const node = ref.current;
+        if (node) {
+            node.addEventListener("mouseover", handleMouseover);
         }
-
         return () => {
-            if (textElement) {
-                textElement.removeEventListener("mouseover", handleMouseover);
+            if (node) {
+                node.removeEventListener("mouseover", handleMouseover);
             }
         };
     }, []);
-
     const handleMouseover = (event) => {
         let iteration = 0;
 
@@ -47,7 +44,7 @@ function TextAnimation({ children }) {
 
     return (
         <div className="inline-block whitespace-nowrap pad">
-            <h1 id="Text" data-value={children}>
+            <h1 ref={ref} id="Text" data-value={children}>
                 {children}
             </h1>
         </div>
