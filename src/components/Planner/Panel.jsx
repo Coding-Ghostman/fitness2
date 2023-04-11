@@ -24,7 +24,7 @@ function Panel() {
     // console.log(dayjs(date).add(1, "day"));
     return (
         <div className="relative bg_panel">
-            <div className="lg:w-[35vw] w-[100vw] h-[50vh] lg:h-[109vh] float-right bg-slate-700 overflow-y-auto overflow-x-hidden z-10 box__shadow rounded-xl flex flex-col">
+            <div className="lg:w-[35vw] w-[100vw] h-[50vh] lg:h-[109vh] float-right bg-[#0e252d] overflow-y-auto overflow-x-hidden z-10 box__shadow rounded-xl flex flex-col">
                 <div
                     className="rounded-full flex flex-row items-center justify-evenly ml-6 h-[80px] shadow_navigator mr-6 mt-6 gap-14
                 2"

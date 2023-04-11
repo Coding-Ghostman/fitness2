@@ -4,7 +4,7 @@ import NavigateDateLeft from "../components/Planner/NavigateDateLeft";
 import NavigateDateRight from "../components/Planner/NavigateDateRight";
 import DateContext from "../context/date";
 import dayjs from "dayjs";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { AuthContext } from "../components/auth/auth";
 import { db } from "../components/auth/Firebase";
 import FitnessCard from "../components/Card/FitnessCard";
@@ -78,7 +78,7 @@ function ProgressPage() {
         fetchData();
     }, [date, currentUserId]);
     return (
-        <div className="m-0 overflow-auto bg-gradient h-screen">
+        <div className="m-0 overflow-auto bg-[#082028] h-screen">
             <div className="rounded-full flex flex-row items-center justify-evenly ml-12 mr-12 h-[80px] shadow_navigator mt-6 gap-[20rem]">
                 <div className="-mt-2">
                     <NavigateDateLeft handlePrev={handlePrevDay} />

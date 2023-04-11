@@ -82,7 +82,7 @@ const Right = styled.div`
     }
 `;
 
-const Img = styled.img`
+const ImgFront = styled.img`
     width: 700px;
     height: 500px;
     object-fit: contain;
@@ -94,6 +94,56 @@ const Img = styled.img`
     margin: auto;
     pointer-events: none;
     animation: animate 2s infinite ease-in-out alternate;
+
+    @media only screen and (max-width: 768px) {
+        width: 300px;
+        height: 300px;
+    }
+
+    @keyframes animate {
+        to {
+            transform: translateY(30px);
+        }
+    }
+`;
+
+const ImgBack = styled.img`
+    width: 700px;
+    height: 500px;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    pointer-events: none;
+    animation: animate 3s infinite ease-in-out alternate;
+
+    @media only screen and (max-width: 768px) {
+        width: 300px;
+        height: 300px;
+    }
+
+    @keyframes animate {
+        to {
+            transform: translateY(50px);
+        }
+    }
+`;
+
+const ImgObjects = styled.img`
+    width: 700px;
+    height: 500px;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    pointer-events: none;
+    animation: animate 4s infinite ease-in-out alternate;
 
     @media only screen and (max-width: 768px) {
         width: 300px;
@@ -149,7 +199,11 @@ function Hero() {
                             <MovingSphere isMouseInside={isMouseInside} />
                         </Suspense>
                     </Canvas>
-                    <Img src="./img/yoga.png" />
+                    <div>
+                        <ImgBack src="./img/yoga_back.png" />
+                        <ImgFront src="./img/yoga_front.png" />
+                        <ImgObjects src="./img/yoga_objects.png" />
+                    </div>
                 </Right>
             </Container>
         </Section>

@@ -1,5 +1,5 @@
 .bg-gradient {
-    background: linear-gradient(to bottom, #0e1b2b 0%, #1b263b 100%);
+    background: linear-gradient(to bottom, #082028 0%, #13262c 100%);
 }
 .blue__gradient {
     background: linear-gradient(to bottom, #3d81d3 0%, #053066 100%);
@@ -32,5 +32,5 @@
 }
 
 .article-section {
-    background: linear-gradient(to bottom, #0e1b2b 0%, #1a3351 100%);
+    background: linear-gradient(to bottom, #082028 0%, #11242a 100%);
 }

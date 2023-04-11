@@ -62,7 +62,7 @@
 }
 
 .meal-card > .meal-card-content {
-    background: linear-gradient(to bottom, #0e1b2b 0%, #1b263b 100%);
+    background: linear-gradient(to bottom, #082028 0%, #13262c 100%);
     border-radius: inherit;
     display: flex;
     flex-direction: column;
