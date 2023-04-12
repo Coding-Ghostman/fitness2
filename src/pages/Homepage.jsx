@@ -1,6 +1,7 @@
 import Hero from "../components/Start/Hero";
 import styled from "styled-components";
 import Who from "../components/Start/Who";
+import { useRef } from "react";
 const Container = styled.div`
     height: 100vh;
     scroll-snap-type: y mandatory;
@@ -19,8 +20,6 @@ function HomePage() {
     return (
         <Container>
             <Hero />
-            <Who />
-            <Who />
             <Who />
         </Container>
     );

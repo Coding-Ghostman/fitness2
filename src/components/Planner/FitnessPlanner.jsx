@@ -85,6 +85,7 @@ const FitnessPlanner = () => {
                             console.log("Subdocument does not exist!");
                         }
                     });
+                    console.log(filteredItems);
                     const filteredArray = filteredItems.filter((obj) => !newFilteredItems.some((filterObj) => filterObj.id === obj.id));
                     setFilteredItems(filteredArray);
                     setItems(newItems);
@@ -108,9 +109,6 @@ const FitnessPlanner = () => {
     };
 
     const handleRecommendation = async (workoutPlan) => {
-        setFilteredItems(menuItems);
-        setItems([]);
-
         const userRef = collection(db, "users");
         const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
         if (!userDocSnapshot.empty) {
@@ -126,12 +124,6 @@ const FitnessPlanner = () => {
                 }
             });
         }
-
-        const filteredArray = filteredItems.filter((obj) => !workoutPlan.some((filterObj) => filterObj === obj.WorkoutName));
-        const newfilteredArray = filteredItems.filter((obj) => workoutPlan.some((filterObj) => filterObj === obj.WorkoutName));
-
-        setItems(newfilteredArray);
-        setFilteredItems(filteredArray);
     };
 
     const handleTextChange = (text, item) => {
@@ -279,7 +271,7 @@ const FitnessPlanner = () => {
                 </div>
             </DragDropContext>
             <div>
-                <WorkoutRecommendation handleRecommendation={handleRecommendation} workouts={data} />
+                <WorkoutRecommendation handleRecommendation={handleRecommendation} setFilteredItems={setFilteredItems} setItems={setItems} menuItems={menuItems} workouts={data} />
             </div>
         </div>
     );

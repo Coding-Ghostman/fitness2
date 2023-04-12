@@ -165,20 +165,22 @@ function MovingSphere({ isMouseInside }) {
         if (isMouseInside) {
             sphereRef.current.position.x = mouse.x * 0.5;
             sphereRef.current.position.y = mouse.y * 0.5;
+            sphereRef.current.position.z = ((mouse.y + mouse.x) / 2) * 0.7;
         } else {
             sphereRef.current.position.lerp(originalPosition, 0.1);
         }
     });
 
     return (
-        <Sphere ref={sphereRef} args={[1, 100, 200]} scale={2.4}>
+        <Sphere ref={sphereRef} args={[1, 100, 200]} scale={2.1}>
             <MeshDistortMaterial color="#082028" attach="material" distort={0.4} speed={2} />
         </Sphere>
     );
 }
 
-function Hero() {
+function Hero({ handleClick }) {
     const [isMouseInside, setIsMouseInside] = useState(false);
+
     return (
         <Section>
             <Container>
@@ -188,13 +190,13 @@ function Hero() {
                         <TextAnimation>WORKOUT WITH</TextAnimation> <span className="text-gradient font-mono -ml-2">AI</span>
                     </Title>
                     <Desc>Fuel the future of workout with the application Of 3d motion tracking software.</Desc>
-                    <Button>Learn More</Button>
+                    <Button onClick={handleClick}>Learn More</Button>
                 </Left>
                 <Right>
                     <Canvas onPointerMove={(e) => setIsMouseInside(true)} onPointerOut={(e) => setIsMouseInside(false)}>
                         <Suspense fallback={null}>
                             <OrbitControls enableZoom={false} />
-                            <ambientLight intensity={1} />
+                            <ambientLight intensity={6} />
                             <directionalLight position={[3, 2, 1]} />
                             <MovingSphere isMouseInside={isMouseInside} />
                         </Suspense>

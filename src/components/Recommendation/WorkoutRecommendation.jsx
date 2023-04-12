@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { data } from "../Data/WorkoutData";
 
 function WorkoutRecommendation({ workouts, handleRecommendation }) {
     const [Level, setLevel] = useState("Beginner");
@@ -86,7 +87,12 @@ function WorkoutRecommendation({ workouts, handleRecommendation }) {
                     <option value="Evening">Evening</option>
                 </select>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={handleGenerateWorkout}>
+            <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={() => {
+                    handleGenerateWorkout();
+                }}
+            >
                 Generate Workout Plan
             </button>
             {workoutPlan.length > 0 ? (
