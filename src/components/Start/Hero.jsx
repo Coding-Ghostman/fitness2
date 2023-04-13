@@ -161,13 +161,14 @@ const ImgObjects = styled.img`
 
 function MovingSphere({ isMouseInside }) {
     const sphereRef = useRef();
-    const originalPosition = new Vector3(0, 0, 0);
-
+    const originalPosition = new Vector3(0, 0, -0.8);
+    console.log(sphereRef);
     useFrame(({ mouse }) => {
+        const updatedPosition = new Vector3(mouse.x * 0.5, mouse.y * 0.5, 0);
         if (isMouseInside) {
-            sphereRef.current.position.x = mouse.x * 0.5;
-            sphereRef.current.position.y = mouse.y * 0.5;
-            sphereRef.current.position.z = ((mouse.y + mouse.x) / 2) * 0.7;
+            // sphereRef.current.position.x = mouse.x * 0.5;
+            // sphereRef.current.position.y = mouse.y * 0.5;
+            sphereRef.current.position.lerp(updatedPosition, 0.1);
         } else {
             sphereRef.current.position.lerp(originalPosition, 0.1);
         }
@@ -175,7 +176,7 @@ function MovingSphere({ isMouseInside }) {
 
     return (
         <Sphere ref={sphereRef} args={[1, 100, 200]} scale={2.1}>
-            <MeshDistortMaterial color="#082028" attach="material" distort={0.4} speed={2} />
+            <MeshDistortMaterial color="#082028" attach="material" distort={0.5} speed={3} />
         </Sphere>
     );
 }
@@ -193,7 +194,9 @@ function Hero({ handleClick }) {
                         <TextAnimation>WORKOUT WITH</TextAnimation> <span className="text-gradient font-mono -ml-2">AI</span>
                     </Title>
                     <Desc>Fuel the future of workout with the combination of AI with health routines.</Desc>
-                    <Button onClick={handleClick}>Learn More</Button>
+                    <Button className="interactable" onClick={handleClick}>
+                        Learn More
+                    </Button>
                 </Left>
 
                 <Right>
@@ -201,7 +204,7 @@ function Hero({ handleClick }) {
                         <Suspense fallback={null}>
                             <OrbitControls enablePan={false} enableRotate={false} enableZoom={false} />
                             <ambientLight intensity={6} />
-                            <directionalLight position={[3, 2, 1]} />
+                            <directionalLight intensity={2} position={[3, 2, 1]} />
                             <MovingSphere isMouseInside={isMouseInside} />
                         </Suspense>
                     </Canvas>

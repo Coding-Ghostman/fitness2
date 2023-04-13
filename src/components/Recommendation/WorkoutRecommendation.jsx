@@ -6,6 +6,7 @@ function WorkoutRecommendation({ workouts, handleRecommendation }) {
     const [ExpectedkcalLost, setExpectedkcalLost] = useState(200);
     const [workoutPlan, setWorkoutPlan] = useState([]);
     const [preferredTime, setPreferredTime] = useState("Morning");
+    const [showFilters, setShowFilters] = useState(false); // state to show/hide filters
 
     const handleLevelChange = (event) => {
         setLevel(event.target.value);
@@ -40,61 +41,76 @@ function WorkoutRecommendation({ workouts, handleRecommendation }) {
     };
 
     return (
-        <div className="max-w-lg ml-10 mt-10">
+        <div className="max-w-lg ml-10 mt-10 ">
             <h2 className="text-3xl font-bold mb-4 text-white">Workout Recommendation</h2>
-            <div className="mb-4">
-                <label className="block text-gray-200 font-bold mb-2" htmlFor="Level">
-                    Level
-                </label>
-                <select
-                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="Level"
-                    name="Level"
-                    value={Level}
-                    onChange={handleLevelChange}
+            <div className="flex flex-row gap-8">
+                <div className="flex flex-col">
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
+                        onClick={() => setShowFilters(!showFilters)} // toggle showFilters state on button click
+                    >
+                        {showFilters ? "Hide Filters" : "Show Filters"}
+                    </button>
+                    {showFilters && ( // render filters only when showFilters state is true
+                        <>
+                            <div className="mb-4">
+                                <label className="block text-gray-200 font-bold mb-2" htmlFor="Level">
+                                    Level
+                                </label>
+                                <select
+                                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="Level"
+                                    name="Level"
+                                    value={Level}
+                                    onChange={handleLevelChange}
+                                >
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-200 font-bold mb-2" htmlFor="ExpectedkcalLost">
+                                    Expected Calories
+                                </label>
+                                <input
+                                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="ExpectedkcalLost"
+                                    type="number"
+                                    name="ExpectedkcalLost"
+                                    value={ExpectedkcalLost}
+                                    onChange={handleCaloriesChange}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-200 font-bold mb-2" htmlFor="preferredTime">
+                                    Preferred Time
+                                </label>
+                                <select
+                                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="preferredTime"
+                                    name="preferredTime"
+                                    value={preferredTime}
+                                    onChange={handleTimeChange}
+                                >
+                                    <option value="Morning">Morning</option>
+                                    <option value="Afternoon">Afternoon</option>
+                                    <option value="Evening">Evening</option>
+                                </select>
+                            </div>
+                        </>
+                    )}
+                </div>
+
+                <button
+                    className="bg-blue-500 flex h-[40px] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
+                    onClick={() => {
+                        handleGenerateWorkout();
+                    }}
                 >
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                </select>
+                    Generate Workout Plan
+                </button>
             </div>
-            <div className="mb-4">
-                <label className="block text-gray-200 font-bold mb-2" htmlFor="ExpectedkcalLost">
-                    Expected Calories
-                </label>
-                <input
-                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="ExpectedkcalLost"
-                    type="number"
-                    name="ExpectedkcalLost"
-                    value={ExpectedkcalLost}
-                    onChange={handleCaloriesChange}
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-200 font-bold mb-2" htmlFor="preferredTime">
-                    Preferred Time
-                </label>
-                <select
-                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="preferredTime"
-                    name="preferredTime"
-                    value={preferredTime}
-                    onChange={handleTimeChange}
-                >
-                    <option value="Morning">Morning</option>
-                    <option value="Afternoon">Afternoon</option>
-                    <option value="Evening">Evening</option>
-                </select>
-            </div>
-            <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => {
-                    handleGenerateWorkout();
-                }}
-            >
-                Generate Workout Plan
-            </button>
             {workoutPlan.length > 0 ? (
                 <>
                     <h3 className="text-2xl font-bold mb-2 text-gray-200 mt-2">Your {preferredTime} Workout Plan:</h3>

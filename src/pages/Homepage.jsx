@@ -1,9 +1,9 @@
 import Hero from "../components/Start/Hero";
 import styled from "styled-components";
 import Who from "../components/Start/Who";
-import bg from "../assets/bg.jpg";
 import { useEffect, useRef } from "react";
 import "./Page.css";
+import About from "../components/Start/About";
 
 const Container = styled.div`
     height: 100vh;
@@ -13,40 +13,47 @@ const Container = styled.div`
     scrollbar-width: none;
     color: white;
     -webkit-scroll-snap-type: mandatory;
+    background: url("./img/bg.jpg");
     -ms-scroll-snap-type: mandatory;
     &::-webkit-scrollbar {
         display: none;
     }
 `;
+
 function HomePage() {
     const containerRef = useRef(null);
-    const imgRef = useRef(null);
 
     useEffect(() => {
         const container = containerRef.current;
-        const img = imgRef.current;
 
         const handleMouseMove = (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const containerRect = container.getBoundingClientRect();
+            const containerX = containerRect.left;
+            const containerY = containerRect.top;
+            const backgroundPosX = -(((mouseX - containerX) / containerRect.width) * 15);
+            const backgroundPosY = -(((mouseY - containerY) / containerRect.height) * 15);
 
-            img.style.transform = `translate(-${x * 15}px, -${y * 15}px)`;
+            container.style.backgroundPosition = `${backgroundPosX * 0.15}% ${backgroundPosY * 0.15}%`;
         };
 
-        container.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mousemove", handleMouseMove);
 
         return () => {
-            container.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("mousemove", handleMouseMove);
         };
     }, []);
+
     return (
-        <div ref={containerRef} className="z-0 bottom bg-cover">
-            <img ref={imgRef} className="absolute z-0 bg-cover" src={bg} alt="" />
-            <Container>
+        <div>
+            <Container ref={containerRef} style={{ backgroundClip: "unset" }}>
                 <Hero />
                 <Who />
+                <About />
             </Container>
         </div>
     );
 }
+
 export default HomePage;

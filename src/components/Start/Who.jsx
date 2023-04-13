@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import DumbbellDesign from "./DumbbellDesign";
 import Link from "../link/Link";
 import TextAnimation from "../Animation/TextAnimation";
+import { Vector3 } from "three";
+
+import { MeshDistortMaterial, Sphere } from "@react-three/drei";
 
 const Section = styled.div`
     height: 100vh;
     scroll-snap-align: center;
     display: flex;
     z-index: 5;
+    background: url("./img/bg2.jpg");
+    background-size: cover;
     justify-content: center;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.25;
+        background: linear-gradient(to right, #f953c6, #b91d73);
+    }
 `;
+
 // scroll-snap-align: center;
 const Container = styled.div`
     height: 100vh;
@@ -18,6 +36,8 @@ const Container = styled.div`
     z-index: 5;
     width: 1400px;
     display: flex;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     justify-content: space-between;
 `;
 
@@ -67,20 +87,44 @@ const Button = styled.button`
 `;
 
 const Who = () => {
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const container = containerRef.current;
+
+        const handleMouseMove = (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const containerRect = container.getBoundingClientRect();
+            const containerX = containerRect.left;
+            const containerY = containerRect.top;
+            const backgroundPosX = -(((mouseX - containerX) / containerRect.width) * 80);
+            const backgroundPosY = -(((mouseY - containerY) / containerRect.height) * 80);
+
+            container.style.backgroundPosition = `${backgroundPosX * 0.15}% ${backgroundPosY * 0.15}%`;
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+
+        return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+        };
+    }, []);
+
     return (
-        <Section>
+        <Section ref={containerRef} style={{ backgroundClip: "unset" }}>
             <Container>
-                <Left>
+                <Left className="left">
                     <DumbbellDesign />
                 </Left>
-                <Right>
+                <Right className="right">
                     <Title className="font-mono font-bold">
                         <TextAnimation>TRACK EVERY MOVE</TextAnimation> <TextAnimation time>IN EVERY</TextAnimation>
                         <span className="text-gradient font-mono -ml-2"> DIMENSION</span>
                     </Title>
                     <Desc>Track your progress like never before with 3D motion tracking.</Desc>
                     <Link to="/workout">
-                        <Button>Try out</Button>
+                        <Button className="interactable">Try out</Button>
                     </Link>
                 </Right>
             </Container>

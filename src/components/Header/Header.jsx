@@ -31,7 +31,7 @@ function Header() {
     });
 
     return (
-        <div style={{ backgroundColor: "#082028" }} className="m-0 overflow-hidden relative flex w-full flex-row items-center justify-between py-3 gap-8 font-Rubik z-100">
+        <div style={{ backgroundColor: "#082028" }} className="m-0 overflow-hidden relative flex w-full flex-row items-center justify-between py-3 gap-8 font-Rubik">
             <Link className="ml-6" to={`/`}>
                 <div className="py-1 interactable ">
                     <img className="w-14 h-8" src={logo} alt="" />
