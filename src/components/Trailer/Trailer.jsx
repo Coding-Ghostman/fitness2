@@ -84,7 +84,7 @@ function Trailer() {
         };
     }, []);
     return (
-        <div className="hidden md:block" id="trailer">
+        <div className="hidden md:block z-100" id="trailer">
             <div className="scale-50">
                 <CalendarTodayRoundedIcon className="absolute top-[6px] -left-[2px] opacity-0" id="trailer-icon-calendar" fontSize="small" sx={{ color: "#0e1b2b" }} />
                 <ChevronLeftRoundedIcon className="absolute -top-[1px]  -left-[10px] opacity-0" id="trailer-icon-left" fontSize="large" sx={{ color: "#0e1b2b" }} />

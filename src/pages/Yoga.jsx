@@ -40,7 +40,7 @@ function Yoga() {
                         </Tooltip>
                     </div>
                 </div>
-                <div className="max-w-screen-xl flex flex-nowrap">
+                <div className="max-w-screen-xl flex flex-nowrap gap-20">
                     {Yoga === "Virabhadrasana" ? (
                         <Virabhadrasana handleYoga={setYoga} />
                     ) : Yoga === "Trikonasana" ? (

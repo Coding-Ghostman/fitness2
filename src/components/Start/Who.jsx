@@ -8,13 +8,14 @@ const Section = styled.div`
     height: 100vh;
     scroll-snap-align: center;
     display: flex;
+    z-index: 5;
     justify-content: center;
 `;
 // scroll-snap-align: center;
 const Container = styled.div`
     height: 100vh;
     scroll-snap-align: center;
-
+    z-index: 5;
     width: 1400px;
     display: flex;
     justify-content: space-between;

@@ -200,14 +200,14 @@ const Virabhadrasana = ({ handleYoga }) => {
                 t = new Date().getTime();
             }
 
-            canvasCtx.font = "30px aerial";
+            canvasCtx.font = "30px Monospace";
             canvasCtx.fillText(leftHandAngle, leftHand[1].x + 20, leftHand[1].y + 20);
             canvasCtx.fillText(rightHandAngle, rightHand[1].x - 120, rightHand[1].y + 20);
             canvasCtx.fillText(leftLegAngle, leftLeg[1].x + 20, leftLeg[1].y + 20);
             canvasCtx.fillText(rightLegAngle, rightLeg[1].x - 120, rightLeg[1].y + 20);
 
             canvasCtx.fillStyle = "black";
-            canvasCtx.font = "30px aerial";
+            canvasCtx.font = "30px Monospace";
             canvasCtx.fillText("Seconds holded: ".concat(String(Math.round((new Date().getTime() - t) / 1000))), 10, 40);
 
             canvasCtx.restore();
@@ -239,7 +239,7 @@ const Virabhadrasana = ({ handleYoga }) => {
             });
             camera.start();
         }
-    });
+    }, []);
 
     return (
         <div className="flex flex-row">

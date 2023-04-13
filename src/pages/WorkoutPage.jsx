@@ -29,7 +29,7 @@ const TwoBigCards = () => {
                             <p className="flex justify-center items-center w-full h-full font-[800] lg:text-3xl sm:text-2xl text-2xl py-8 -mt-6 text-white">Select the training</p>
                         </div>
 
-                        <div className="max-w-screen-xl flex flex-nowrap">
+                        <div className="max-w-screen-xl flex flex-nowrap gap-20">
                             {cards.map((card) => (
                                 <Link className="flex flex-row" to={`/${card.link}`} key={card.title}>
                                     <div className="flex">

@@ -48,7 +48,7 @@ function Workout() {
                         </Tooltip>
                     </div>
                 </div>
-                <div className="max-w-screen-xl flex flex-nowrap">
+                <div className="max-w-screen-xl flex flex-nowrap gap-[200px]">
                     {workout === "Bicep Curls" ? (
                         <Counter handleWorkout={setWorkout} exercise={"bicepCurls"} image={cards[0].image} />
                     ) : workout === "Squats" ? (
@@ -60,7 +60,7 @@ function Workout() {
                     ) : (
                         cards.map((card) => (
                             <div
-                                className="flex"
+                                className="flex -ml-[180px]"
                                 onClick={() => {
                                     handleClick(card.title);
                                 }}

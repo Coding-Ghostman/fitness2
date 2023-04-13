@@ -40,13 +40,13 @@ function App() {
     }, []);
 
     return (
-        <div className="app scrollbar z-0 overflow-y-auto">
+        <div className="app scrollbar overflow-y-auto">
+            <Trailer />
             {loading ? (
                 <Loading />
             ) : (
                 <div>
-                    <Trailer />
-                    <div className="m-0 overflow-hidden z-10">
+                    <div className="m-0 overflow-hidden">
                         <Header />
                     </div>
                     <section className="h-1 bg-slate-700"></section>

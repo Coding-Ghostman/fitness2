@@ -2,7 +2,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Dumbbell from "../Dumbbell";
+import Dumbbell from "../Model/Dumbbell";
 
 const DumbbellDesign = () => {
     return (
