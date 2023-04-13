@@ -15,9 +15,9 @@ export const AuthProvider = ({ children }) => {
         });
     }, []);
 
-    if (loading) {
-        return <LoadingAnimation />;
-    }
+    // if (loading) {
+    //     return <LoadingAnimation />;
+    // }
 
     return (
         <AuthContext.Provider

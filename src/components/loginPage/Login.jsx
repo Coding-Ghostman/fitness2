@@ -18,10 +18,6 @@ function Login({ value, onChange }) {
         navigateReplace("/");
     };
 
-    const handleSignOut = (event) => {
-        setUserData({});
-        document.getElementById("signInDiv").hidden = false;
-    };
 
     useEffect(() => {
         google.accounts.id.initialize({

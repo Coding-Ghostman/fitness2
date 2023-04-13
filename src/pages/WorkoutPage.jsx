@@ -1,6 +1,9 @@
 import Link from "../components/link/Link";
 import "./Page.css";
 import Card from "../components/Card/Card";
+import { useContext } from "react";
+import { AuthContext } from "../components/auth/auth";
+import SignInAnimation from "../components/Animation/NotSIgnInAnimation";
 
 const cards = [
     {
@@ -16,23 +19,30 @@ const cards = [
 ];
 
 const TwoBigCards = () => {
+    const { currentUser } = useContext(AuthContext);
     return (
         <div>
-            <div className="min-h-screen flex flex-col items-center justify-center bg-gradient">
+            {currentUser ? (
                 <div>
-                    <p className="flex justify-center items-center w-full h-full font-[800] lg:text-3xl sm:text-2xl text-2xl py-8 -mt-6 text-white">Select the training</p>
-                </div>
+                    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient">
+                        <div>
+                            <p className="flex justify-center items-center w-full h-full font-[800] lg:text-3xl sm:text-2xl text-2xl py-8 -mt-6 text-white">Select the training</p>
+                        </div>
 
-                <div className="max-w-screen-xl flex flex-nowrap">
-                    {cards.map((card) => (
-                        <Link className="flex flex-row" to={`/${card.link}`} key={card.title}>
-                            <div className="flex">
-                                <Card {...card} />
-                            </div>
-                        </Link>
-                    ))}
+                        <div className="max-w-screen-xl flex flex-nowrap">
+                            {cards.map((card) => (
+                                <Link className="flex flex-row" to={`/${card.link}`} key={card.title}>
+                                    <div className="flex">
+                                        <Card {...card} />
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <SignInAnimation />
+            )}
         </div>
     );
 };

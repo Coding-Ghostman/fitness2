@@ -1,21 +1,20 @@
-import React, { Suspense, useRef } from "react";
+import React from "react";
 import styled from "styled-components";
-import { OrbitControls, Stage } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import Cube from "../Model/Cube";
 import DumbbellDesign from "./DumbbellDesign";
+import Link from "../link/Link";
+import TextAnimation from "../Animation/TextAnimation";
 
 const Section = styled.div`
     height: 100vh;
     scroll-snap-align: center;
     display: flex;
     justify-content: center;
-    scroll-snap-align: center;
 `;
-
+// scroll-snap-align: center;
 const Container = styled.div`
     height: 100vh;
     scroll-snap-align: center;
+
     width: 1400px;
     display: flex;
     justify-content: space-between;
@@ -30,7 +29,7 @@ const Left = styled.div`
 `;
 
 const Title = styled.h1`
-    font-size: 74px;
+    font-size: 68px;
 
     @media only screen and (max-width: 768px) {
         font-size: 60px;
@@ -48,20 +47,6 @@ const Right = styled.div`
         align-items: center;
         text-align: center;
     }
-`;
-
-const WhatWeDo = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 10px;
-`;
-
-const Line = styled.img`
-    height: 5px;
-`;
-
-const Subtitle = styled.h2`
-    color: #da4ea2;
 `;
 
 const Desc = styled.p`
@@ -88,13 +73,14 @@ const Who = () => {
                     <DumbbellDesign />
                 </Left>
                 <Right>
-                    <Title>Think outside the square space</Title>
-                    <WhatWeDo>
-                        {/* <Line src="./img/line.png" /> */}
-                        <Subtitle>Who we Are</Subtitle>
-                    </WhatWeDo>
-                    <Desc>a creative group of designers and developers with a passion for the arts.</Desc>
-                    <Button>See our works</Button>
+                    <Title className="font-mono font-bold">
+                        <TextAnimation>TRACK EVERY MOVE</TextAnimation> <TextAnimation time>IN EVERY</TextAnimation>
+                        <span className="text-gradient font-mono -ml-2"> DIMENSION</span>
+                    </Title>
+                    <Desc>Track your progress like never before with 3D motion tracking.</Desc>
+                    <Link to="/workout">
+                        <Button>Try out</Button>
+                    </Link>
                 </Right>
             </Container>
         </Section>

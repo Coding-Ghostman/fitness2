@@ -1,13 +1,19 @@
 import React, { useEffect, useRef } from "react";
 import "./TextAnimation.css";
 
-function TextAnimation({ children }) {
+function TextAnimation({ children, time }) {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const ref = useRef(null);
     useEffect(() => {
         const node = ref.current;
         if (node) {
-            node.addEventListener("mouseover", handleMouseover);
+            if (time) {
+                setTimeout(() => {
+                    node.addEventListener("mouseover", handleMouseover);
+                }, 2000);
+            } else {
+                node.addEventListener("mouseover", handleMouseover);
+            }
         }
         return () => {
             if (node) {

@@ -9,6 +9,7 @@ import { AuthContext } from "../components/auth/auth";
 import { db } from "../components/auth/Firebase";
 import FitnessCard from "../components/Card/FitnessCard";
 import MealCard from "../components/Card/MealCard";
+import SignInAnimation from "../components/Animation/NotSIgnInAnimation";
 
 function ProgressPage() {
     const { date, MEALS, setDate } = useContext(DateContext);
@@ -78,30 +79,36 @@ function ProgressPage() {
         fetchData();
     }, [date, currentUserId]);
     return (
-        <div className="m-0 overflow-auto bg-[#082028] h-screen">
-            <div className="rounded-full flex flex-row items-center justify-evenly ml-12 mr-12 h-[80px] shadow_navigator mt-6 gap-[20rem]">
-                <div className="-mt-2">
-                    <NavigateDateLeft handlePrev={handlePrevDay} />
+        <div>
+            {currentUser ? (
+                <div className="m-0 overflow-auto bg-[#082028] h-screen">
+                    <div className="rounded-full flex flex-row items-center justify-evenly ml-12 mr-12 h-[80px] shadow_navigator mt-6 gap-[20rem]">
+                        <div className="-mt-2">
+                            <NavigateDateLeft handlePrev={handlePrevDay} />
+                        </div>
+                        <div className="">
+                            <DateSelect updatedDate={date} handleDate={setDate} />
+                        </div>
+                        <div className="-mt-2">
+                            <NavigateDateRight handleNext={handleNextDay} />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Fitness Plan</div>
+                        <div className="flex flex-row gap-1 items-center justify-center mx-auto">
+                            <FitnessCard meals={MEALS} items={fitnessItems} />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Meal Plan</div>
+                        <div className="flex flex-row gap-1 items-center justify-center mx-auto">
+                            <MealCard items={mealItems} />
+                        </div>
+                    </div>
                 </div>
-                <div className="">
-                    <DateSelect updatedDate={date} handleDate={setDate} />
-                </div>
-                <div className="-mt-2">
-                    <NavigateDateRight handleNext={handleNextDay} />
-                </div>
-            </div>
-            <div>
-                <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Fitness Plan</div>
-                <div className="flex flex-row gap-1 items-center justify-center mx-auto">
-                    <FitnessCard meals={MEALS} items={fitnessItems} />
-                </div>
-            </div>
-            <div>
-                <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Meal Plan</div>
-                <div className="flex flex-row gap-1 items-center justify-center mx-auto">
-                    <MealCard items={mealItems} />
-                </div>
-            </div>
+            ) : (
+                <SignInAnimation />
+            )}
         </div>
     );
 }

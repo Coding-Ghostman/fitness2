@@ -11,6 +11,7 @@ const Section = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 5;
     justify-content: space-between;
     @media only screen and (max-width: 768px) {
         height: 200vh;
@@ -23,7 +24,7 @@ const Container = styled.div`
     width: 1400px;
     display: flex;
     justify-content: space-between;
-
+    z-index: 5;
     @media only screen and (max-width: 768px) {
         width: 100%;
         flex-direction: column;
@@ -38,7 +39,7 @@ const Left = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 10px;
-
+    z-index: 5;
     @media only screen and (max-width: 768px) {
         flex: 1;
         align-items: center;
@@ -47,7 +48,7 @@ const Left = styled.div`
 
 const Title = styled.h1`
     font-size: 68px;
-
+    z-index: 5;
     @media only screen and (max-width: 768px) {
         text-align: center;
     }
@@ -56,6 +57,7 @@ const Title = styled.h1`
 const Desc = styled.p`
     font-size: 24px;
     color: lightgray;
+    z-index: 5;
     @media only screen and (max-width: 768px) {
         padding: 20px;
         text-align: center;
@@ -187,15 +189,17 @@ function Hero({ handleClick }) {
                 <Left>
                     <Title className="font-mono font-bold">
                         <TextAnimation>POWERING YOUR</TextAnimation>
+                        <br />
                         <TextAnimation>WORKOUT WITH</TextAnimation> <span className="text-gradient font-mono -ml-2">AI</span>
                     </Title>
-                    <Desc>Fuel the future of workout with the application Of 3d motion tracking software.</Desc>
+                    <Desc>Fuel the future of workout with the combination of AI with health routines.</Desc>
                     <Button onClick={handleClick}>Learn More</Button>
                 </Left>
+
                 <Right>
                     <Canvas onPointerMove={(e) => setIsMouseInside(true)} onPointerOut={(e) => setIsMouseInside(false)}>
                         <Suspense fallback={null}>
-                            <OrbitControls enableZoom={false} />
+                            <OrbitControls enablePan={false} enableRotate={false} enableZoom={false} />
                             <ambientLight intensity={6} />
                             <directionalLight position={[3, 2, 1]} />
                             <MovingSphere isMouseInside={isMouseInside} />

@@ -124,6 +124,14 @@ const FitnessPlanner = () => {
                 }
             });
         }
+        const recommendedItems = menuItems.filter((obj1) => !workoutPlan.some((name) => obj1.WorkoutName === name));
+        console.log(recommendedItems);
+
+        const notRecommendedItems = menuItems.filter((obj1) => workoutPlan.some((name) => obj1.WorkoutName === name));
+        console.log(notRecommendedItems);
+
+        setFilteredItems(recommendedItems);
+        setItems(notRecommendedItems);
     };
 
     const handleTextChange = (text, item) => {
@@ -238,7 +246,7 @@ const FitnessPlanner = () => {
     });
 
     return (
-        <div className="">
+        <div className="overflow-y-auto">
             <div className="font-[800] lg:text-3xl sm:text-2xl text-2xl w-full text-white flex flex-row gap-2 justify-center items-center select-none mt-4">
                 <div className="cursor-pointer ">{dayjs(date).format("dddd")}</div>
             </div>

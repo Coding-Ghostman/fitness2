@@ -1,4 +1,4 @@
-import Login from "../components/loginPage/Login";
+import LoginFirebase from "../components/loginPage/LoginFirebase";
 import { useState } from "react";
 import "./Page.css";
 function LogInPage({ handleChange, auth }) {
@@ -10,8 +10,7 @@ function LogInPage({ handleChange, auth }) {
 
     return (
         <div className="bg-gradient h-screen">
-            {/* <Header heading="Login to your account" paragraph="Don't have an account yet? " linkName="Signup" linkUrl="/signup" /> */}
-            {/* <Login value={user} onChange={handleUser} /> */}
+            <LoginFirebase />
         </div>
     );
 }

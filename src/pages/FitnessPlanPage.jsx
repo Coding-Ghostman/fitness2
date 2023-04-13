@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import dayjs from "dayjs";
 import "./Page.css";
 import DateContext from "../context/date";
 import Panel from "../components/Planner/Panel";
 import FitnessPlanner from "../components/Planner/FitnessPlanner";
+import { AuthContext } from "../components/auth/auth";
+import SignInAnimation from "../components/Animation/NotSIgnInAnimation";
 
 const MEALS = [
     { id: "1", name: "Morning", time: "08:30 AM" },
@@ -14,20 +16,26 @@ const MEALS = [
 
 function DietPlanPage() {
     const [date, setDate] = useState(dayjs());
-
+    const { currentUser } = useContext(AuthContext);
     return (
-        <DateContext.Provider value={{ date, setDate, MEALS }}>
-            <div className="">
-                <div className="diet flex lg:flex-row flex-col">
-                    <div className="article-panel article-section ">
-                        <Panel />
+        <div>
+            {currentUser ? (
+                <DateContext.Provider value={{ date, setDate, MEALS }}>
+                    <div className="overflow-y-auto">
+                        <div className="diet flex lg:flex-row flex-col">
+                            <div className="article-panel article-section ">
+                                <Panel />
+                            </div>
+                            <div className="article-content article-section flex-1 ">
+                                <FitnessPlanner />
+                            </div>
+                        </div>
                     </div>
-                    <div className="article-content article-section flex-1">
-                        <FitnessPlanner />
-                    </div>
-                </div>
-            </div>
-        </DateContext.Provider>
+                </DateContext.Provider>
+            ) : (
+                <SignInAnimation />
+            )}
+        </div>
     );
 }
 export default DietPlanPage;

@@ -23,21 +23,15 @@ function Header() {
     const renderedLinks = links.map((link) => {
         return (
             <div key={link.id} className="interactable">
-                {currentUser ? (
-                    <Link activeClassName="" className="mt-1 hover:text-blue-300" to={link.path}>
-                        {link.label}
-                    </Link>
-                ) : (
-                    <Link activeClassName="" className="mt-1 hover:text-blue-300" to={"/animation"}>
-                        {link.label}
-                    </Link>
-                )}
+                <Link activeClassName="" className="mt-1 hover:text-blue-300" to={link.path}>
+                    {link.label}
+                </Link>
             </div>
         );
     });
 
     return (
-        <div style={{ backgroundColor: "#082028" }} className="m-0 overflow-hidden relative flex w-full flex-row items-center justify-between py-3 gap-8 font-Rubik ">
+        <div style={{ backgroundColor: "#082028" }} className="m-0 overflow-hidden relative flex w-full flex-row items-center justify-between py-3 gap-8 font-Rubik z-100">
             <Link className="ml-6" to={`/`}>
                 <div className="py-1 interactable ">
                     <img className="w-14 h-8" src={logo} alt="" />

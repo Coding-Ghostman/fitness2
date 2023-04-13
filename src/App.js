@@ -9,18 +9,18 @@ import FriendsPage from "./pages/FriendsPage";
 import Workout from "./pages/Workout";
 import SignInAnimation from "./components/Animation/NotSIgnInAnimation";
 import Yoga from "./pages/Yoga";
-import LoginFirebase from "./components/loginPage/LoginFirebase";
 import ResetFirebase from "./components/loginPage/ResetFirebase";
 import RegisterFirebase from "./components/loginPage/RegisterFirebase";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.css";
 import RewardsPage from "./pages/RewardsPage";
 import { AuthContext } from "./components/auth/auth";
-import TrailerBob from "./components/Trailer/TrailerBlob";
 import Trailer from "./components/Trailer/Trailer";
 import DateContext from "./context/date";
 import dayjs from "dayjs";
 import HomePage from "./pages/Homepage";
+import Loading from "./components/Animation/Loading";
+import LogInPage from "./pages/LogInPage";
 
 const MEALS = [
     { id: "1", name: "Breakfast", time: "08:30 AM" },
@@ -32,17 +32,25 @@ const MEALS = [
 function App() {
     const { currentUser } = useContext(AuthContext);
     const [date, setDate] = useState(dayjs());
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 6000); // Simulating a 3 second loading time
+    }, []);
+
     return (
-        <div className="app scrollbar z-0 overflow-hidden">
-            <Trailer />
-            {/* <TrailerBob /> */}
-            <div className="m-0 overflow-hidden">
-                <Header />
-            </div>
-            <section className="z-10 h-1 bg-slate-700"></section>
-            <DateContext.Provider value={{ date, setDate, MEALS }}>
-                {currentUser ? (
-                    <div className="z-10 m-0 overflow-hidden">
+        <div className="app scrollbar z-0 overflow-y-auto">
+            {loading ? (
+                <Loading />
+            ) : (
+                <div>
+                    <Trailer />
+                    <div className="m-0 overflow-hidden z-10">
+                        <Header />
+                    </div>
+                    <section className="h-1 bg-slate-700"></section>
+                    <DateContext.Provider value={{ date, setDate, MEALS }}>
                         <Route path="/workout">
                             <WorkoutPage />
                         </Route>
@@ -72,19 +80,8 @@ function App() {
                         <Route path="/fitness">
                             <Workout />
                         </Route>
-                    </div>
-                ) : (
-                    <div className="m-0 overflow-hidden">
-                        <Route path="/">
-                            <WelcomePage />
-                        </Route>
-                        <Route path="/animation">
-                            <SignInAnimation />
-                        </Route>
-
                         <Route path="/login">
-                            {/* <LogInPage handleChange={handleUser} /> */}
-                            <LoginFirebase />
+                            <LogInPage />
                         </Route>
                         <Route path="/reset">
                             <ResetFirebase />
@@ -92,9 +89,9 @@ function App() {
                         <Route path="/register">
                             <RegisterFirebase />
                         </Route>
-                    </div>
-                )}
-            </DateContext.Provider>
+                    </DateContext.Provider>
+                </div>
+            )}
         </div>
     );
 }
