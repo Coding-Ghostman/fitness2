@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Pose } from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
@@ -7,41 +7,49 @@ import angleBetweenThreePoints from "./angle";
 import Link from "../link/Link";
 import { Button } from "@mui/material";
 import yoga1 from "../../assets/Trikonasana.png";
-
-const styles = {
-    webcam: {
-        position: "absolute",
-        marginRight: "auto",
-        marginLeft: "auto",
-        left: 0,
-        right: 800,
-        top: 200,
-        textAlign: "center",
-        zIndex: 9,
-        width: 960,
-        height: 720,
-    },
-    info: {
-        position: "absolute",
-        marginRight: "auto",
-        marginLeft: "auto",
-        left: 1150,
-        right: 200,
-        top: 270,
-        color: "#05386B",
-        background: "#8EE4AF",
-        textAlign: "center",
-    },
-};
+import { doc, setDoc, collection, getDocs, query, where, deleteDoc } from "firebase/firestore";
+import DateContext from "../../context/date";
+import dayjs from "dayjs";
+import { AuthContext } from "../auth/auth";
+import { db } from "../../components/auth/Firebase";
+import { v4 as uuidv4 } from "uuid";
 
 const Trikonasana = ({ handleYoga }) => {
+    const [time, setTime] = useState(0);
+    const [wwcoin, setWwcoin] = useState(0);
+
+    const { date } = useContext(DateContext);
+    const collectionDate = dayjs(date).format("MMMM,DD");
+
+    const { currentUser } = useContext(AuthContext);
+    const currentUserId = currentUser ? currentUser.uid : null;
+
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
     let camera = null;
 
     var t = new Date().getTime();
+    const getWwcoin = () => {
+        setWwcoin(time / 20);
+    };
     const handleClick = () => {
-        handleYoga(null);
+        const fetchData = async () => {
+            try {
+                const userRef = collection(db, "users");
+                const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
+                const userDocRef = userDocSnapshot.docs[0].ref;
+                const coinCollectionRef = collection(userDocRef, "WWcoin");
+                const itemRef = doc(coinCollectionRef, "yoga");
+                const dateCountCollectionRef = collection(itemRef, collectionDate);
+                const countItem = { id: uuidv4(), yoga: "Trikonasana", time: time, points: wwcoin };
+                const countItemRef = doc(dateCountCollectionRef, countItem.id);
+                await setDoc(countItemRef, countItem);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+        handleYoga("");
     };
 
     function onResult(results) {
@@ -159,13 +167,13 @@ const Trikonasana = ({ handleYoga }) => {
                 t = new Date().getTime();
             }
 
-            canvasCtx.fillStyle = "green";
-            canvasCtx.font = "30px aerial";
+            canvasCtx.font = "30px Monospace";
             canvasCtx.fillText(angleLeftHand, leftHand[1].x + 20, leftHand[1].y + 20);
             canvasCtx.fillText(angleRightHand, rightHand[1].x - 120, rightHand[1].y + 20);
             canvasCtx.fillText(angleBack, back[1].x, back[1].y + 40);
 
-            canvasCtx.font = "30px aerial";
+            canvasCtx.font = "30px Monospace";
+            setTime(Math.round((new Date().getTime() - t) / 1000));
             canvasCtx.fillText("Seconds holded: ".concat(String(Math.round((new Date().getTime() - t) / 1000))), 10, 40);
 
             canvasCtx.restore();
@@ -200,19 +208,19 @@ const Trikonasana = ({ handleYoga }) => {
     });
 
     return (
-        <div>
-            <div>
-                <Webcam ref={webcamRef} style={styles.webcam} />
-                <canvas ref={canvasRef} style={styles.webcam} />
+        <div className="flex justify-center gap-10 items-center">
+            <div className="flex justify-center items-center w-1/2">
+                <div className="relative inline-block w-full h-full rounded-xl">
+                    <Webcam ref={webcamRef} className="w-full h-full rounded-xl" />
+                    <canvas ref={canvasRef} className="absolute inset-0 w-full h-full rounded-xl" />
+                </div>
             </div>
-            <div style={styles.info}>
-                <p>Try to mimic this pose</p>
-                <img alt="" src={yoga1} alternate="Yoga 2"></img>
-            </div>
-            <div style={styles.back}>
+            <div className="flex flex-col justify-center items-center w-1/2  bg-slate-300 rounded-xl">
+                <p className="text-xl font-bold mb-4 text-gray-800 transition duration-300 ease-in-out transform hover:scale-110">Try to mimic this pose</p>
+                <img alt="" src={yoga1} className="w-[50%] mb-8 transition duration-300 ease-in-out transform hover:scale-105"></img>
                 <Link to="/yoga">
-                    <Button onClick={handleClick} size="large" variant="outlined" color="primary">
-                        Back
+                    <Button onClick={handleClick} size="large" variant="outlined" color="primary" className="transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 mb-4">
+                        Done
                     </Button>
                 </Link>
             </div>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import TextAnimation from "../Animation/TextAnimation";
 import FoodDesign from "./FoodDesign";
 import Link from "../link/Link";
+import { useEffect, useRef } from "react";
 
 const Section = styled.div`
     height: 100vh;
@@ -9,7 +10,8 @@ const Section = styled.div`
     display: flex;
     z-index: 5;
     background: url("./img/bg3.jpg");
-    background-size: cover;
+    background-size: 110% 110%;
+    background-position: center;
     justify-content: center;
     position: relative;
 
@@ -94,8 +96,31 @@ const Right = styled.div`
 `;
 
 function About({ handleClick }) {
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const container = containerRef.current;
+
+        const handleMouseMove = (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const containerRect = container.getBoundingClientRect();
+            const containerX = containerRect.left;
+            const containerY = containerRect.top;
+            const backgroundPosX = -(((mouseX - containerX) / containerRect.width) * 15);
+            const backgroundPosY = -(((mouseY - containerY) / containerRect.height) * 15);
+
+            container.style.backgroundPosition = `${backgroundPosX * 0.15}% ${backgroundPosY * 0.15}%`;
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+
+        return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+        };
+    }, []);
     return (
-        <Section>
+        <Section ref={containerRef} style={{ backgroundClip: "unset" }}>
             <Container>
                 <Left>
                     <Title className="font-mono font-bold">

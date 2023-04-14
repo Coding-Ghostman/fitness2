@@ -37,7 +37,7 @@ const Loading = () => {
     return (
         <div>
             <div className="fixed inset-0 flex items-center justify-center -top-[15%] bg-[#0f3e4e]">
-                <div className="w-40 h-40 scale-[3] " ref={container}></div>
+                <div className="w-40 h-40 scale-[2] -mt-24" ref={container}></div>
             </div>
             <div className="loading-bar rounded-xl">
                 <div className="loading-bar-progress rounded-xl" style={{ width: `${progress}%` }}></div>

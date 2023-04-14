@@ -8,14 +8,16 @@ import SignInAnimation from "../components/Animation/NotSIgnInAnimation";
 function DietPlanPage() {
     const { currentUser } = useContext(AuthContext);
     return (
-        <div className="">
+        <div>
             {currentUser ? (
-                <div className="diet flex lg:flex-row flex-col">
-                    <div className="article-panel article-section">
-                        <Panel />
-                    </div>
-                    <div className="article-content article-section flex-1">
-                        <MealPlanner />
+                <div className="overflow-y-auto">
+                    <div className="diet flex lg:flex-row flex-col">
+                        <div className="article-panel article-section">
+                            <Panel />
+                        </div>
+                        <div className="article-content article-section flex-1">
+                            <MealPlanner />
+                        </div>
                     </div>
                 </div>
             ) : (

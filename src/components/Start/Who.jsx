@@ -101,7 +101,7 @@ const Who = () => {
             const backgroundPosX = -(((mouseX - containerX) / containerRect.width) * 80);
             const backgroundPosY = -(((mouseY - containerY) / containerRect.height) * 80);
 
-            container.style.backgroundPosition = `${backgroundPosX * 0.15}% ${backgroundPosY * 0.15}%`;
+            container.style.backgroundPosition = `${backgroundPosX * 0.08}% ${backgroundPosY * 0.08}%`;
         };
 
         window.addEventListener("mousemove", handleMouseMove);

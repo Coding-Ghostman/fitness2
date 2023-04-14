@@ -10,7 +10,7 @@
 
 .loading-bar-progress {
     height: 100%;
-    background-color: #062732;
+    background-color: #f17990;
 }
 
 .parallax-gradient {
@@ -38,4 +38,22 @@
     left: 0;
     background: linear-gradient(to bottom, #0f3e4e, #0e3a48, #0e3542, #0e313d, #0d2d37, #0c2a34, #0c2831, #0b252e, #0a242c, #09222b, #092129, #082028);
     opacity: 0.5;
+}
+
+.first-section {
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+}
+
+.second-section {
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+}
+
+.third-section {
+    height: 100vh;
+    width: 100%;
+    background-color: white;
 }

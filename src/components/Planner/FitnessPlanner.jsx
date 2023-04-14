@@ -53,6 +53,7 @@ const FitnessPlanner = () => {
         items.map(async (item) => {
             try {
                 const itemRef = doc(collectionRef, item.id);
+                console.log(item);
                 await setDoc(itemRef, item);
             } catch (error) {
                 console.log(error);

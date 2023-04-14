@@ -261,11 +261,11 @@ const MealPlanner = () => {
                                                                                                 type="text"
                                                                                             ></input>
                                                                                         ) : (
-                                                                                            <div className="flex flex-row justify-between gap-40">
+                                                                                            <div className="flex flex-row justify-between gap-20">
                                                                                                 <div className="flex-1 w-[150px]">{item.FoodItem}</div>
-                                                                                                <div className="flex-1 flex justify-end">
-                                                                                                    <div className="w-[80px]">{item?.Calories}</div>
-                                                                                                    <div className="">{item?.vegNonVeg}</div>
+                                                                                                <div className="flex flex-row justify-between gap-12">
+                                                                                                    <div className="">{item?.Calories}</div>
+                                                                                                    <div className="w-[120px] justify-end">{item?.vegNonVeg}</div>
                                                                                                 </div>
                                                                                             </div>
                                                                                         )}

@@ -15,23 +15,20 @@ const MEALS = [
 ];
 
 function DietPlanPage() {
-    const [date, setDate] = useState(dayjs());
     const { currentUser } = useContext(AuthContext);
     return (
         <div>
             {currentUser ? (
-                <DateContext.Provider value={{ date, setDate, MEALS }}>
-                    <div className="overflow-y-auto">
-                        <div className="diet flex lg:flex-row flex-col">
-                            <div className="article-panel article-section ">
-                                <Panel />
-                            </div>
-                            <div className="article-content article-section flex-1 ">
-                                <FitnessPlanner />
-                            </div>
+                <div className="overflow-y-auto">
+                    <div className="diet flex lg:flex-row flex-col">
+                        <div className="article-panel article-section ">
+                            <Panel />
+                        </div>
+                        <div className="article-content article-section flex-1 ">
+                            <FitnessPlanner />
                         </div>
                     </div>
-                </DateContext.Provider>
+                </div>
             ) : (
                 <SignInAnimation />
             )}

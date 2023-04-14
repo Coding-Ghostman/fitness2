@@ -21,7 +21,14 @@ function DraggableItem({ item, handleEditStatus, index, isEdit, isReady, handleT
                             type="text"
                         ></input>
                     ) : (
-                        item.WorkoutName
+                        <div className="flex flex-row justify-between gap-14">
+                            <div className="flex-1 w-[150px]">{item.WorkoutName}</div>
+                            <div className="flex flex-row justify-between gap-4">
+                                <div className="">Sets:{item?.Sets}</div>
+                                <div className="w-[80px]">Reps:{item?.Reps}</div>
+                                <div className="w-[80px]">{item?.Level}</div>
+                            </div>
+                        </div>
                     )}
                     <ClearRoundedIcon
                         fontSize="medium"

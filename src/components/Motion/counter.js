@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Pose } from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
@@ -6,6 +6,12 @@ import { useRef, useEffect } from "react";
 import angleBetweenThreePoints from "./angle";
 import { Button } from "@mui/material";
 import Link from "../link/Link";
+import { doc, setDoc, collection, getDocs, query, where, deleteDoc } from "firebase/firestore";
+import DateContext from "../../context/date";
+import dayjs from "dayjs";
+import { AuthContext } from "../auth/auth";
+import { db } from "../../components/auth/Firebase";
+import { v4 as uuidv4 } from "uuid";
 
 const styles = {
     webcam: {
@@ -85,11 +91,17 @@ const exrInfo = {
     },
 };
 
-let count = 0;
 let dir = 0;
 let angle = 0;
 function Counter({ handleWorkout, exercise, image }) {
-    //const [exr, setExr] = useState("bicepCurls");
+    const [count, setCount] = useState(0);
+    const [wwcoin, setWwcoin] = useState(0);
+
+    const { date } = useContext(DateContext);
+    const collectionDate = dayjs(date).format("MMMM,DD");
+
+    const { currentUser } = useContext(AuthContext);
+    const currentUserId = currentUser ? currentUser.uid : null;
 
     let imgSource;
     if (exercise === "bicepCurls") {
@@ -104,12 +116,42 @@ function Counter({ handleWorkout, exercise, image }) {
 
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
-    //const count = useRef(null);
-    //const dir = useRef(null);
-    //let angle = useRef();
     let camera = null;
     const countTextbox = useRef(null);
+
+    const getWwcoin = () => {
+        if (exercise === "bicepCurls") {
+            const calorie = (count / 50) * 7;
+            setWwcoin(Math.floor(calorie / 10));
+        } else if (exercise === "squats") {
+            const calorie = (count / 50) * 8;
+            setWwcoin(Math.floor(calorie / 10));
+        } else if (exercise === "pushups") {
+            const calorie = (count / 50) * 6;
+            setWwcoin(Math.floor(calorie / 10));
+        } else if (exercise === "crunches") {
+            const calorie = (count / 50) * 7;
+            setWwcoin(Math.floor(calorie / 10));
+        }
+    };
+
     const handleClick = () => {
+        const fetchData = async () => {
+            try {
+                const userRef = collection(db, "users");
+                const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
+                const userDocRef = userDocSnapshot.docs[0].ref;
+                const coinCollectionRef = collection(userDocRef, "WWcoin");
+                const itemRef = doc(coinCollectionRef, "workout");
+                const dateCountCollectionRef = collection(itemRef, collectionDate);
+                const countItem = { id: uuidv4(), count: count, points: getWwcoin() };
+                const countItemRef = doc(dateCountCollectionRef, countItem.id);
+                await setDoc(countItemRef, countItem);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
         handleWorkout("");
     };
     function onResult(results) {
@@ -149,7 +191,7 @@ function Counter({ handleWorkout, exercise, image }) {
             }
             if (angle < exrInfo[exercise].ll) {
                 if (dir === 1) {
-                    count = count + 1;
+                    setCount(count + 1);
                     console.log(count, " ", dir, " increment ", angle);
                     dir = 0;
                 }
@@ -185,7 +227,6 @@ function Counter({ handleWorkout, exercise, image }) {
 
     useEffect(() => {
         console.log("rendered");
-        count = 0;
         dir = 0;
         //console.log(count.current)
         //console.log("rendered counter")
@@ -220,34 +261,53 @@ function Counter({ handleWorkout, exercise, image }) {
     //console.log(props)
     function resetCount() {
         console.log("clicked");
-        count = 0;
+        setCount(0);
         dir = 0;
     }
 
     return (
-        <div>
-            <div style={styles.selectBox}>
-                <h1>Bicep Curls</h1>
-                <img src={imgSource} width="300" alternate="bicepimage"></img>
-                <br></br>
-                <div style={{ top: 50 }}>
-                    <h1>Count</h1>
-                    <input variant="filled" ref={countTextbox} value={count} textAlign="center" style={{ height: 50, fontSize: 40, width: 80 }} />
-                    <br></br>
-                    <br></br>
-                    <Button style={{ top: 15 }} size="large" variant="contained" color="primary" onClick={resetCount}>
-                        Reset Counter
-                    </Button>
+        <div className="flex justify-center gap-10 items-center">
+            <div className="flex justify-center items-center w-1/2">
+                <div className="relative inline-block w-full h-full rounded-xl">
+                    <Webcam ref={webcamRef} className="w-full h-full rounded-xl" />
+                    <canvas ref={canvasRef} className="absolute inset-0 w-full h-full rounded-xl" />
                 </div>
             </div>
-            <Webcam ref={webcamRef} style={styles.webcam} />
-            <canvas ref={canvasRef} style={styles.webcam} />
-            <div style={styles.back}>
-                <Link to="/fitness">
-                    <Button onClick={handleClick} size="large" variant="contained" color="primary">
-                        Back
+            <div className="flex flex-col justify-center items-center w-1/2  bg-slate-300 rounded-xl">
+                <p className="text-xl font-bold mb-4 text-gray-800 transition duration-300 ease-in-out transform hover:scale-110">Try to mimic this pose</p>
+                <img alt="" src={imgSource} className="w-[50%] mb-8 transition duration-300 ease-in-out transform hover:scale-105"></img>
+                <h1>Count</h1>
+                <input
+                    variant="filled"
+                    ref={countTextbox}
+                    value={count}
+                    textAlign="center"
+                    className="bg-gray-100 rounded-md py-2 px-4 mb-4 text-center text-lg w-80 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    style={{ height: 50, fontSize: 40 }}
+                />
+                <div className="flex flex-row gap-8">
+                    <Button
+                        onClick={resetCount}
+                        size="large"
+                        variant="outlined"
+                        color="primary"
+                        className="transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 mb-4 py-4"
+                    >
+                        RESET
                     </Button>
-                </Link>
+
+                    <Link to="/fitness">
+                        <Button
+                            onClick={handleClick}
+                            size="large"
+                            variant="outlined"
+                            color="primary"
+                            className="transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 mb-4 py-4"
+                        >
+                            Done
+                        </Button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

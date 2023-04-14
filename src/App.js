@@ -46,10 +46,10 @@ function App() {
                 <Loading />
             ) : (
                 <div>
-                    <div className="m-0 overflow-hidden">
+                    <div className="m-0 z-10 overflow-hidden">
                         <Header />
                     </div>
-                    <section className="h-1 bg-slate-700"></section>
+                    <section className="h-1 z-10 bg-slate-700"></section>
                     <DateContext.Provider value={{ date, setDate, MEALS }}>
                         <Route path="/workout">
                             <WorkoutPage />
