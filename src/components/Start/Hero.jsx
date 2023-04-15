@@ -68,6 +68,12 @@ const Button = styled.button`
     background-color: #da4ea2;
     color: white;
     font-weight: 500;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(0.4px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
     width: 120px;
     padding: 10px;
     border: none;
@@ -162,7 +168,6 @@ const ImgObjects = styled.img`
 function MovingSphere({ isMouseInside }) {
     const sphereRef = useRef();
     const originalPosition = new Vector3(0, 0, -0.8);
-    console.log(sphereRef);
     useFrame(({ mouse }) => {
         const updatedPosition = new Vector3(mouse.x * 0.5, mouse.y * 0.5, 0);
         if (isMouseInside) {

@@ -86,7 +86,6 @@ const FitnessPlanner = () => {
                             console.log("Subdocument does not exist!");
                         }
                     });
-                    console.log(filteredItems);
                     const filteredArray = filteredItems.filter((obj) => !newFilteredItems.some((filterObj) => filterObj.id === obj.id));
                     setFilteredItems(filteredArray);
                     setItems(newItems);

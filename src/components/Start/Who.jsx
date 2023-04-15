@@ -3,16 +3,13 @@ import styled from "styled-components";
 import DumbbellDesign from "./DumbbellDesign";
 import Link from "../link/Link";
 import TextAnimation from "../Animation/TextAnimation";
-import { Vector3 } from "three";
-
-import { MeshDistortMaterial, Sphere } from "@react-three/drei";
 
 const Section = styled.div`
     height: 100vh;
     scroll-snap-align: center;
     display: flex;
     z-index: 5;
-    background: url("./img/bg2.jpg");
+    background: #fb8994;
     background-size: cover;
     justify-content: center;
     position: relative;
@@ -24,8 +21,18 @@ const Section = styled.div`
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: 0.25;
+        opacity: 0.1;
         background: linear-gradient(to right, #f953c6, #b91d73);
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
     }
 `;
 
@@ -36,8 +43,7 @@ const Container = styled.div`
     z-index: 5;
     width: 1400px;
     display: flex;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+
     justify-content: space-between;
 `;
 
@@ -124,6 +130,7 @@ const Who = () => {
                     </Title>
                     <Desc>Track your progress like never before with 3D motion tracking.</Desc>
                     <Link to="/workout">
+
                         <Button className="interactable">Try out</Button>
                     </Link>
                 </Right>

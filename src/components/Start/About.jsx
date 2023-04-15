@@ -25,6 +25,16 @@ const Section = styled.div`
         opacity: 0.8;
         background: linear-gradient(to right, #082028, #0f3e4e);
     }
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
 `;
 
 const Container = styled.div`
@@ -33,8 +43,6 @@ const Container = styled.div`
     width: 1400px;
     display: flex;
     justify-content: space-between;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     z-index: 5;
     @media only screen and (max-width: 768px) {
         width: 100%;

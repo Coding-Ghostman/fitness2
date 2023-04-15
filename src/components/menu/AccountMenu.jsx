@@ -4,16 +4,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import UserContext from "../../context/user";
 import Link from "../link/Link";
 import { auth, logout } from "../auth/Firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { AuthContext } from "../auth/auth";
 
 function AccountMenu() {
     const { currentUser } = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    console.log(currentUser.photoURL);
     const open = Boolean(anchorEl);
 
     // const value = useContext(UserContext);

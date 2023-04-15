@@ -1,15 +1,13 @@
 import { IconButton, Button } from "@mui/material";
 import Link from "../link/Link";
 import AccountMenu from "../menu/AccountMenu";
-import { useState, useContext, useEffect } from "react";
-import menu from "../../assets/main-menu.png";
+import { useState, useContext, useEffect, useRef } from "react";
 import logo from "../../assets/logo.png";
 import BasicMenu from "../menu/BasicMenu";
-import Menu from "../menu/Menu";
 import { AuthContext } from "../auth/auth";
 import useNavigation from "../../hooks/use-navigation";
 
-function Header() {
+function Header({ scrollTop }) {
     const { currentUser } = useContext(AuthContext);
     // console.log(currentUser);
     const { navigate } = useNavigation();
@@ -29,6 +27,11 @@ function Header() {
             </div>
         );
     });
+
+    // scroll
+    useEffect(() => {
+        if (scrollTop !== 0) window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }, [scrollTop]);
 
     return (
         <div style={{ backgroundColor: "#082028" }} className="m-0 overflow-hidden relative flex w-full flex-row items-center justify-between py-3 gap-8 font-Rubik">
