@@ -11,7 +11,6 @@ function Link({ to, children, className, activeClassName }) {
             return;
         }
         event.preventDefault();
-
         navigate(to);
     };
 

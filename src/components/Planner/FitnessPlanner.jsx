@@ -18,8 +18,8 @@ import { AuthContext } from "../../components/auth/auth";
 
 let menuItems = data;
 
-const FitnessPlanner = () => {
-    const { date, MEALS } = useContext(DateContext); // Date for the current items
+const FitnessPlanner = ({ MEALS }) => {
+    const { date } = useContext(DateContext); // Date for the current items
     const collectionDate = dayjs(date).format("MMMM,DD");
 
     const { currentUser } = useContext(AuthContext);
@@ -53,7 +53,6 @@ const FitnessPlanner = () => {
         items.map(async (item) => {
             try {
                 const itemRef = doc(collectionRef, item.id);
-                console.log(item);
                 await setDoc(itemRef, item);
             } catch (error) {
                 console.log(error);
@@ -80,7 +79,6 @@ const FitnessPlanner = () => {
                             const subDocData = doc.data();
                             newItems = [...newItems, subDocData];
                             newFilteredItems = [...newFilteredItems, subDocData];
-                            console.log("Here");
                             // console.log(filteredItems[filteredItems.findIndex((item) => item.id === subDocData.id)]);
                         } else {
                             console.log("Subdocument does not exist!");

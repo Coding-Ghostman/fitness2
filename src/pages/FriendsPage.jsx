@@ -35,7 +35,7 @@ function FriendsPage() {
                 });
             } catch (error) {
                 console.log(error);
-            }
+            }   
         };
 
         const fetchFriendPoint = async (friendId) => {

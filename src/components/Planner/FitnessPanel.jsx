@@ -1,14 +1,14 @@
 import DateSelect from "./DateSelect";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import DateContext from "../../context/date";
 import dayjs from "dayjs";
 import "./Panel.css";
 import NavigateDateLeft from "./NavigateDateLeft";
 import NavigateDateRight from "./NavigateDateRight";
-import Progress from "./Progress";
+import FitnessProgress from "./FitnessProgress";
 
-function Panel({}) {
-    const { date, setDate, MEALS } = useContext(DateContext);
+function FitnessPanel({ MEALS }) {
+    const { date, setDate } = useContext(DateContext);
     // function to handle going to the next day
     const handleNextDay = () => {
         const nextDay = dayjs(date).add(1, "day");
@@ -41,11 +41,11 @@ function Panel({}) {
                 </div>
 
                 <div className="-mt-8">
-                    <Progress />
+                    <FitnessProgress MEALS={MEALS} />
                 </div>
             </div>
         </div>
     );
 }
 
-export default Panel;
+export default FitnessPanel;

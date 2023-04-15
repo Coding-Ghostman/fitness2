@@ -64,6 +64,7 @@ function Panel() {
                 }
             });
             setFriends(newItems);
+            console.log("Here");
         };
         fetchData();
     }, []);
@@ -88,7 +89,7 @@ function Panel() {
         return (
             <div className="flex flex-row ml-[20%] ">
                 <div className="w-[30px] text-xl">{index + 1}</div>
-                <div className="text-xl">{item.name}</div>
+                <div className="text-xl w-[180px]">{item.name}</div>
                 <div>
                     <ClearRoundedIcon
                         fontSize="medium"

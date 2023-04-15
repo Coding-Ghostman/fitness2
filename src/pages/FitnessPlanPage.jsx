@@ -1,11 +1,9 @@
 import { useContext, useState } from "react";
-import dayjs from "dayjs";
 import "./Page.css";
-import DateContext from "../context/date";
-import Panel from "../components/Planner/Panel";
 import FitnessPlanner from "../components/Planner/FitnessPlanner";
 import { AuthContext } from "../components/auth/auth";
 import SignInAnimation from "../components/Animation/NotSIgnInAnimation";
+import FitnessPanel from "../components/Planner/FitnessPanel";
 
 const MEALS = [
     { id: "1", name: "Morning", time: "08:30 AM" },
@@ -22,10 +20,10 @@ function DietPlanPage() {
                 <div className="overflow-y-auto">
                     <div className="diet flex lg:flex-row flex-col">
                         <div className="article-panel article-section ">
-                            <Panel />
+                            <FitnessPanel MEALS={MEALS} />
                         </div>
                         <div className="article-content article-section flex-1 ">
-                            <FitnessPlanner />
+                            <FitnessPlanner MEALS={MEALS} />
                         </div>
                     </div>
                 </div>

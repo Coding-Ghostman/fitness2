@@ -1,19 +1,18 @@
 import sunset from "../../assets/sunset.png";
-import { useContext, useEffect, useState } from "react";
 import WbTwilightRoundedIcon from "@mui/icons-material/WbTwilightRounded";
 import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import calorie from "../../assets/calorie.png";
-import DateContext from "../../context/date";
 import "./Panel.css";
+import { useContext, useEffect, useState } from "react";
+import DateContext from "../../context/date";
 import dayjs from "dayjs";
 import { AuthContext } from "../auth/auth";
 import { doc, setDoc, collection, getDocs, query, where, deleteDoc } from "firebase/firestore";
 import { db } from "../../components/auth/Firebase";
 import { v4 as uuidv4 } from "uuid";
 
-function Progress() {
-    const { MEALS } = useContext(DateContext);
+function FitnessProgress({ MEALS }) {
     const { date } = useContext(DateContext);
     const collectionDate = dayjs(date).format("MMMM,DD");
     const [items, setItems] = useState([]);
@@ -29,7 +28,7 @@ function Progress() {
                 const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
                 if (!userDocSnapshot.empty) {
                     const userDocRef = userDocSnapshot.docs[0].ref;
-                    const collectionRef = collection(userDocRef, "meal-" + dayjs(date).format("MMMM,DD"));
+                    const collectionRef = collection(userDocRef, "date-" + dayjs(date).format("MMMM,DD"));
                     // Get the subcollection documents
                     const subDocsSnapshot = await getDocs(collectionRef);
                     subDocsSnapshot.forEach((doc) => {
@@ -55,22 +54,22 @@ function Progress() {
     }, [date, currentUserId]);
 
     const mealsMap = {
-        1: "Breakfast",
-        2: "Lunch",
-        3: "Snacks",
-        4: "Dinner",
+        1: "Morning",
+        2: "Afternoon",
+        3: "Evening",
+        4: "Night",
     };
 
     // Sum up ExpectedkcalLost for each meal type
     const mealsTotal = items.reduce((totals, workout) => {
         const meal = mealsMap[workout.meal];
-        totals[meal] = (totals[meal] || 0) + parseInt(workout.Calories);
+        totals[meal] = (totals[meal] || 0) + parseInt(workout.ExpectedkcalLost);
         return totals;
     }, {});
     return (
         <div className="lg:text-4xl lg:font-bold md:text-3xl sm:font-[600] md:font-[800] sm:text-3xl text-2xl w-full text-white flex flex-col gap-4 mt-20 ml-8 lg:ml-12 ">
             <div>
-                <p className="cursor-default">Progress Report</p>
+                <p className="cursor-default">Fitness Progress Report</p>
             </div>
             <div className="flex flex-col gap-4">
                 {MEALS.map((meal, index) => (
@@ -93,14 +92,14 @@ function Progress() {
                         <div className="flex flex-row justify-center items-center ml-auto mt-1">
                             <p className="text-2xl ">
                                 <>
-                                    {meal.name === "Breakfast" ? (
-                                        <div>{mealsTotal.Breakfast}</div>
-                                    ) : meal.name === "Lunch" ? (
-                                        <div>{mealsTotal.Lunch}</div>
-                                    ) : meal.name === "Snacks" ? (
-                                        <div>{mealsTotal.Snacks}</div>
+                                    {meal.name === "Morning" ? (
+                                        <div>{mealsTotal.Morning}</div>
+                                    ) : meal.name === "Afternoon" ? (
+                                        <div>{mealsTotal.Afternoon}</div>
+                                    ) : meal.name === "Evening" ? (
+                                        <div>{mealsTotal.Evening}</div>
                                     ) : (
-                                        <div>{mealsTotal.Dinner}</div>
+                                        <div>{mealsTotal.Night}</div>
                                     )}
                                 </>
                             </p>
@@ -113,4 +112,4 @@ function Progress() {
     );
 }
 
-export default Progress;
+export default FitnessProgress;

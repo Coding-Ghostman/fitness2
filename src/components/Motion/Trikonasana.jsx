@@ -48,6 +48,9 @@ const Trikonasana = ({ handleYoga }) => {
                 console.log(error);
             }
         };
+        if (camera) {
+            camera.stop();
+        }
         fetchData();
         handleYoga("");
     };
@@ -205,7 +208,12 @@ const Trikonasana = ({ handleYoga }) => {
             });
             camera.start();
         }
-    });
+        return () => {
+            if (camera) {
+                camera.stop();
+            }
+        };
+    }, []);
 
     return (
         <div className="flex justify-center gap-10 items-center">

@@ -78,7 +78,8 @@ const Right = styled.div`
 
 const Desc = styled.p`
     font-size: 24px;
-    color: lightgray;
+    color: #080808;
+    font-weight: 800;
 `;
 
 const Button = styled.button`
@@ -123,14 +124,13 @@ const Who = () => {
                 <Left className="left">
                     <DumbbellDesign />
                 </Left>
-                <Right className="right">
-                    <Title className="font-mono font-bold">
+                <Right className="right select-none">
+                    <Title className="font-mono font-bold select-none">
                         <TextAnimation>TRACK EVERY MOVE</TextAnimation> <TextAnimation time>IN EVERY</TextAnimation>
-                        <span className="text-gradient font-mono -ml-2"> DIMENSION</span>
+                        <span className="pointer-events-none select-none text-gradient font-mono -ml-2"> DIMENSION</span>
                     </Title>
-                    <Desc>Track your progress like never before with 3D motion tracking.</Desc>
+                    <Desc className="select-none">Track your progress like never before with 3D motion tracking.</Desc>
                     <Link to="/workout">
-
                         <Button className="interactable">Try out</Button>
                     </Link>
                 </Right>

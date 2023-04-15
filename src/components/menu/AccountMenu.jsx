@@ -85,7 +85,7 @@ function AccountMenu() {
                 </MenuItem>
                 {/* <Divider /> */}
                 <MenuItem onClick={handleClose}>
-                    <Link className="interactable" to={`/rewards`}>
+                    <Link className="interactable" to={`/`}>
                         <div className="text-black">Rewards</div>
                     </Link>
                 </MenuItem>

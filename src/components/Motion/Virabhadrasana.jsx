@@ -49,6 +49,9 @@ const Virabhadrasana = ({ handleYoga }) => {
                 console.log(error);
             }
         };
+        if (camera) {
+            camera.stop();
+        }
         fetchData();
         handleYoga("");
     };
@@ -241,6 +244,12 @@ const Virabhadrasana = ({ handleYoga }) => {
             });
             camera.start();
         }
+        return () => {
+            if (camera) {
+                console.log("Watchuing you");
+                camera.stop();
+            }
+        };
     }, []);
 
     return (

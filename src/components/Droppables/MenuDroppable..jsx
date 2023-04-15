@@ -15,7 +15,11 @@ function MenuDroppable({ filteredItems }) {
                                         ref={provided.innerRef}
                                         className="bg-white hover:bg-gray-400 transition-colors ease-linear duration-300 rounded p-2 mb-2 mt-2 interactable select-none"
                                     >
-                                        {item.WorkoutName}
+                                        <div>
+                                            <div>{item.WorkoutName}</div>
+                                            <div>{item.ExpectedkcalLost} kcal</div>
+                                            <div>{item.Level}</div>
+                                        </div>
                                     </div>
                                 )}
                             </Draggable>

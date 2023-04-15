@@ -44,9 +44,12 @@ function App() {
         <div className="app scrollbar overflow-y-auto ">
             <Trailer />
             {loading ? (
-                <Loading />
-            ) : (
-                <div>
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[1000]">
+                    <Loading />
+                </div>
+            ) : null}
+            <div className="z-[1]">
+                <div className="z-[1]">
                     <div className="m-0 z-10 overflow-hidden">
                         <Header scrollTop={scrollTop} />
                     </div>
@@ -92,7 +95,7 @@ function App() {
                         </Route>
                     </DateContext.Provider>
                 </div>
-            )}
+            </div>
         </div>
     );
 }

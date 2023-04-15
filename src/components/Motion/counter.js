@@ -153,6 +153,9 @@ function Counter({ handleWorkout, exercise, image }) {
                 console.log(error);
             }
         };
+        if (camera) {
+            camera.stop();
+        }
         fetchData();
         handleWorkout("");
     };
@@ -247,6 +250,7 @@ function Counter({ handleWorkout, exercise, image }) {
         pose.onResults(onResult);
 
         if (typeof webcamRef.current !== "undefined" && webcamRef.current !== null) {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             camera = new cam.Camera(webcamRef.current.video, {
                 onFrame: async () => {
                     countTextbox.current.value = count;
@@ -259,6 +263,12 @@ function Counter({ handleWorkout, exercise, image }) {
             });
             camera.start();
         }
+        return () => {
+            if (camera) {
+                console.log("Watchuing you");
+                camera.stop();
+            }
+        };
     });
     //console.log(props)
     function resetCount() {
@@ -271,7 +281,7 @@ function Counter({ handleWorkout, exercise, image }) {
         <div className="flex justify-center gap-10 items-center">
             <div className="flex justify-center items-center w-1/2">
                 <div className="relative inline-block w-full h-full rounded-xl">
-                    <Webcam ref={webcamRef} className="w-full h-full rounded-xl" />
+                    <Webcam audio={false} ref={webcamRef} className="w-full h-full rounded-xl" />
                     <canvas ref={canvasRef} className="absolute inset-0 w-full h-full rounded-xl" />
                 </div>
             </div>
