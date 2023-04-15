@@ -7,10 +7,12 @@ Introducing Workout Wiz, your everyday fitness partner and mentor.
 Workout Wiz is a web application that aims to provide personalized fitness plans for users based on their preferences and body type. Powered by AI, the app helps users set fitness goals, create workout routines and diet plans, and stay motivated to exercise regularly.
 The web application has been hosted on Google’s Google Cloud Platform on AMD instances which are fast and reliable. Operations that require heavy processing are managed easily by the processing power of the AMD instances. The Machine Learning models run without lag or delay.
 
+To try our website please visit: [WorkoutWizard.ai](https://34.131.101.199/) 
+
 # Features
 The main features of Workout Wizard include:
 
-## AI Workout
+## AI powered Workouts
 Workout Wiz's AI Workout feature uses Mediapipe pose detection to track a user's movements and provide feedback on their form while performing exercises in real-time. The app activates the device's camera, and as the user performs an exercise, the app provides visual feedback on their form, highlighting any areas where they need to make adjustments to ensure proper technique.
 
 This feature counts the number of repetitions completed or time spent exercising and provides an estimate of calories burnt during the session. This information is saved for later review as part of the user's workout history. The system suggests exercises and real-time feedback to the users.
@@ -39,3 +41,7 @@ Workout Wiz is hosted on Google Cloud Platform using AMD instances for fast and 
 
 # Conclusion
 Workout Wiz is an all-in-one fitness partner that provides personalized workout and diet plans, real-time feedback on form, and a reward system to keep users motivated. Its AI Workout feature ensures proper form during exercises, while its Diet Planner provides customized meal planning. The Workout Planner allows users to tailor their workout plan based on individual needs, and its rewards system motivates users to exercise regularly. The platform's social aspect enables users to connect with others, form groups, and compete with peers for added motivation.
+
+## Working Demo
+
+//screenshots
