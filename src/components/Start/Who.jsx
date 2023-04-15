@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import DumbbellDesign from "./DumbbellDesign";
+import RoomDesign from "./RoomDesign";
 import Link from "../link/Link";
 import TextAnimation from "../Animation/TextAnimation";
 
@@ -36,7 +36,6 @@ const Section = styled.div`
     }
 `;
 
-// scroll-snap-align: center;
 const Container = styled.div`
     height: 100vh;
     scroll-snap-align: center;
@@ -49,7 +48,10 @@ const Container = styled.div`
 
 const Left = styled.div`
     flex: 1;
-
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin-left: -240px;
     @media only screen and (max-width: 768px) {
         display: none;
     }
@@ -69,7 +71,9 @@ const Right = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-
+    position: absolute;
+    width: 800px;
+    top: 30%;
     @media only screen and (max-width: 768px) {
         align-items: center;
         text-align: center;
@@ -122,7 +126,7 @@ const Who = () => {
         <Section ref={containerRef} style={{ backgroundClip: "unset" }}>
             <Container>
                 <Left className="left">
-                    <DumbbellDesign />
+                    <RoomDesign />
                 </Left>
                 <Right className="right select-none">
                     <Title className="font-mono font-bold select-none">
