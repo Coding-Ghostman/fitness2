@@ -33,3 +33,9 @@ Users can connect with others on the platform, form groups, and motivate each ot
 
 In addition, Workout Wiz has a leaderboard system that provides an added incentive to compete with others. Seeing one's progress and ranking among peers creates a positive mindset and encourages discipline and dedication towards achieving successful fitness outcomes.
 
+
+# Technology Stack
+Workout Wiz is hosted on Google Cloud Platform using AMD instances for fast and reliable processing. The app also uses Firebase for data storage, access and user authentication using google email addresses.
+
+# Conclusion
+Workout Wiz is an all-in-one fitness partner that provides personalized workout and diet plans, real-time feedback on form, and a reward system to keep users motivated. Its AI Workout feature ensures proper form during exercises, while its Diet Planner provides customized meal planning. The Workout Planner allows users to tailor their workout plan based on individual needs, and its rewards system motivates users to exercise regularly. The platform's social aspect enables users to connect with others, form groups, and compete with peers for added motivation.
