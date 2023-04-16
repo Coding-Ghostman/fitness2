@@ -1,4 +1,4 @@
-## [WorkoutWizard.ai](https://34.131.101.199/)
+# WorkoutWizard.ai
 
 # Introduction
 Fitness is crucial for maintaining good health and preventing chronic illnesses such as heart disease, diabetes, and obesity. Regular exercise can improve physical function, boost mood, and increase overall well-being, making it an essential aspect of a healthy lifestyle.
