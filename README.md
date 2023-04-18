@@ -70,7 +70,7 @@ Workout Wiz is an all-in-one fitness partner that provides personalized workout 
 
 ![image](https://user-images.githubusercontent.com/54409830/232870640-4bdfc4ac-200f-411b-8baf-436d93992100.png)
 
-6. Friends Community
+6. Social Community and Friends with leaderboard:
 
 ![image_2023-04-18_164312575](https://user-images.githubusercontent.com/54409830/232870798-4041b581-a3fe-4d2f-89dd-2e39b52b73bd.png)
 
