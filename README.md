@@ -45,3 +45,37 @@ Workout Wiz is an all-in-one fitness partner that provides personalized workout 
 ## Working Demo
 
 //screenshots
+1. Front Page of website
+![image](https://user-images.githubusercontent.com/54409830/232869854-f34480f8-8016-41b3-a5ce-c45438998217.png)
+
+![image](https://user-images.githubusercontent.com/54409830/232869893-42f9e0a2-4d35-492e-ba23-d7bea721cd56.png)
+
+2. Diet Planner
+
+![image](https://user-images.githubusercontent.com/54409830/232869937-9601e2cc-dd2f-45bf-b29f-573d16059add.png)
+
+3. Workout Planner
+
+![image](https://user-images.githubusercontent.com/54409830/232869971-104cffd4-3021-4b99-a802-820fd0af4519.png)
+
+4. Progress Tracker
+
+![image](https://user-images.githubusercontent.com/54409830/232870034-5214b2c3-17c4-4a42-9133-e1629852ba03.png)
+
+5. Workout
+
+![image](https://user-images.githubusercontent.com/54409830/232870316-76c868cb-b4f3-4439-91b1-9e24e37c30e2.png)
+
+![image](https://user-images.githubusercontent.com/54409830/232870623-dcb7f663-2dbf-4fce-a004-25ca61e1583f.png)
+
+![image](https://user-images.githubusercontent.com/54409830/232870640-4bdfc4ac-200f-411b-8baf-436d93992100.png)
+
+6. Friends Community
+
+![image_2023-04-18_164312575](https://user-images.githubusercontent.com/54409830/232870798-4041b581-a3fe-4d2f-89dd-2e39b52b73bd.png)
+
+
+##Demo Video:
+
+https://youtu.be/dqbrZY2MlIw
+
