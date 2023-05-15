@@ -103,15 +103,14 @@ const ImgFront = styled.img`
     pointer-events: none;
     animation: animate 2s infinite ease-in-out alternate;
 
-    @media only screen and (max-width: 768px) {
-        width: 300px;
-        height: 300px;
-    }
-
     @keyframes animate {
         to {
             transform: translateY(30px);
         }
+    }
+    @media only screen and (max-width: 768px) {
+        width: 300px;
+        height: 300px;
     }
 `;
 
@@ -128,17 +127,17 @@ const ImgBack = styled.img`
     pointer-events: none;
     animation: animate 3s infinite ease-in-out alternate;
 
-    @media only screen and (max-width: 768px) {
-        width: 300px;
-        height: 300px;
-    }
-
+    
     @keyframes animate {
         to {
             transform: translateY(50px);
         }
     }
-`;
+    @media only screen and (max-width: 768px) {
+        width: 300px;
+        height: 300px;
+    }
+    `;
 
 const ImgObjects = styled.img`
     width: 700px;
@@ -151,12 +150,12 @@ const ImgObjects = styled.img`
     right: 0;
     margin: auto;
     pointer-events: none;
-    animation: animate 4s infinite ease-in-out alternate;
-
     @media only screen and (max-width: 768px) {
         width: 300px;
         height: 300px;
     }
+    animation: animate 4s infinite ease-in-out alternate;
+
 
     @keyframes animate {
         to {

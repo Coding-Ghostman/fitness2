@@ -19,6 +19,7 @@ function FriendsPage() {
         const fetchData = async () => {
             try {
                 const userRef = collection(db, "users");
+                console.log(currentUserId);
                 const userDocSnapshot = await getDocs(query(userRef, where("uid", "==", currentUserId)));
                 const userDocRef = userDocSnapshot.docs[0].ref;
                 const coinCollectionRef = collection(userDocRef, "Friends");
@@ -35,7 +36,7 @@ function FriendsPage() {
                 });
             } catch (error) {
                 console.log(error);
-            }   
+            }
         };
 
         const fetchFriendPoint = async (friendId) => {
@@ -64,7 +65,7 @@ function FriendsPage() {
             return friendPoints;
         };
         fetchData();
-    }, []);
+    }, [currentUser]);
     return (
         <div>
             {currentUser ? (

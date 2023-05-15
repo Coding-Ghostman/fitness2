@@ -8,13 +8,15 @@ import SignInAnimation from "../components/Animation/NotSIgnInAnimation";
 const cards = [
     {
         title: "Yoga",
-        image: "https://source.unsplash.com/Dqx4XWuXu7w",
+        image: "./img/yoga_boy.png",
         link: "yoga",
+        color: "bg-[#f0e4ad]",
     },
     {
         title: "Workout",
-        image: "https://source.unsplash.com/sHfo3WOgGTU",
+        image: "./img/workout_girl.png",
         link: "fitness",
+        color: "bg-[#43c0f6]",
     },
 ];
 
@@ -32,7 +34,7 @@ const TwoBigCards = () => {
                         <div className="max-w-screen-xl flex flex-nowrap gap-20">
                             {cards.map((card) => (
                                 <Link className="flex flex-row" to={`/${card.link}`} key={card.title}>
-                                    <div className="flex">
+                                    <div className="flex rounded-xl">
                                         <Card {...card} />
                                     </div>
                                 </Link>

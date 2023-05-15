@@ -16,6 +16,7 @@ function Panel() {
 
     const { currentUser } = useContext(AuthContext);
     const currentUserId = currentUser ? currentUser.uid : null;
+
     const handleClick = () => {
         const fetchData = async () => {
             try {
@@ -43,6 +44,7 @@ function Panel() {
         }
         setFriend("");
     };
+
     const handleChange = (value) => {
         setFriend(value);
     };
@@ -67,7 +69,7 @@ function Panel() {
             console.log("Here");
         };
         fetchData();
-    }, []);
+    }, [friend]);
 
     const handleDelete = async (friendId) => {
         const userRef = collection(db, "users");
