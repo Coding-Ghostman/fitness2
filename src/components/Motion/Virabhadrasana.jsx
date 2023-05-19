@@ -17,6 +17,8 @@ import { v4 as uuidv4 } from "uuid";
 const Virabhadrasana = ({ handleYoga }) => {
     const [time, setTime] = useState(0);
     const [wwcoin, setWwcoin] = useState(0);
+    
+
 
     const { date } = useContext(DateContext);
     const collectionDate = dayjs(date).format("MMMM,DD");
