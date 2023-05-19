@@ -49,9 +49,9 @@ const Container = styled.div`
 const Left = styled.div`
     flex: 1;
     position: absolute;
-    width: 100vw;
+    width: 110vw;
     height: 100vh;
-    margin-left: -240px;
+    margin-left: -180px;
     @media only screen and (max-width: 768px) {
         display: none;
     }

@@ -61,7 +61,7 @@ const styles = {
 const exrInfo = {
     bicepCurls: {
         index: [12, 14, 16],
-        ul: 160,
+        ul: 130,
         ll: 50,
     },
     squats: {
