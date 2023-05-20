@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Link from "../link/Link";
+import icon from "../../assets/userIcon.png"
 import { auth, logout } from "../auth/Firebase";
 import { AuthContext } from "../auth/auth";
 
@@ -33,7 +34,7 @@ function AccountMenu() {
                     <IconButton onClick={handleClick} size="small" sx={{}} aria-controls={open ? "account-menu" : undefined} aria-haspopup="true" aria-expanded={open ? "true" : undefined}>
                         {/* <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> */}
                         <div className="w-[40%] h-[40%]">
-                            <img className="flex items-center justify-center rounded-xl" src={currentUser.photoURL} alt="" />
+                            <img className="flex items-center justify-center rounded-xl" src={currentUser.photoURL || icon} alt="" />
                         </div>
                     </IconButton>
                 </Tooltip>
