@@ -127,7 +127,7 @@ function Counter({ handleWorkout, exercise, image }) {
                 const coinCollectionRef = collection(userDocRef, "WWcoin");
                 const itemRef = doc(coinCollectionRef, "workout");
                 const dateCountCollectionRef = collection(itemRef, collectionDate);
-                const countItem = { id: uuidv4(), count: time, points: Math.floor(time/10) };
+                const countItem = { id: uuidv4(), name:exercise, count: time, points: Math.floor(time/10) };
                 const countItemRef = doc(dateCountCollectionRef, countItem.id);
                 console.log(countItem);
                 await setDoc(countItemRef, countItem);

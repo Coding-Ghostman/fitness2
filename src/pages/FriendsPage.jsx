@@ -13,6 +13,7 @@ function FriendsPage() {
     const currentUserId = currentUser ? currentUser.uid : null;
     const [friends, setFriends] = useState([]);
     const { date } = useContext(DateContext);
+    
     useEffect(() => {
         let friendList = [];
         const collectionDate = dayjs(date).format("MMMM,DD");

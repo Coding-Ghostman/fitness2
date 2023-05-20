@@ -25,7 +25,7 @@ function Panel() {
                 const userDocRef = userDocSnapshot.docs[0].ref;
                 const coinCollectionRef = collection(userDocRef, "Friends");
                 const itemRef = doc(coinCollectionRef, friend);
-
+                console.log(friend)
                 const friendDocRef = doc(db, "users", friend);
                 console.log(friendDocRef.path);
                 const friendDocSnap = await getDoc(friendDocRef);

@@ -27,23 +27,23 @@ function MealCard({MEALS, items }) {
                 <div className="meal-card-content">
                     <div className="meal-card-image">
                         {meal.id === "1" ? (
-                            <WbTwilightRoundedIcon fontSize="large" className="scale-[2.5]" sx={{ color: "white" }} />
+                            <WbTwilightRoundedIcon fontSize="large" className="scale-[1.5]" sx={{ color: "white" }} />
                         ) : meal.id === "2" ? (
-                            <WbSunnyRoundedIcon fontSize="large" className="scale-[2.5]" sx={{ color: "white" }} />
+                            <WbSunnyRoundedIcon fontSize="large" className="scale-[1.5]" sx={{ color: "white" }} />
                         ) : meal.id === "3" ? (
-                            <img className="scale-[0.33]" alt="" src={sunset} />
+                            <img className="scale-[0.20]" alt="" src={sunset} />
                         ) : (
-                            <DarkModeRoundedIcon fontSize="large" className="scale-[2.5]" sx={{ color: "white" }} />
+                            <DarkModeRoundedIcon fontSize="large" className="scale-[1.5]" sx={{ color: "white" }} />
                         )}
                     </div>
                     <div className="meal-card-info-wrapper m-0 text-white font-semibold">
                         <div className="meal-card-info">
                             <div className="meal-card-info-title">
-                                <h3 className="font-bold">{meal.name}</h3>
+                                <div className="font-bold text-2xl">{meal.name}</div>
                                 <h4>
                                     {items.map((item) => {
                                         console.log(items);
-                                        return <div>{item.meal === meal.id ? item.FoodItem : ""}</div>;
+                                        return <div className="text-white font-light text-lg">{item.meal === meal.id ? <div className="flex flex-row gap-2"><div>{item.FoodItem}</div><div>{item.Calories}</div></div> : ""}</div>;
                                     })}
                                 </h4>
                             </div>

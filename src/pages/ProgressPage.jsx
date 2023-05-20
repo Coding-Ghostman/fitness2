@@ -10,14 +10,19 @@ import { db } from "../components/auth/Firebase";
 import FitnessCard from "../components/Card/FitnessCard";
 import MealCard from "../components/Card/MealCard";
 import SignInAnimation from "../components/Animation/NotSIgnInAnimation";
+import WorkoutCard from "../components/Card/WorkoutCard";
+import YogaCard from "../components/Card/YogaCard";
 
 function ProgressPage() {
     const { date, MEALS, setDate } = useContext(DateContext);
+    const collectionDate = dayjs(date).format("MMMM,DD");
     const { currentUser } = useContext(AuthContext);
     const currentUserId = currentUser ? currentUser.uid : null;
 
     const [fitnessItems, setFitnessItems] = useState([]);
     const [mealItems, setMealItems] = useState([]);
+    const [workout,setWorkout] = useState([]);
+    const [yoga,setYoga] = useState([]);
 
     const handleNextDay = () => {
         const nextDay = dayjs(date).add(1, "day");
@@ -35,6 +40,8 @@ function ProgressPage() {
         setMealItems([]);
         let newFitnessItems = [];
         let newMealItems = [];
+        let newWorkoutItems = [];
+        let newYogaItems = [];
         const fetchData = async () => {
             try {
                 // Get the collection reference using the current user ID and the current date
@@ -48,6 +55,29 @@ function ProgressPage() {
 
                     const mealCollectionRef = collection(userDocRef, "meal-" + dayjs(date).format("MMMM,DD"));
                     const subMealDocsSnapshot = await getDocs(mealCollectionRef);
+
+                    const coinCollectionRef = collection(userDocRef, "WWcoin");
+                    const workoutItemRef = doc(coinCollectionRef, "workout");
+                    const workoutDateRef = collection(workoutItemRef, collectionDate);
+                    const workoutDocsSnapshot = await getDocs(workoutDateRef);
+
+                    const yogaItemRef = doc(coinCollectionRef, "yoga");
+                    const yogaDateRef = collection(yogaItemRef, collectionDate);
+                    const yogaDocsSnapshot = await getDocs(yogaDateRef);
+
+                    workoutDocsSnapshot.forEach((doc) => {
+                        if (doc.exists()){
+                            const subdocData = doc.data();
+                            newWorkoutItems = [...newWorkoutItems, subdocData]
+                        }
+                    })
+
+                    yogaDocsSnapshot.forEach((doc) => {
+                        if (doc.exists()){
+                            const subdocData = doc.data();
+                            newYogaItems = [...newYogaItems, subdocData]
+                        }
+                    })
 
                     subDateDocsSnapshot.forEach((doc) => {
                         if (doc.exists()) {
@@ -69,6 +99,8 @@ function ProgressPage() {
                     });
                     setFitnessItems(newFitnessItems);
                     setMealItems(newMealItems);
+                    setWorkout(newWorkoutItems);
+                    setYoga(newYogaItems);
                 } else {
                     console.log("No documents match the query!");
                 }
@@ -105,6 +137,26 @@ function ProgressPage() {
                             <MealCard MEALS = {MEALS} items={mealItems} />
                         </div>
                     </div>
+                    <div className="flex flex-col gap-[50px]">
+                    <div>
+                        <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">
+                            Workout
+                        </div>
+                        <div className="flex flex-row gap-[50px] items-center justify-center mx-auto">
+                            <WorkoutCard items = {workout}/>
+                        </div>
+                    </div>
+                    <div className="-mt-[30px]">
+                        <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">
+                            Yoga
+                        </div>
+                        <div className="flex flex-row gap-[50px] items-center justify-center mx-auto">
+                            <YogaCard items = {yoga}/>
+                            
+                        </div>
+                    </div>
+                    </div>
+                    
                 </div>
             ) : (
                 <SignInAnimation />
