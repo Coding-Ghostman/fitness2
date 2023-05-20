@@ -51,7 +51,7 @@ const Left = styled.div`
     position: absolute;
     width: 110vw;
     height: 100vh;
-    margin-left: -180px;
+    margin-left: -240px;
     @media only screen and (max-width: 768px) {
         display: none;
     }
@@ -130,10 +130,10 @@ const Who = () => {
                 </Left>
                 <Right className="right select-none">
                     <Title className="font-mono font-bold select-none">
-                        <TextAnimation>TRACK EVERY MOVE</TextAnimation> <TextAnimation time>IN EVERY</TextAnimation>
-                        <span className="pointer-events-none select-none text-gradient font-mono -ml-2"> DIMENSION</span>
+                        <TextAnimation>ELEVATE YOUR HEALTH</TextAnimation>FROM COMFORT OF <TextAnimation time></TextAnimation>
+                        <span className="pointer-events-none select-none text-gradient font-mono -ml-2">HOME</span>
                     </Title>
-                    <Desc className="select-none">Track your progress like never before with 3D motion tracking.</Desc>
+                    <Desc className="select-none">Track your progress at your home with 3D motion tracking.</Desc>
                     <Link to="/workout">
                         <Button className="interactable">Try out</Button>
                     </Link>

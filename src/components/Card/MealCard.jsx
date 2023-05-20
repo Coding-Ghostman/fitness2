@@ -6,13 +6,8 @@ import sunset from "../../assets/sunset.png";
 import DateContext from "../../context/date";
 import "./MealCard.css";
 
-const MEALS = [
-    { id: "1", name: "Morning", time: "08:30 AM" },
-    { id: "2", name: "Afternoon", time: "12:30 PM" },
-    { id: "3", name: "Evening", time: "5:30 PM" },
-    { id: "4", name: "Night", time: "9:30 PM" },
-];
-function MealCard({ items }) {
+
+function MealCard({MEALS, items }) {
     useEffect(() => {
         document.getElementById("meal-cards").onmousemove = (e) => {
             for (const card of document.getElementsByClassName("meal-card")) {

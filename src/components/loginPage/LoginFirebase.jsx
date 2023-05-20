@@ -17,7 +17,7 @@ function Login() {
         }
         // navigateReplace("/")
         if (user) {
-            navigateReplace("/");
+            navigateReplace("/health");
         }
     }, [user, loading]);
     return (
@@ -44,7 +44,7 @@ function Login() {
                         className="w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded py-2"
                         onClick={() => {
                             signInWithGoogle();
-                            navigateReplace("/");
+                            navigateReplace("/health");
                         }}
                     >
                         Sign in with Google

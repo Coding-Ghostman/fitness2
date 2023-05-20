@@ -95,8 +95,7 @@ let dir = 0;
 let angle = 0;
 function Counter({ handleWorkout, exercise, image }) {
     const [count, setCount] = useState(0);
-    const [wwcoin, setWwcoin] = useState(0);
-
+    var time = 0;
     const { date } = useContext(DateContext);
     const collectionDate = dayjs(date).format("MMMM,DD");
 
@@ -119,22 +118,6 @@ function Counter({ handleWorkout, exercise, image }) {
     let camera = null;
     const countTextbox = useRef(null);
 
-    const getWwcoin = () => {
-        if (exercise === "bicepCurls") {
-            const calorie = (count / 50) * 7;
-            setWwcoin(Math.floor(calorie / 10));
-        } else if (exercise === "squats") {
-            const calorie = (count / 50) * 8;
-            setWwcoin(Math.floor(calorie / 10));
-        } else if (exercise === "pushups") {
-            const calorie = (count / 50) * 6;
-            setWwcoin(Math.floor(calorie / 10));
-        } else if (exercise === "crunches") {
-            const calorie = (count / 50) * 7;
-            setWwcoin(Math.floor(calorie / 10));
-        }
-    };
-
     const handleClick = () => {
         const fetchData = async () => {
             try {
@@ -144,8 +127,7 @@ function Counter({ handleWorkout, exercise, image }) {
                 const coinCollectionRef = collection(userDocRef, "WWcoin");
                 const itemRef = doc(coinCollectionRef, "workout");
                 const dateCountCollectionRef = collection(itemRef, collectionDate);
-                getWwcoin();
-                const countItem = { id: uuidv4(), count: count, points: wwcoin };
+                const countItem = { id: uuidv4(), count: time, points: Math.floor(time/10) };
                 const countItemRef = doc(dateCountCollectionRef, countItem.id);
                 console.log(countItem);
                 await setDoc(countItemRef, countItem);
@@ -196,8 +178,9 @@ function Counter({ handleWorkout, exercise, image }) {
             }
             if (angle < exrInfo[exercise].ll) {
                 if (dir === 1) {
-                    setCount(count + 1);
-                    console.log(count, " ", dir, " increment ", angle);
+                    // setCount(count + 1);
+                    time = time + 1;
+                    console.log(count, " ", dir, " increment ", angle, "asdasd" , time);
                     dir = 0;
                 }
             }
@@ -253,7 +236,8 @@ function Counter({ handleWorkout, exercise, image }) {
             // eslint-disable-next-line react-hooks/exhaustive-deps
             camera = new cam.Camera(webcamRef.current.video, {
                 onFrame: async () => {
-                    countTextbox.current.value = count;
+                    // countTextbox.current.value = count;
+                    countTextbox.current.value = time;
                     //console.log(count, dir)
                     //console.log("hello",countTextbox.current.value)
                     await pose.send({ image: webcamRef.current.video });
@@ -269,10 +253,11 @@ function Counter({ handleWorkout, exercise, image }) {
                 camera.stop();
             }
         };
-    });
+    },[]);
     //console.log(props)
     function resetCount() {
         console.log("clicked");
+        time = 0;
         setCount(0);
         dir = 0;
     }
@@ -286,18 +271,18 @@ function Counter({ handleWorkout, exercise, image }) {
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center w-1/2  bg-slate-300 rounded-xl">
-                <p className="text-xl font-bold mb-4 text-gray-800 transition duration-300 ease-in-out transform hover:scale-110">Try to mimic this pose</p>
-                <img alt="" src={imgSource} className="w-[50%] mb-8 transition duration-300 ease-in-out transform hover:scale-105"></img>
+                <p className="text-xl font-bold mb-4 text-gray-800 ">Try to mimic this pose</p>
+                <img alt="" src={imgSource} className="w-[50%] mb-8 rounded-lg"></img>
                 <h1>Count</h1>
                 <input
                     variant="filled"
                     ref={countTextbox}
-                    value={count}
+                    value={time}
                     textAlign="center"
                     className="bg-gray-100 rounded-md py-2 px-4 mb-4 text-center text-lg w-80 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     style={{ height: 50, fontSize: 40 }}
                 />
-                <div className="flex flex-row gap-8">
+                <div className="flex flex-row gap-8">/
                     <Button
                         onClick={resetCount}
                         size="large"

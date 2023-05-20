@@ -8,22 +8,22 @@ import { useState } from "react";
 const cards = [
     {
         title: "Bicep Curls",
-        image: "https://source.unsplash.com/7kEpUPB8vNk",
+        image: "./img/bicepCurls.gif",
         link: "bicepCurls",
     },
     {
         title: "Crunches",
-        image: "https://source.unsplash.com/eCKIeu1Lkok",
+        image: "./img/crunches.gif",
         link: "crunches",
     },
     {
         title: "Push Ups",
-        image: "https://source.unsplash.com/HjZLJ3BN9MU",
+        image: "./img/pushup.gif",
         link: "pushups",
     },
     {
         title: "Squats",
-        image: "https://source.unsplash.com/TuzrzArccvc",
+        image: "./img/squats.gif",
         link: "squats",
     },
 ];

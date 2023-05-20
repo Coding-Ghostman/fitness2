@@ -21,6 +21,7 @@ import dayjs from "dayjs";
 import HomePage from "./pages/Homepage";
 import Loading from "./components/Animation/Loading";
 import LogInPage from "./pages/LogInPage";
+import HealthPage from "./pages/HealthPage";
 
 const MEALS = [
     { id: "1", name: "Breakfast", time: "08:30 AM" },
@@ -86,6 +87,9 @@ function App() {
                         </Route>
                         <Route path="/login">
                             <LogInPage />
+                        </Route>
+                        <Route path="/health">
+                            <HealthPage />
                         </Route>
                         <Route path="/reset">
                             <ResetFirebase />

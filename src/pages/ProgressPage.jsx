@@ -96,13 +96,13 @@ function ProgressPage() {
                     <div>
                         <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Fitness Plan</div>
                         <div className="flex flex-row gap-1 items-center justify-center mx-auto">
-                            <FitnessCard meals={MEALS} items={fitnessItems} />
+                            <FitnessCard items={fitnessItems} />
                         </div>
                     </div>
                     <div>
                         <div className="flex items-center justify-center text-2xl font-bold text-white mt-[30px] mb-[30px]">Meal Plan</div>
                         <div className="flex flex-row gap-1 items-center justify-center mx-auto">
-                            <MealCard items={mealItems} />
+                            <MealCard MEALS = {MEALS} items={mealItems} />
                         </div>
                     </div>
                 </div>
