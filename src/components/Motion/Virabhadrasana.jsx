@@ -13,7 +13,6 @@ import dayjs from "dayjs";
 import { AuthContext } from "../auth/auth";
 import { db } from "../../components/auth/Firebase";
 import { v4 as uuidv4 } from "uuid";
-import IPCamera from "../Recorder/IPCamera";
 
 const Virabhadrasana = ({ handleYoga }) => {
     const [time, setTime] = useState(0);
@@ -259,8 +258,8 @@ const Virabhadrasana = ({ handleYoga }) => {
         <div className="flex justify-center gap-10 items-center">
             <div className="flex justify-center items-center w-1/2">
                 <div className="relative inline-block w-full h-full rounded-xl">
-                    {ip ? <div><IPCamera cameraUrl={url}/></div> : <div><Webcam ref={webcamRef} className="w-full h-full rounded-xl" />
-                    <canvas ref={canvasRef} className="absolute inset-0 w-full h-full rounded-xl" /></div>}
+                    <Webcam ref={webcamRef} className="w-full h-full rounded-xl" />
+                    <canvas ref={canvasRef} className="absolute inset-0 w-full h-full rounded-xl" />
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center w-1/2  bg-slate-300 rounded-xl">
